@@ -8,11 +8,11 @@ import LeftSidebar from './components/LeftSidebar.vue';
 <template>
   <div class="drawer">
     <input id="left-sidebar" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col">
-      <header>
+    <div class="drawer-content flex flex-col bg-gray-950">
+      <header class="absolute top-0 w-full">
         <TopNav />
       </header>
-      <main>
+      <main class="pt-20 pb-20">
         <RouterView />
       </main>
       <footer>
