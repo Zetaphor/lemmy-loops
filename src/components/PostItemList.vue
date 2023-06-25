@@ -4,8 +4,5 @@ import PostItem from './PostItem.vue';
 </script>
 
 <template>
-  <PostItem />
-  <PostItem />
-  <PostItem />
-  <PostItem />
+  <PostItem v-for="i in 10" :key="i" />
 </template>
