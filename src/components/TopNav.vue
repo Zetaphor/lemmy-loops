@@ -12,7 +12,10 @@
         </svg>
       </label>
     </div>
-    <div class="flex-1 px-2 mx-2">Current view or community name</div>
+    <div class="px-2 mx-2">
+      <p>Current view or community name
+      </p>
+    </div>
     <div class="flex-none hidden lg:block">
       <ul class="menu menu-horizontal">
         <li><a>Navbar Item 1</a></li>

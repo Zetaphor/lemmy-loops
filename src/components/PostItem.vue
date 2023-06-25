@@ -1,7 +1,7 @@
 <script setup>
 const hasImage = true;
 const hasBody = true;
-const hasLink = false;
+const hasLink = true;
 </script>
 
 <style>
