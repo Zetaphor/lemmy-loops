@@ -1,5 +1,5 @@
 <script setup>
-const hasImage = false;
+const hasImage = true;
 const hasBody = true;
 const hasLink = false;
 </script>
@@ -63,7 +63,14 @@ const hasLink = false;
 
         <div>
           <div class="text-xs inline-flex items-center text-gray-500">
-            <p class="flex-grow-0">200 comments</p>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 -5 100 100"
+              class="fill-current text-gray-500 w-4 h-4 pr-1">
+              <path
+                d="M50,88.8C50,88.8,50,88.8,50,88.8c-4,0-7.5-2-9.5-5.4l-5-8.5h-6.1c-14.8,0-26.8-12-26.8-26.8v-10    c0-14.8,12-26.8,26.8-26.8h41.3c14.8,0,26.8,12,26.8,26.8v10c0,14.8-12,26.8-26.8,26.8h-6.1l-5,8.5C57.5,86.7,54,88.8,50,88.8z     M29.3,20.9c-9.5,0-17.2,7.7-17.2,17.2v10c0,9.5,7.7,17.2,17.2,17.2h8.9c1.7,0,3.3,0.9,4.1,2.4l6.4,10.8c0.4,0.6,0.9,0.7,1.2,0.7    s0.9-0.1,1.2-0.7l6.4-10.8c0.9-1.5,2.4-2.4,4.1-2.4h8.9c9.5,0,17.2-7.7,17.2-17.2v-10c0-9.5-7.7-17.2-17.2-17.2H29.3z" />
+            </svg>
+
+
+            <p class="flex-grow-0">200</p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4">
               <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
             </svg>
