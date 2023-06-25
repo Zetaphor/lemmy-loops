@@ -23,6 +23,7 @@ const hasLink = false;
 </style>
 
 <template>
+  <!-- TODO: Need to write media queries -->
   <div class="card-bordered card-compact rounded-md my-2 mx-2 bg-gray-800 shadow-sm cursor-pointer flex">
     <div :class="['flex-grow', hasImage ? 'w-80' : 'w-80']">
       <div class="p-2">
