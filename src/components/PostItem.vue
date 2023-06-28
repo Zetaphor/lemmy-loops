@@ -1,7 +1,7 @@
 <script setup>
-const hasImage = true;
-const hasBody = true;
-const hasLink = true;
+const hasImage = false;
+const hasBody = false;
+const hasLink = false;
 </script>
 
 <style>
