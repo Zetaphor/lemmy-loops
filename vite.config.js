@@ -2,6 +2,11 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+console.log()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +20,7 @@ export default defineConfig({
     cors: false,
     proxy: {
       '/api': {
-        target: 'https://zemmy.cc/api',
+        target: `https://${process.env.BASEURL}/api`,
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''),
