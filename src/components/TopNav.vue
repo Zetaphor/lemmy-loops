@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div class="w-full navbar bg-base-300">
 

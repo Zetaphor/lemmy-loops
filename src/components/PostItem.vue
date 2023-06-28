@@ -1,27 +1,3 @@
-<script setup>
-const hasImage = false;
-const hasBody = false;
-const hasLink = false;
-</script>
-
-<style>
-.image-link {
-  max-height: 7rem;
-}
-
-.image-no-link {
-  max-height: 6rem;
-}
-
-.image-container-link {
-  width: 7rem;
-}
-
-.image-container-no-link {
-  width: 6rem;
-}
-</style>
-
 <template>
   <!-- TODO: Need to write media queries -->
   <div class="card-bordered card-compact rounded-md my-2 mx-2 bg-gray-800 shadow-sm cursor-pointer flex">
@@ -103,3 +79,27 @@ const hasLink = false;
     </div>
   </div>
 </template>
+
+<style>
+.image-link {
+  max-height: 7rem;
+}
+
+.image-no-link {
+  max-height: 6rem;
+}
+
+.image-container-link {
+  width: 7rem;
+}
+
+.image-container-no-link {
+  width: 6rem;
+}
+</style>
+
+<script setup>
+const hasImage = false;
+const hasBody = false;
+const hasLink = false;
+</script>

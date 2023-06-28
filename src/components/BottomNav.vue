@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
   <div class="btm-nav absolute bottom-0">
     <button>

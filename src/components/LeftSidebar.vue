@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <div class="drawer-side">
     <label for="left-sidebar" class="drawer-overlay"></label>
@@ -9,7 +7,7 @@
           <summary>Username</summary>
           <ul>
             <li><a>Other username</a></li>
-            <li><a>Add Account</a></li>
+            <li><a onclick="modalAddAccount.showModal()">Add Account</a></li>
             <li><a>Logout</a></li>
           </ul>
         </details>
