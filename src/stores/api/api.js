@@ -69,6 +69,10 @@ export const useApiStore = defineStore('api', () => {
     })
   }
 
+  function getPosts(form) {
+    return client.getPosts(form)
+  }
+
   return {
     client,
     authenticated,
@@ -76,6 +80,7 @@ export const useApiStore = defineStore('api', () => {
     login,
     getPersonDetails,
     getPrivateMessages,
-    getUnreadCount
+    getUnreadCount,
+    getPosts
   }
 })
