@@ -30,5 +30,4 @@ import LeftSidebar from './components/LeftSidebar.vue';
 import DarkOverlay from './components/DarkOverlay.vue';
 import RightSidebar from './components/RightSidebar.vue';
 import ToastDisplay from './components/ToastDisplay.vue';
-
 </script>

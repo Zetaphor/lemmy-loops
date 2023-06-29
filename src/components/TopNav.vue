@@ -20,11 +20,6 @@
       </ul>
     </div>
     <div v-else class="navbar-end">
-      <!-- <ul class="menu menu-horizontal">
-        <li @click="api.getPrivateMessages()">Messages</li>
-        <li @click="api.getPersonDetails('Zetaphor')">PersonDetails</li>
-      </ul> -->
-
       <button v-if="user.admin" class="btn btn-ghost btn-circle">
         <div class="indicator">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 5 74 60" stroke="currentColor" class="w-5 h-5 fill-current">
