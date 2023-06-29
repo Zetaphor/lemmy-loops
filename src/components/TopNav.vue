@@ -1,7 +1,7 @@
 <template>
   <div class="fixed w-full navbar bg-base-300">
 
-    <div class="flex-none lg:hidden">
+    <div v-show="!screen.isLargeScreen" class="flex-none">
       <label for="left-sidebar" class="btn btn-square btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
           class="inline-block w-6 h-6 stroke-current">
@@ -13,7 +13,7 @@
       <p>Current view or community name
       </p>
     </div>
-    <div class="flex-none hidden lg:block">
+    <div v-show="screen.isLargeScreen" class="flex-none">
       <ul class="menu menu-horizontal">
         <li><a>Navbar Item 1</a></li>
         <li><a>Navbar Item 2</a></li>
@@ -38,3 +38,11 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useScreenStore } from '@/stores/screen'
+
+const screen = useScreenStore()
+
+
+</script>
