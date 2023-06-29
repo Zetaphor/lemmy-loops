@@ -1,13 +1,11 @@
 <template>
-  <div class="drawer-side">
-    <label for="left-sidebar" class="drawer-overlay"></label>
-    <ul class="menu bg-base-200 w-56">
+  <div id="leftSidebar" v-show="sidebars.leftVisible" class="fixed bg-base-200 w-56 h-full z-50">
+    <ul class="menu">
       <li>
         <details>
           <summary>Username</summary>
           <ul>
-            <li><a>Other username</a></li>
-            <li><a onclick="modalAddAccount.showModal()">Add Account</a></li>
+            <li><router-link to="addAccount">Add Account</router-link></li>
             <li><a>Logout</a></li>
           </ul>
         </details>
@@ -37,3 +35,8 @@
     </ul>
   </div>
 </template>
+
+<script setup>
+import { useSidebarStore } from '@/stores/sidebar'
+const sidebars = useSidebarStore()
+</script>
