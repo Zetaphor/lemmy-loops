@@ -80,7 +80,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .image-link {
   max-height: 7rem;
 }
