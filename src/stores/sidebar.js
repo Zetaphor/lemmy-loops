@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useSidebarStore = defineStore('sidebar', () => {
   const leftVisible = ref(false)
-  const rightVisible = ref(true)
+  const rightVisible = ref(false)
 
   function toggleLeft() {
     leftVisible.value = !leftVisible.value

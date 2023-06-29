@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full navbar bg-base-300">
+  <div class="fixed w-full navbar bg-base-300">
 
     <div class="flex-none lg:hidden">
       <label for="left-sidebar" class="btn btn-square btn-ghost">

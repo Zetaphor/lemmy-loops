@@ -1,5 +1,5 @@
 <template>
-  <div class="btm-nav absolute bottom-0">
+  <div class="btm-nav fixed bottom-0">
     <button>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -5 32 52" class="fill-current w-20 h-full text-gray-400">
         <polygon points="0,25 12.5,0 25,25" stroke="black" />
