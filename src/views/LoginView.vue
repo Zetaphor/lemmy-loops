@@ -38,13 +38,11 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useApiStore } from '@/stores/api'
 import { useToastStore } from '@/stores/toast'
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores/api/user'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const api = useApiStore()
 const user = useUserStore()
 const toasts = useToastStore()
 
@@ -54,9 +52,8 @@ const password = ref('xxqfu!ax3kh%r!@89bpa')
 
 async function login() {
   try {
-    await api.login(instanceUrl.value, username.value, password.value)
-    const personDetails = await api.getPersonDetails(username.value)
-    user.setUserData(personDetails)
+    console.log('login')
+    await user.loginUser(instanceUrl.value, username.value, password.value)
     router.push('/')
   } catch (error) {
     console.error(error)

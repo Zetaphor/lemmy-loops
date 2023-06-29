@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { LemmyHttp } from 'lemmy-js-client'
-import { useToastStore } from './toast'
 
 export const useApiStore = defineStore('api', () => {
   const baseUrl = ref('/')
@@ -58,5 +57,25 @@ export const useApiStore = defineStore('api', () => {
     })
   }
 
-  return { authenticated, getSite, login, getPersonDetails, getPrivateMessages }
+  function getUnreadCount() {
+    return new Promise((resolve, reject) => {
+      const form = {
+        auth: jwt.value
+      }
+      client
+        .getUnreadCount(form)
+        .then((res) => resolve(res))
+        .catch((err) => reject(err))
+    })
+  }
+
+  return {
+    client,
+    authenticated,
+    getSite,
+    login,
+    getPersonDetails,
+    getPrivateMessages,
+    getUnreadCount
+  }
 })

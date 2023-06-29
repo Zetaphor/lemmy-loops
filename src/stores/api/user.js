@@ -1,9 +1,14 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useApiStore } from '@/stores/api/api'
 
 export const useUserStore = defineStore('user', () => {
+  const api = useApiStore()
+
+  const authenticated = ref(false)
   const person_id = ref(-1)
   const admin = ref(false)
+  const moderator = ref(false)
   const avatarImage = ref('/favicon.png')
   const banned = ref(false)
   const bot_account = ref(false)
@@ -15,10 +20,45 @@ export const useUserStore = defineStore('user', () => {
   const posts = ref([])
   const comments = ref([])
   const moderates = ref([])
+  const unreadCounts = ref({
+    replies: 0,
+    mentions: 0,
+    privateMessages: 0,
+    total: 0
+  })
+  const privateMessages = ref([])
+
+  function loginUser(instanceUrl, username, password) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.login(instanceUrl, username, password)
+        const personDetails = await api.getPersonDetails(username)
+        authenticated.value = true
+        setUserData(personDetails)
+        updateUnreadCounts()
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  function updateUnreadCounts() {
+    api.getUnreadCount().then((res) => {
+      unreadCounts.value.replies = res.replies
+      unreadCounts.value.mentions = res.mentions
+      unreadCounts.value.privateMessages = res.private_messages
+      unreadCounts.value.total =
+        unreadCounts.value.replies +
+        unreadCounts.value.mentions +
+        unreadCounts.value.privateMessages
+    })
+  }
 
   function setUserData(personData) {
     posts.value = personData.posts
     comments.value = personData.comments
+    moderator.value = personData.moderates.length > 0
     moderates.value = personData.moderates
     person_id.value = personData.person_view.person.person_id
     admin.value = personData.person_view.person.admin
@@ -33,10 +73,15 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
-    setUserData,
+    loginUser,
+    updateUnreadCounts,
+    authenticated,
+    unreadCounts,
+    privateMessages,
     avatarImage,
     person_id,
     admin,
+    moderator,
     banned,
     bot_account,
     bio,
