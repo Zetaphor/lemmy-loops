@@ -13,13 +13,18 @@
       <p>Current view or community name
       </p>
     </div>
-    <div v-show="screen.isLargeScreen" class="flex-none">
+    <div v-if="!api.authenticated" v-show="screen.isLargeScreen" class="flex-none">
       <ul class="menu menu-horizontal">
-        <li><a>Navbar Item 1</a></li>
-        <li><a>Navbar Item 2</a></li>
+        <li><router-link to="login">Login</router-link></li>
+        <li><router-link to="register">Register</router-link></li>
       </ul>
     </div>
-    <div class="navbar-end">
+    <div v-else class="navbar-end">
+      <ul class="menu menu-horizontal">
+        <li @click="api.getPrivateMessages()">Messages</li>
+        <li @click="api.getPersonDetails('Zetaphor')">PersonDetails</li>
+      </ul>
+
       <button class="btn btn-ghost btn-circle">
         <div class="indicator">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -47,7 +52,7 @@
       </button>
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src="/favicon.png" />
+          <img :src="user.avatarImage" />
         </div>
       </label>
     </div>
@@ -56,8 +61,12 @@
 
 <script setup>
 import { useScreenStore } from '@/stores/screen'
+import { useApiStore } from '@/stores/api'
+import { useUserStore } from '@/stores/user'
 
 const screen = useScreenStore()
+const api = useApiStore()
+const user = useUserStore()
 
 
 </script>
