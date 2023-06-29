@@ -3,7 +3,7 @@
   <div class="card-bordered card-compact rounded-md my-2 mx-2 bg-gray-800 shadow-sm cursor-pointer flex">
     <div :class="['flex-grow', hasImage ? 'w-80' : 'w-80']">
       <div class="p-2">
-        <p class="text-xl text-white">Post Title</p>
+        <p class="text-xl text-white">{{ post.content.name }}</p>
 
         <div v-if="hasLink" class="text-xs inline-flex items-center text-gray-500">
           <svg version="1.1" viewBox="300 200 750 750" xmlns="http://www.w3.org/2000/svg"
@@ -18,15 +18,10 @@
           </p>
         </div>
 
-        <p v-if="hasBody"
+        <p v-if="post.content.body.length"
           class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-3 w-15 max-h-10 overflow-hidden overflow-ellipsis truncate">
-          Lorem ipsum dolor
-          sit amet,
-          consectetur
-          adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <Markdown :source="post.content.body" />
+        </p>
         <div>
           <div class="text-sm text-gray-400 inline-flex items-center">
             <p class="text-sm flex-grow-0">community</p>
@@ -99,7 +94,10 @@
 </style>
 
 <script setup>
+import Markdown from './Markdown.vue'
+
+const props = defineProps(['post'])
+
 const hasImage = false;
-const hasBody = false;
 const hasLink = false;
 </script>
