@@ -40,6 +40,7 @@ const spoilerConfig = {
 
     if (tokens[idx].nesting === 1) {
       // opening tag
+      // eslint-disable-next-line no-undef
       return `<details><summary> ${md.utils.escapeHtml(m[1])} </summary>\n`;
     } else {
       // closing tag
