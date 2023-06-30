@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full navbar bg-base-300">
+  <div class="navbar bg-base-300">
 
     <div v-show="!screen.isLargeScreen" class="flex-none">
       <label for="left-sidebar" class="btn btn-square btn-ghost">

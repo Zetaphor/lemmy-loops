@@ -3,13 +3,13 @@
   <ToastDisplay />
   <LeftSidebar />
   <RightSidebar />
-  <header class="absolute top-0 w-full">
+  <header class="fixed top-0 w-full z-10">
     <TopNav />
   </header>
   <main class="pt-20 pb-20 bg-gray-950">
     <RouterView />
   </main>
-  <footer>
+  <footer class="fixed bottom-0 w-full z-10">
     <BottomNav />
   </footer>
 </template>
@@ -19,6 +19,7 @@ body,
 #app {
   min-width: 100vw;
   min-height: 100vh;
+  user-select: none;
 }
 </style>
 
