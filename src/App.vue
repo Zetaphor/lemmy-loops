@@ -6,7 +6,7 @@
   <header class="absolute top-0 w-full">
     <TopNav />
   </header>
-  <main class="pt-20 pb-20">
+  <main class="pt-20 pb-20 bg-gray-950">
     <RouterView />
   </main>
   <footer>
