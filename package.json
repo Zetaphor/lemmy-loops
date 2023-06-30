@@ -12,6 +12,7 @@
   "dependencies": {
     "@vueuse/core": "^10.2.1",
     "lemmy-js-client": "^0.18.1-rc.2",
+    "luxon": "^3.3.0",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
     "markdown-it-emoji": "^2.0.2",
