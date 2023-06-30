@@ -1,6 +1,6 @@
 <template>
   <div class="card-bordered card-compact rounded-md my-2 mx-1 bg-gray-800 shadow-sm cursor-pointer flex">
-    <div :class="[props.post.content.hasImage ? 'w-80' : 'w-full']">
+    <div :class="[props.post.content.hasImage ? 'w-3/4' : 'w-full']">
       <div class="p-2">
         <p class="text-xl text-white">{{ props.post.content.name }}</p>
 
@@ -81,39 +81,13 @@
       </div>
     </div>
 
-    <div v-if="props.post.content.hasImage" class="right-container">
-      <div class="image-container">
-        <div class="image-content" :style="`background-image: url('${props.post.content.url}')`"></div>
-      </div>
+    <div v-if="props.post.content.hasImage" class="w-1/4">
+      <img :src="props.post.content.url" class="w-full h-full max-h-32 max-w-10 object-contain" />
     </div>
   </div>
 </template>
 
-<style scoped>
-.left-container {
-  min-width: 75%;
-  max-width: 75%;
-}
-
-.right-container {
-  min-width: 100%;
-  max-width: 80px;
-}
-
-.image-container {
-  width: 92px;
-  height: 92px;
-  position: relative;
-  overflow: hidden;
-}
-
-.image-content {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-}
-</style>
+<style scoped></style>
 
 <script setup>
 const props = defineProps(['post'])
