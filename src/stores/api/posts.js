@@ -65,6 +65,9 @@ export const usePostsStore = defineStore('posts', () => {
             if (postUrl.length)
               postDomain = postUrl.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im)[1]
 
+            const hasUrl = postUrl.length
+            const hasImage = hasUrl && /\.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$/i.test(postUrl)
+
             posts.value.push({
               community: {
                 local: postArray[i].community.local,
@@ -105,7 +108,8 @@ export const usePostsStore = defineStore('posts', () => {
                 updated: formatRelativeTime(postArray[i].post.updated),
                 url: postUrl,
                 url_domain: postDomain,
-                hasImage: /\.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$/i.test(postArray[i].post.url)
+                hasImage: hasImage,
+                hasUrl: hasUrl
               }
             })
           }
