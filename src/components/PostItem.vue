@@ -1,11 +1,11 @@
 <template>
-  <!-- TODO: Need to write media queries -->
-  <div class="card-bordered card-compact rounded-md my-2 mx-2 bg-gray-800 shadow-sm cursor-pointer flex">
-    <div :class="['flex-grow', hasImage ? 'w-80' : 'w-80']">
+  <div class="card-bordered card-compact rounded-md my-2 mx-1 bg-gray-800 shadow-sm cursor-pointer flex">
+    <div :class="[props.post.content.hasImage ? 'w-80' : 'w-full']">
       <div class="p-2">
-        <p class="text-xl text-white">{{ post.content.name }}</p>
+        <p class="text-xl text-white">{{ props.post.content.name }}</p>
 
-        <div v-if="hasLink" class="text-xs inline-flex items-center text-gray-500">
+        <div v-if="props.post.content.hasUrl && !props.post.content.hasImage"
+          class="text-xs inline-flex items-center text-gray-500">
           <svg version="1.1" viewBox="300 200 750 750" xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4 fill-current text-gray-500">
             <path
@@ -14,90 +14,107 @@
               d="m700.18 538.25c-6.3359-5.8906-13.117-11.09-20.809-15.145-14.461-8.1836-31.223-12.684-48.863-12.684h-158.39c-56.09 0-101.8 45.684-101.8 101.8 0 56.113 45.719 101.81 101.8 101.81h67.199c14.27 26.473 33.938 49.535 57.469 67.871h-124.67c-93.66 0-169.67-75.996-169.67-169.69 0-93.684 76.008-169.68 169.67-169.68h158.39c2.4961 0 4.7539 0 7.0312 0.44531 14.461 0.22656 28.488 2.7344 41.832 6.8047 35.074 10.633 65.375 32.113 86.438 60.625 5.8672 7.2344 10.633 14.711 14.699 22.621 3.8281 7.2461 7.2461 14.711 9.7422 22.633 6.5625 17.629 9.9375 36.648 9.9375 56.555s-3.3711 38.902-9.9375 56.566h-61.766c-4.2734 0-8.6055-0.44531-12.445-1.3789 10.402-15.805 16.285-34.801 16.285-55.188 0-20.363-5.8789-39.359-16.285-55.199-4.543-6.7852-9.7383-13.109-15.859-18.762z" />
           </svg>
           <p class="ml-1 mb-0 flex-grow-0 text-gray-400">
-            linkdomain.com
+            {{ post.content.url_domain }}
           </p>
         </div>
 
-        <p v-if="post.content.body.length"
+        <p v-if="props.post.content.body.length"
           class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-3 w-15 max-h-10 overflow-hidden overflow-ellipsis truncate">
-          <Markdown :source="post.content.body" />
+          {{ props.post.content.body }}
         </p>
         <div>
-          <div class="text-sm text-gray-400 inline-flex items-center">
-            <p class="text-sm flex-grow-0">community</p>
+          <div class="text-sm inline-flex items-center">
+            <p class="text-sm flex-grow-0 text-gray-300">{{ props.post.community.name }}</p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="5"
-              stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400">
+              stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400">
               <path d="M9 18l6-6-6-6" />
             </svg>
-            <p class="text-sm flex-grow-0">server.com</p>
+            <p class="text-sm flex-grow-0 text-gray-400">{{ props.post.community.actor_domain }}</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 -15 95 120" class="h-4 w-4 fill-gray-500 stroke-gray-500">
+              <path
+                d="M93.84,70.592l0.039-0.007l-0.17-0.838c-0.063-0.312-0.73-3.149-0.73-3.149l-0.224-0.806l-0.044,0.01  c-3.385-11.005-10.324-14.448-19.842-19.17l-1.896-0.97c2.813-4.172,4.293-9.015,4.293-14.064c0-13.924-11.326-25.251-25.25-25.251  c-13.924,0-25.252,11.327-25.252,25.251c0,5.054,1.482,9.898,4.299,14.072l-1.894,0.957C17.27,51.54,10.061,55.115,6.862,67.409  l-0.065-0.013l-0.477,2.35c-1.043,5.143-1.305,13.467-1.315,13.816c-0.081,2.682,0.896,5.211,2.753,7.125  c1.856,1.912,4.355,2.965,7.036,2.965h70.44c2.684,0,5.181-1.053,7.033-2.969c1.851-1.914,2.818-4.445,2.728-7.127  C94.984,83.236,94.73,75.995,93.84,70.592z M50.015,11.156c11.271,0,20.44,9.17,20.44,20.441s-9.17,20.441-20.44,20.441  c-11.271,0-20.441-9.17-20.441-20.441S38.743,11.156,50.015,11.156z M88.809,87.342c-0.937,0.969-2.205,1.503-3.572,1.503H14.794  c-1.371,0-2.644-0.534-3.585-1.505c-0.942-0.973-1.438-2.262-1.396-3.636c0.012-0.34,0.284-8.381,1.222-13  c2.415-11.897,7.714-14.527,18.281-19.771l2.876-1.472c4.773,4.771,11.078,7.388,17.823,7.388c6.741,0,13.043-2.619,17.815-7.385  l2.891,1.473c9.973,4.947,15.465,7.674,18.008,18.557l0.051,0.223c1.093,4.977,1.404,13.913,1.408,14.006  C90.234,85.088,89.745,86.374,88.809,87.342z" />
+            </svg>
+            <p class="text-xs flex-grow-0 ml-0.5">
+              <span class="text-gray-300">{{ props.post.creator.name }}</span>
+              <span class="text-gray-400">@{{ props.post.creator.actor_domain }}</span>
+            </p>
           </div>
         </div>
 
         <div>
           <div class="text-xs inline-flex items-center text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 -5 100 100"
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="5 0 90 90"
               class="fill-current text-gray-500 w-4 h-4 pr-1">
               <path
                 d="M50,88.8C50,88.8,50,88.8,50,88.8c-4,0-7.5-2-9.5-5.4l-5-8.5h-6.1c-14.8,0-26.8-12-26.8-26.8v-10    c0-14.8,12-26.8,26.8-26.8h41.3c14.8,0,26.8,12,26.8,26.8v10c0,14.8-12,26.8-26.8,26.8h-6.1l-5,8.5C57.5,86.7,54,88.8,50,88.8z     M29.3,20.9c-9.5,0-17.2,7.7-17.2,17.2v10c0,9.5,7.7,17.2,17.2,17.2h8.9c1.7,0,3.3,0.9,4.1,2.4l6.4,10.8c0.4,0.6,0.9,0.7,1.2,0.7    s0.9-0.1,1.2-0.7l6.4-10.8c0.9-1.5,2.4-2.4,4.1-2.4h8.9c9.5,0,17.2-7.7,17.2-17.2v-10c0-9.5-7.7-17.2-17.2-17.2H29.3z" />
             </svg>
-
-
-            <p class="flex-grow-0">200</p>
+            <p class="flex-grow-0">{{ props.post.counts.comments }}</p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4">
               <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
             </svg>
-            <p class="flex-grow-0">3h</p>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4">
+            <p class="flex-grow-0 mr-4">{{ props.post.content.published }}</p>
+
+            <p class="flex-grow-0">{{ props.post.counts.score }}pts</p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 10 10" class="h-4 w-4">
               <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
             </svg>
-            <p class="flex-grow-0">
-              <span class="text-gray-300">username</span>
-              <span class="text-gray-400">@beehaw.org</span>
-            </p>
+
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90"
+              class="stroke-orange-300 fill-orange-300 w-4 h-4">
+              <path
+                d="M50.02,85.502c-3.441,0-6.825-1.397-9.251-3.801s-3.808-5.757-3.808-9.139s1.382-6.736,3.808-9.14   s5.81-3.773,9.251-3.773c3.413,0,6.768,1.37,9.194,3.773s3.836,5.758,3.836,9.14s-1.41,6.735-3.836,9.139   S53.433,85.502,50.02,85.502L50.02,85.502z M50.02,83.938c2.989,0,5.951-1.258,8.066-3.354c2.115-2.067,3.356-5.059,3.356-8.021   c0-2.963-1.241-5.926-3.356-8.021c-2.115-2.097-5.077-3.326-8.066-3.326c-2.99,0-6.007,1.229-8.123,3.326   c-2.115,2.096-3.356,5.059-3.356,8.021c0,2.962,1.241,5.953,3.356,8.021C44.013,82.68,47.03,83.938,50.02,83.938L50.02,83.938z    M28.331,62.165c-1.269,0-2.538-0.475-3.525-1.453l-7.925-7.993c-1.946-1.958-1.721-4.919-0.084-6.988   c0.028-0.028,0.056-0.056,0.084-0.056l21.604-21.716l7.954-7.993c1.918-1.957,5.104-1.957,7.05,0l7.926,7.993l21.632,21.716   c1.946,1.957,1.946,5.086,0,7.044l-7.953,7.993c-0.931,0.95-2.2,1.397-3.44,1.426c-0.028,0-0.057,0.027-0.085,0.027   c-1.27,0-2.566-0.475-3.525-1.453L49.963,42.517L31.885,60.712C30.897,61.69,29.628,62.165,28.331,62.165L28.331,62.165z    M28.331,60.6c0.875,0,1.721-0.335,2.397-1.006l18.671-18.726c0.282-0.307,0.846-0.307,1.128,0l18.67,18.726   c0.648,0.671,1.522,0.979,2.369,0.979c0.874,0,1.721-0.308,2.397-0.979l7.925-7.993c1.354-1.342,1.354-3.466,0-4.835L60.286,25.049   h0.027l-7.981-7.965c-1.325-1.341-3.412-1.341-4.766,0l-7.954,7.965l-21.548,21.66c-1.241,1.593-1.41,3.55-0.057,4.892l7.954,7.993   C26.611,60.265,27.485,60.6,28.331,60.6L28.331,60.6z" />
+            </svg>
+            <p class="flex-grow-0 ml-0.5 mr-1">{{ props.post.counts.upvotes }}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90" class="stroke-blue-300 fill-blue-300 w-4 h-4">
+              <path
+                d="M50.02,14.509c-3.441,0-6.825,1.397-9.251,3.801c-2.426,2.375-3.808,5.729-3.808,9.139   c0,3.382,1.382,6.735,3.808,9.139c2.426,2.403,5.81,3.773,9.251,3.773c3.413,0,6.768-1.37,9.194-3.773   c2.426-2.404,3.836-5.757,3.836-9.139c0-3.41-1.41-6.764-3.836-9.139C56.788,15.906,53.433,14.509,50.02,14.509L50.02,14.509z    M50.02,16.074c2.989,0,5.951,1.229,8.066,3.326s3.356,5.086,3.356,8.049c0,2.962-1.241,5.897-3.356,7.993   s-5.077,3.326-8.066,3.326c-2.99,0-6.007-1.229-8.123-3.326c-2.115-2.096-3.356-5.031-3.356-7.993c0-2.963,1.241-5.953,3.356-8.049   C44.013,17.304,47.03,16.074,50.02,16.074L50.02,16.074z M28.331,37.846c-1.269,0-2.538,0.475-3.525,1.453l-7.925,7.993   c-1.946,1.957-1.721,4.919-0.084,6.988c0.028,0.027,0.056,0.027,0.084,0.056l21.604,21.716l7.954,7.993   c1.918,1.929,5.104,1.929,7.05,0l7.926-7.993l21.632-21.716c1.946-1.957,1.946-5.115,0-7.043l-7.953-7.993   c-0.931-0.95-2.2-1.397-3.44-1.425c-0.028,0-0.057-0.028-0.085-0.028c-1.27,0-2.566,0.475-3.525,1.453L49.963,57.494L31.885,39.299   C30.897,38.321,29.628,37.846,28.331,37.846L28.331,37.846z M28.331,39.383c0.875,0.028,1.721,0.363,2.397,1.034l18.671,18.725   c0.282,0.308,0.846,0.308,1.128,0l18.67-18.725c0.648-0.671,1.522-1.006,2.369-1.006c0.874,0,1.721,0.335,2.397,1.006l7.925,7.965   c1.354,1.369,1.354,3.493,0,4.835L60.286,74.934l0.027,0.028l-7.981,7.965c-1.325,1.342-3.412,1.342-4.766,0l-7.954-7.993   L18.065,53.302c-1.241-1.593-1.41-3.578-0.057-4.919l7.954-7.965C26.611,39.747,27.485,39.383,28.331,39.383L28.331,39.383z" />
+            </svg>
+            <p class="flex-grow-0 ml-0.5">{{ props.post.counts.downvotes }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-if="hasImage" :class="[hasLink ? 'image-container-link' : 'image-container-no-link']">
-      <div class="w-full flex justify-end">
-        <div class="text-center">
-          <img :class="[hasLink ? 'image-link' : 'image-no-link']" src="https://placekitten.com/300/300">
-          <p class="text-2xl my-0 text-gray-600">9999</p>
-        </div>
-      </div>
-    </div>
-    <div v-else class="w-20">
-      <div class="w-full h-full flex items-center justify-end">
-        <p class="m-0 pr-3 text-3xl text-gray-600">999</p>
+    <div v-if="props.post.content.hasImage" class="right-container">
+      <div class="image-container">
+        <div class="image-content" :style="`background-image: url('${props.post.content.url}')`"></div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.image-link {
-  max-height: 7rem;
+.left-container {
+  min-width: 75%;
+  max-width: 75%;
 }
 
-.image-no-link {
-  max-height: 6rem;
+.right-container {
+  min-width: 100%;
+  max-width: 80px;
 }
 
-.image-container-link {
-  width: 7rem;
+.image-container {
+  width: 92px;
+  height: 92px;
+  position: relative;
+  overflow: hidden;
 }
 
-.image-container-no-link {
-  width: 6rem;
+.image-content {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }
 </style>
 
 <script setup>
-import Markdown from './Markdown.vue'
-
 const props = defineProps(['post'])
-
-const hasImage = false;
-const hasLink = false;
 </script>
