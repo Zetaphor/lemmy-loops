@@ -33,12 +33,12 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
-  function getFrontpage() {
+  function getFrontpage(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
         const postData = await api.getPosts({
-          type_: 'All',
-          sort: sort.value
+          type_: view,
+          sort: sort
         })
 
         const postArray = postData.posts
@@ -126,6 +126,7 @@ export const usePostsStore = defineStore('posts', () => {
   return {
     posts,
     sort,
+    view,
     getFrontpage
   }
 })
