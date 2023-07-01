@@ -1,6 +1,6 @@
 <template>
-  <ViewSelector v-if="showViewSelector" ref="viewSelectorEl" @setView="viewUpdated" />
-  <SortSelector v-if="showSortSelector" ref="sortSelectorEl" @setSort="sortUpdated" />
+  <ViewSelector v-if="showViewSelector" @setView="viewUpdated" />
+  <SortSelector v-if="showSortSelector" @setSort="sortUpdated" />
 
   <div class="btm-nav">
     <button v-if="site.postView == 'All'" @click="toggleViewSelector">
@@ -170,33 +170,30 @@ import ViewSelector from './ViewSelector.vue'
 import SortSelector from './SortSelector.vue'
 import { useSiteStore } from '@/stores/site'
 import { useOverlayStore } from '@/stores/overlay'
-import { onClickOutside } from '@vueuse/core'
 
 const site = useSiteStore()
 const overlay = useOverlayStore()
-const viewSelectorEl = ref(null)
-const sortSelectorEl = ref(null)
 
 let showViewSelector = ref(false)
 let showSortSelector = ref(false)
 
 function toggleViewSelector() {
-  showSortSelector.value = false
   if (showViewSelector.value) {
     showViewSelector.value = false
     overlay.visible = false
   } else {
+    showSortSelector.value = false
     showViewSelector.value = true
     overlay.visible = true
   }
 }
 
 function toggleSortSelector() {
-  showViewSelector.value = false
   if (showSortSelector.value) {
     showSortSelector.value = false
     overlay.visible = false
   } else {
+    showViewSelector.value = false
     showSortSelector.value = true
     overlay.visible = true
   }
@@ -214,7 +211,12 @@ function sortUpdated() {
   site.setPostsStale(true)
 }
 
-onClickOutside(viewSelectorEl, () => toggleViewSelector())
-onClickOutside(sortSelectorEl, () => toggleSortSelector())
+overlay.$subscribe(() => {
+  if (overlay.clickActive) {
+    if (showViewSelector.value) toggleViewSelector()
+    if (showSortSelector.value) toggleSortSelector()
+    overlay.clickActive = false
+  }
+})
 
 </script>
