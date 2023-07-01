@@ -1,6 +1,10 @@
 # zemmy-web
 
-This template should help get you started developing with Vue 3 in Vite.
+A PWA/Desktop client for Lemmy. Very much a work in progress, name likely to change.
+
+Built with Vue 3, Tailwind CSS, and DaisyUI.
+
+There is a proxy for the API through the Vite config as CORS is still an issue until a later Lemmy release. It's currently hardcoded to zemmy.cc
 
 ## Recommended IDE Setup
 
