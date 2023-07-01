@@ -6,9 +6,36 @@ export const useSiteStore = defineStore('site', () => {
 
   const sites = ref([])
 
+  const postSort = ref('Hot')
+  const postView = ref('All')
+
+  const postsStale = ref(true)
+
+  function setPostsStale(value) {
+    postsStale.value = value
+  }
+
   function setBaseUrl(newUrl) {
     baseUrl.value = newUrl
   }
 
-  return { baseUrl, sites, setBaseUrl }
+  function setPostView(newView) {
+    postView.value = newView
+  }
+
+  function setPostSort(newSort) {
+    postSort.value = newSort
+  }
+
+  return {
+    baseUrl,
+    sites,
+    postSort,
+    postView,
+    postsStale,
+    setBaseUrl,
+    setPostSort,
+    setPostView,
+    setPostsStale
+  }
 })
