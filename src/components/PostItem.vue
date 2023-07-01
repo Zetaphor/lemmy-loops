@@ -24,6 +24,8 @@
         </p>
         <div>
           <div class="text-sm inline-flex items-center">
+            <img v-if="props.post.community.icon.length" :src="props.post.community.icon"
+              class="h-4 w-4 rounded-sm mt-0.5 mr-1">
             <p class="text-sm flex-grow-0 text-gray-300">{{ props.post.community.name }}</p>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="5"
               stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400">
