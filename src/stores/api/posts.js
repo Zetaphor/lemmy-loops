@@ -9,6 +9,7 @@ export const usePostsStore = defineStore('posts', () => {
   const posts = ref([])
   // "Active" | "Hot" | "New" | "Old" | "TopDay" | "TopWeek" | "TopMonth" | "TopYear" | "TopAll" | "MostComments" | "NewComments" | "TopHour" | "TopSixHour" | "TopTwelveHour"
   const sort = ref('Hot')
+  const view = ref('All')
 
   function formatRelativeTime(dateString) {
     const currentDateTime = DateTime.local()
@@ -76,7 +77,8 @@ export const usePostsStore = defineStore('posts', () => {
                 title: postArray[i].community.title,
                 actor_id: postArray[i].community.actor_id,
                 actor_domain: (postArray[i].community.actor_id.match(/https:\/\/([^/]+)\/c\//) ||
-                  [])[1]
+                  [])[1],
+                icon: postArray[i].community.icon || ''
               },
               counts: {
                 comments: postArray[i].counts.comments,
@@ -89,7 +91,7 @@ export const usePostsStore = defineStore('posts', () => {
               },
               creator: {
                 actor_id: postArray[i].creator.actor_id,
-                actor_domain: (postArray[i].creator.actor_id.match(/https:\/\/([^\/]+)\/u\//) ||
+                actor_domain: (postArray[i].creator.actor_id.match(/https:\/\/([^/]+)\/u\//) ||
                   [])[1],
                 admin: postArray[i].creator.admin,
                 avatar: postArray[i].creator.avatar,
