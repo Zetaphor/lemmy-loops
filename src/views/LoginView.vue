@@ -48,7 +48,7 @@ const toasts = useToastStore()
 
 const instanceUrl = ref('')
 const username = ref('Zetaphor')
-const password = ref('xxqfu!ax3kh%r!@89bpa')
+const password = ref('')
 
 async function login() {
   try {
