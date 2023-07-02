@@ -144,9 +144,9 @@
       <span class="btm-nav-label">Communities</span>
     </button>
     <button>
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current fill-current w-20 h-20" viewBox="0 -10 30 40">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -7 80 100" class="stroke-current fill-current w-20 h-20">
         <path
-          d="M16 22c-2.208 0-4 1.792-4 4s1.792 4 4 4 4-1.792 4-4-1.792-4-4-4Zm0 2a2 2 0 1 1-.001 4.001A2 2 0 0 1 16 24Zm0-12c-2.208 0-4 1.792-4 4s1.792 4 4 4 4-1.792 4-4-1.792-4-4-4Zm0 2a2 2 0 1 1-.001 4.001A2 2 0 0 1 16 14Zm0-12c-2.208 0-4 1.792-4 4s1.792 4 4 4 4-1.792 4-4-1.792-4-4-4Zm0 2a2 2 0 1 1-.001 4.001A2 2 0 0 1 16 4Z" />
+          d="M50 7a10 10 0 0 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 1 1 0-16zm0 31a10 10 0 0 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 1 1 0-16zm0 31a10 10 0 0 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 1 1 0-16z" />
       </svg>
       <span class="btm-nav-label">More</span>
     </button>
