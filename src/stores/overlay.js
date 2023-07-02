@@ -6,5 +6,11 @@ export const useOverlayStore = defineStore('overlay', () => {
   const clickActive = ref(false)
   const hideNav = ref(false)
 
-  return { clickActive, visible, hideNav }
+  function hide() {
+    visible.value = false
+    clickActive.value = false
+    hideNav.value = false
+  }
+
+  return { hide, clickActive, visible, hideNav }
 })

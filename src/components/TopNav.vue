@@ -94,8 +94,7 @@ overlay.$subscribe(() => {
   if (overlay.clickActive) {
     if (sidebar.leftVisible) {
       toggleLeftSidebar()
-      overlay.clickActive = false
-      overlay.hideNav = false
+      overlay.hide()
     }
   }
 })
