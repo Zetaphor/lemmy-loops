@@ -11,7 +11,7 @@
     </svg>
   </div>
   <div v-else-if="showSadFace">
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center mt-3">
       <svg class="stroke-gray-100 fill-gray-100 w-24 h-24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
         version="1.1" viewBox="0 0 333 416.25">
         <path d="M167 26c184 0 184 281 0 281-185 0-185-281 0-281zm0 19C6 45 6 289 167 289c160 0 160-244 0-244z" />

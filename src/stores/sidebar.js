@@ -5,13 +5,5 @@ export const useSidebarStore = defineStore('sidebar', () => {
   const leftVisible = ref(false)
   const rightVisible = ref(false)
 
-  function toggleLeft() {
-    leftVisible.value = !leftVisible.value
-  }
-
-  function toggleRight() {
-    rightVisible.value = !rightVisible.value
-  }
-
-  return { leftVisible, rightVisible, toggleLeft, toggleRight }
+  return { leftVisible, rightVisible }
 })
