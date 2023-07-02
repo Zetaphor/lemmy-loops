@@ -9,8 +9,7 @@
       </label>
     </div>
     <div class="px-2 mx-2">
-      <p>Current view or community name
-      </p>
+      <!-- <p>Current view or community name</p> -->
     </div>
     <div v-if="!user.authenticated" v-show="screen.isLargeScreen" class="flex-none">
       <ul class="menu menu-horizontal">
