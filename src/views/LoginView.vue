@@ -42,10 +42,12 @@ import { ref } from 'vue';
 import { useToastStore } from '@/stores/toast'
 import { useUserStore } from '@/stores/api/user'
 import { useRouter } from 'vue-router'
+import { useOverlayStore } from '@/stores/overlay'
 
 const router = useRouter()
 const user = useUserStore()
 const toasts = useToastStore()
+const overlay = useOverlayStore()
 
 const instanceUrl = ref('')
 const username = ref('Zetaphor')
@@ -64,5 +66,7 @@ async function login() {
 
 function cancel() {
   router.push('/')
+  // Restore the bottom nav
+  overlay.hide()
 }
 </script>

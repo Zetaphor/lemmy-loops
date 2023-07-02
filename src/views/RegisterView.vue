@@ -26,13 +26,26 @@
           placeholder="Enter a password" />
       </div>
 
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+      <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-3" type="submit">
         Submit
+      </button>
+      <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" type="submit" @click="cancel">
+        Cancel
       </button>
     </form>
   </main>
 </template>
 
 <script setup>
+import { useOverlayStore } from '@/stores/overlay'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const overlay = useOverlayStore()
+
+function cancel() {
+  router.push('/')
+  // Restore the bottom nav
+  overlay.hide()
+}
 </script>

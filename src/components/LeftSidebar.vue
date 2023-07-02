@@ -1,8 +1,8 @@
 <template>
   <div id="leftSidebar" v-show="sidebars.leftVisible" class="fixed bg-base-200 w-56 h-full z-50">
     <ul v-if="!user.authenticated" class="menu">
-      <li><router-link to="login" @click="closeSidebar">Login</router-link></li>
-      <li><router-link to="register" @click="closeSidebar">Register</router-link></li>
+      <li><router-link to="login" @click="closeChangeView">Login</router-link></li>
+      <li><router-link to="register" @click="closeChangeView">Register</router-link></li>
     </ul>
 
     <ul v-else class="menu">
@@ -51,8 +51,9 @@ const user = useUserStore()
 const sidebars = useSidebarStore()
 
 
-function closeSidebar() {
+function closeChangeView() {
   sidebars.leftVisible = false
-  overlay.hide()
+  overlay.visible = false
+  overlay.hideNav = true
 }
 </script>
