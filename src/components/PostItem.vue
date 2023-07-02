@@ -83,10 +83,11 @@
         </div>
       </div>
     </div>
-
+      <!-- Image -->
     <div v-if="props.post.content.hasImage" class="w-1/4">
       <img :src="props.post.content.url" class="w-full h-full max-h-32 max-w-10 object-contain" />
     </div>
+      <!-- Video link-->
       <div v-else-if="props.post.content.hasVideo" class="w-1/4 flex justify-center items-center">
         <div class="bg-slate-300 rounded-md w-16 h-16 pl-1 pt-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -3 24 30"
@@ -100,18 +101,21 @@
           </svg>
         </div>
       </div>
-    <div v-else-if="props.post.content.hasUrl" class="w-1/4 flex justify-center items-center">
-        <a :href="props.post.content.url" target="_blank" alt="Youtube video link">
-          <div v-if="props.post.content.url_domain == 'youtube.com'">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 0 52 60" class="h-16 w-16 fill-current text-slate-300">
-                <path d="M28.14 36.44 35.86 32l-7.72-4.44v8.88z" />
+      <!-- Youtube link -->
+      <div v-else-if="props.post.content.hasUrl && props.post.content.url_domain == 'youtube.com'"
+        class="w-1/4 flex justify-center items-center">
+        <div class="bg-slate-300 rounded-md w-16 h-16 pl-2 pt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="15 0 70 95"
+            class="h-12 w-12 fill-current text-gray-500">
                 <path
-                  d="M32 6a26 26 0 1 0 26 26A26 26 0 0 0 32 6Zm17 31.59a6 6 0 0 1-6 6H21a6 6 0 0 1-6-6V26.41a6 6 0 0 1 6-6h22a6 6 0 0 1 6 6Z" />
-              </g>
+              d="m8.47 34.705-2.997-.142 2.997.142Zm12.566-13.173-.228-2.992.228 2.992ZM8.48 65.119l2.997-.143-2.997.143ZM20.817 78.25l.268-2.988-.268 2.988Zm58.308.005.268 2.988-.268-2.988Zm12.37-13.199-2.996-.14 2.996.14Zm.01-30.291-2.997.14 2.997-.14Zm-12.6-13.239-.228 2.991.227-2.991ZM63 50l1.519 2.587a3 3 0 0 0 0-5.174L63 50ZM40 36.5l1.519-2.587A3 3 0 0 0 37 36.5h3Zm0 27h-3a3 3 0 0 0 4.519 2.587L40 63.5ZM11.466 34.847c.263-5.537 4.409-9.914 9.798-10.324l-.456-5.983c-8.546.65-14.935 7.6-15.335 16.023l5.993.284ZM11 49.813c0-4.003.22-9.766.466-14.966l-5.993-.284C5.226 39.768 5 45.656 5 49.813h6Zm.476 15.163c-.25-5.25-.476-11.109-.476-15.163H5c0 4.21.232 10.195.482 15.449l5.994-.286Zm9.609 10.287c-5.302-.476-9.349-4.817-9.61-10.287l-5.993.286c.397 8.31 6.628 15.22 15.067 15.977l.536-5.976ZM50 76.5c-12.037 0-21.93-.61-28.915-1.237l-.536 5.976c7.14.64 17.213 1.261 29.451 1.261v-6Zm28.858-1.232C71.876 75.893 62.004 76.5 50 76.5v6c12.204 0 22.257-.617 29.393-1.256l-.535-5.976Zm9.64-10.352c-.258 5.504-4.32 9.876-9.64 10.352l.535 5.976c8.473-.758 14.707-7.716 15.1-16.046l-5.994-.282ZM89 49.813c0 3.493-.24 9.564-.501 15.103l5.993.282c.26-5.52.508-11.728.508-15.385h-6Zm-.492-14.907c.257 5.488.492 11.456.492 14.907h6c0-3.613-.242-9.72-.499-15.188l-5.993.281Zm-9.831-10.388c5.408.41 9.57 4.818 9.83 10.388l5.994-.28c-.395-8.443-6.79-15.439-15.37-16.09l-.454 5.982ZM50 23.5c12.083 0 21.799.496 28.677 1.018l.454-5.982C72.115 18.003 62.247 17.5 50 17.5v6Zm-28.736 1.023C28.145 23.999 37.882 23.5 50 23.5v-6c-12.282 0-22.171.506-29.192 1.04l.456 5.983Zm43.255 22.89-23-13.5-3.038 5.174 23 13.5 3.038-5.174Zm-23 18.674 23-13.5-3.038-5.174-23 13.5 3.038 5.174ZM37 36.5v27h6v-27h-6Z" />
             </svg>
           </div>
-
-          <div v-else class="bg-slate-300 rounded-md w-16 h-16 pl-2 pt-1.5">
+      </div>
+      <!-- Standard link -->
+      <div v-else-if="props.post.content.hasUrl" class="w-1/4 flex justify-center items-center">
+        <a :href="props.post.content.url" target="_blank" alt="Youtube video link">
+          <div class="bg-slate-300 rounded-md w-16 h-16 pl-2 pt-1.5">
           <svg version="1.1" viewBox="300 200 750 750" xmlns="http://www.w3.org/2000/svg"
               class="h-12 w-12 fill-current text-gray-500">
             <path
