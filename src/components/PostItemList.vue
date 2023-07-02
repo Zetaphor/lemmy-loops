@@ -37,7 +37,7 @@ import { useSiteStore } from '@/stores/site'
 
 const site = useSiteStore()
 const posts = usePostsStore()
-const showLoader = ref(true)
+const showLoader = ref(false)
 const showSadFace = ref(false)
 
 onMounted(() => {
@@ -55,7 +55,9 @@ async function updatePosts() {
 }
 
 site.$subscribe(() => {
-  if (site.postsStale) updatePosts()
+  if (site.postsStale) {
+    updatePosts()
+  }
 })
 
 </script>
