@@ -57,6 +57,7 @@ async function login() {
   try {
     console.log('login')
     await user.loginUser(instanceUrl.value, username.value, password.value)
+    overlay.hide()
     router.push('/')
   } catch (error) {
     console.error(error)
