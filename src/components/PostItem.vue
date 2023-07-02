@@ -27,8 +27,8 @@
             <img v-if="props.post.community.icon.length" :src="props.post.community.icon"
               class="h-4 w-4 rounded-sm mt-0.5 mr-1">
             <p class="text-sm flex-grow-0 text-gray-300">{{ props.post.community.name }}</p>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="5"
-              stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400">
               <path d="M9 18l6-6-6-6" />
             </svg>
             <p class="text-sm flex-grow-0 text-gray-400">{{ props.post.community.actor_domain }}</p>
@@ -37,7 +37,8 @@
 
         <div>
           <div class="inline-flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 -15 95 120" class="h-4 w-4 fill-gray-500 stroke-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="15 -15 95 120"
+                class="h-4 w-4 fill-gray-500 stroke-gray-500">
               <path
                 d="M93.84,70.592l0.039-0.007l-0.17-0.838c-0.063-0.312-0.73-3.149-0.73-3.149l-0.224-0.806l-0.044,0.01  c-3.385-11.005-10.324-14.448-19.842-19.17l-1.896-0.97c2.813-4.172,4.293-9.015,4.293-14.064c0-13.924-11.326-25.251-25.25-25.251  c-13.924,0-25.252,11.327-25.252,25.251c0,5.054,1.482,9.898,4.299,14.072l-1.894,0.957C17.27,51.54,10.061,55.115,6.862,67.409  l-0.065-0.013l-0.477,2.35c-1.043,5.143-1.305,13.467-1.315,13.816c-0.081,2.682,0.896,5.211,2.753,7.125  c1.856,1.912,4.355,2.965,7.036,2.965h70.44c2.684,0,5.181-1.053,7.033-2.969c1.851-1.914,2.818-4.445,2.728-7.127  C94.984,83.236,94.73,75.995,93.84,70.592z M50.015,11.156c11.271,0,20.44,9.17,20.44,20.441s-9.17,20.441-20.44,20.441  c-11.271,0-20.441-9.17-20.441-20.441S38.743,11.156,50.015,11.156z M88.809,87.342c-0.937,0.969-2.205,1.503-3.572,1.503H14.794  c-1.371,0-2.644-0.534-3.585-1.505c-0.942-0.973-1.438-2.262-1.396-3.636c0.012-0.34,0.284-8.381,1.222-13  c2.415-11.897,7.714-14.527,18.281-19.771l2.876-1.472c4.773,4.771,11.078,7.388,17.823,7.388c6.741,0,13.043-2.619,17.815-7.385  l2.891,1.473c9.973,4.947,15.465,7.674,18.008,18.557l0.051,0.223c1.093,4.977,1.404,13.913,1.408,14.006  C90.234,85.088,89.745,86.374,88.809,87.342z" />
             </svg>
@@ -87,10 +88,20 @@
       <img :src="props.post.content.url" class="w-full h-full max-h-32 max-w-10 object-contain" />
     </div>
     <div v-else-if="props.post.content.hasUrl" class="w-1/4 flex justify-center items-center">
-      <a :href="props.post.content.url" target="_blank">
-        <div class="bg-slate-300 rounded-md w-14 h-14 pl-2 pt-1.5">
+        <a :href="props.post.content.url" target="_blank" alt="External URL">
+          <div v-if="props.post.content.url_domain == 'youtube.com'">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 0 52 60" class="h-16 w-16 fill-current text-slate-300">
+              <g data-name="Layer 2">
+                <path d="M28.14 36.44 35.86 32l-7.72-4.44v8.88z" />
+                <path
+                  d="M32 6a26 26 0 1 0 26 26A26 26 0 0 0 32 6Zm17 31.59a6 6 0 0 1-6 6H21a6 6 0 0 1-6-6V26.41a6 6 0 0 1 6-6h22a6 6 0 0 1 6 6Z" />
+              </g>
+            </svg>
+          </div>
+
+          <div v-else class="bg-slate-300 rounded-md w-16 h-16 pl-2 pt-1.5">
           <svg version="1.1" viewBox="300 200 750 750" xmlns="http://www.w3.org/2000/svg"
-            class="h-10 w-10 fill-current text-gray-500">
+              class="h-12 w-12 fill-current text-gray-500">
             <path
               d="m762.18 781.91h-33.719c-2.2578 0-4.7539 0-7.0078-0.44531-14.484-0.25391-28.738-2.7344-42.098-6.8047-34.824-10.633-65.16-32.125-86.426-60.625-5.6641-7.2461-10.402-14.711-14.473-22.621-3.8398-7.2461-7.2461-14.734-9.7305-22.633-6.5508-17.664-9.9609-36.66-9.9609-56.566s3.4062-38.93 9.9609-56.555h61.754c4.2969 0 8.3633 0.43359 12.445 1.3555-10.176 15.828-16.285 34.824-16.285 55.199s6.1211 39.371 16.285 55.188c4.5234 6.8047 9.7422 13.141 15.828 18.781 6.1328 5.8789 12.898 10.871 20.594 15.168 14.473 7.9336 31.223 12.684 49.105 12.684h158.37c56.125 0 101.81-45.695 101.81-101.81 0-56.113-45.695-101.8-101.81-101.8h-66.973c-14.461-26.699-34.152-49.777-57.684-67.883h124.66c93.66 0 169.69 75.996 169.69 169.68 0 93.695-76.031 169.69-169.69 169.69l-124.64 0.007813z" />
             <path
