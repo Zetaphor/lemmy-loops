@@ -1,8 +1,9 @@
 <template>
   <main class="max-w-md mx-auto">
+    <h1 class="text-center">Login</h1>
     <form>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="instanceUrl">
+        <label class="block text-gray-400 text-sm font-bold mb-2" for="instanceUrl">
           Instance URL
         </label>
         <input v-model="instanceUrl" class="form-input px-4 py-2 rounded-md border border-gray-300 w-full"
@@ -10,7 +11,7 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        <label class="block text-gray-400 text-sm font-bold mb-2" for="username">
           Username
         </label>
         <input v-model="username" class="form-input px-4 py-2 rounded-md border border-gray-300 w-full" id="username"
@@ -18,7 +19,7 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        <label class="block text-gray-400 text-sm font-bold mb-2" for="password">
           Password
         </label>
         <input v-model="password" class="form-input px-4 py-2 rounded-md border border-gray-300 w-full" id="password"
