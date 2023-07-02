@@ -68,6 +68,7 @@ export const usePostsStore = defineStore('posts', () => {
 
             const hasUrl = postUrl.length
             const hasImage = hasUrl && /\.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$/i.test(postUrl)
+            const hasVideo = hasUrl && /\.(webm|mp4)$/i.test(postUrl)
 
             posts.value.push({
               community: {
@@ -111,7 +112,8 @@ export const usePostsStore = defineStore('posts', () => {
                 url: postUrl,
                 url_domain: postDomain,
                 hasImage: hasImage,
-                hasUrl: hasUrl
+                hasUrl: hasUrl,
+                hasVideo: hasVideo
               }
             })
           }

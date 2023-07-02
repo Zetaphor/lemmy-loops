@@ -87,11 +87,23 @@
     <div v-if="props.post.content.hasImage" class="w-1/4">
       <img :src="props.post.content.url" class="w-full h-full max-h-32 max-w-10 object-contain" />
     </div>
+      <div v-else-if="props.post.content.hasVideo" class="w-1/4 flex justify-center items-center">
+        <div class="bg-slate-300 rounded-md w-16 h-16 pl-1 pt-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -3 24 30"
+            class="h-14 w-14 fill-current stroke-current text-gray-500">
+            <path fill="#000" fill-rule="evenodd"
+              d="M6 2.5A1.5 1.5 0 0 0 4.5 4v16A1.5 1.5 0 0 0 6 21.5h12a1.5 1.5 0 0 0 1.5-1.5V8.92a1.5 1.5 0 0 0-.524-1.139l-5.74-4.92a1.5 1.5 0 0 0-.976-.361H6ZM3.5 4A2.5 2.5 0 0 1 6 1.5h6.26a2.5 2.5 0 0 1 1.627.602l5.74 4.92A2.5 2.5 0 0 1 20.5 8.92V20a2.5 2.5 0 0 1-2.5 2.5H6A2.5 2.5 0 0 1 3.5 20V4Z"
+              clip-rule="evenodd" />
+            <path fill="#000" fill-rule="evenodd"
+              d="M12.5 6V2.5h1V6A1.5 1.5 0 0 0 15 7.5h4.5v1H15A2.5 2.5 0 0 1 12.5 6Zm-3.749 4.566a.5.5 0 0 1 .5.002l6 3.5a.5.5 0 0 1 0 .864l-6 3.5A.5.5 0 0 1 8.5 18v-7a.5.5 0 0 1 .251-.434ZM9.5 11.87v5.26l4.508-2.63L9.5 11.87Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
     <div v-else-if="props.post.content.hasUrl" class="w-1/4 flex justify-center items-center">
-        <a :href="props.post.content.url" target="_blank" alt="External URL">
+        <a :href="props.post.content.url" target="_blank" alt="Youtube video link">
           <div v-if="props.post.content.url_domain == 'youtube.com'">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 0 52 60" class="h-16 w-16 fill-current text-slate-300">
-              <g data-name="Layer 2">
                 <path d="M28.14 36.44 35.86 32l-7.72-4.44v8.88z" />
                 <path
                   d="M32 6a26 26 0 1 0 26 26A26 26 0 0 0 32 6Zm17 31.59a6 6 0 0 1-6 6H21a6 6 0 0 1-6-6V26.41a6 6 0 0 1 6-6h22a6 6 0 0 1 6 6Z" />
