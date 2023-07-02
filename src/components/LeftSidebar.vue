@@ -1,6 +1,11 @@
 <template>
   <div id="leftSidebar" v-show="sidebars.leftVisible" class="fixed bg-base-200 w-56 h-full z-50">
-    <ul class="menu">
+    <ul v-if="!user.authenticated" class="menu">
+      <li><router-link to="login" @click="closeSidebar">Login</router-link></li>
+      <li><router-link to="register" @click="closeSidebar">Register</router-link></li>
+    </ul>
+
+    <ul v-else class="menu">
       <li>
         <details>
           <summary>Username</summary>
@@ -38,5 +43,16 @@
 
 <script setup>
 import { useSidebarStore } from '@/stores/sidebar'
+import { useUserStore } from '@/stores/api/user'
+import { useOverlayStore } from '@/stores/overlay'
+
+const overlay = useOverlayStore()
+const user = useUserStore()
 const sidebars = useSidebarStore()
+
+
+function closeSidebar() {
+  sidebars.leftVisible = false
+  overlay.hide()
+}
 </script>
