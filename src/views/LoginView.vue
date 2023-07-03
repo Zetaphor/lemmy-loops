@@ -43,11 +43,13 @@ import { useToastStore } from '@/stores/toast'
 import { useUserStore } from '@/stores/api/user'
 import { useRouter } from 'vue-router'
 import { useOverlayStore } from '@/stores/overlay'
+import { useSiteStore } from '@/stores/site'
 
 const router = useRouter()
 const user = useUserStore()
 const toasts = useToastStore()
 const overlay = useOverlayStore()
+const site = useSiteStore()
 
 const instanceUrl = ref('')
 const username = ref('Zetaphor')
@@ -58,6 +60,7 @@ async function login() {
     console.log('login')
     await user.loginUser(instanceUrl.value, username.value, password.value)
     overlay.hide()
+    site.postsStale = true
     router.push('/')
   } catch (error) {
     console.error(error)
