@@ -1,5 +1,5 @@
 <template>
-  <div ref="containerEl" class="relative overflow">
+  <div ref="containerEl" class="relative overflow-y-hidden scroll-container">
     <!-- Post options-->
     <div ref="optionsEl" :class="[{ 'transition-all duration-200 ease-linear': !isSwiping }, 'w-full h-full absolute']"
       :style="`left: ${optionsElOffset}%`">
@@ -73,7 +73,7 @@
             </div>
 
             <p v-if="props.post.content.body.length"
-              class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-3 w-15 max-h-10 overflow-hidden overflow-ellipsis truncate">
+              class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 max-h-10 overflow-hidden overflow-ellipsis truncate">
               {{ props.post.content.body }}
             </p>
             <div>
@@ -110,13 +110,13 @@
                   <path
                     d="M50,88.8C50,88.8,50,88.8,50,88.8c-4,0-7.5-2-9.5-5.4l-5-8.5h-6.1c-14.8,0-26.8-12-26.8-26.8v-10    c0-14.8,12-26.8,26.8-26.8h41.3c14.8,0,26.8,12,26.8,26.8v10c0,14.8-12,26.8-26.8,26.8h-6.1l-5,8.5C57.5,86.7,54,88.8,50,88.8z     M29.3,20.9c-9.5,0-17.2,7.7-17.2,17.2v10c0,9.5,7.7,17.2,17.2,17.2h8.9c1.7,0,3.3,0.9,4.1,2.4l6.4,10.8c0.4,0.6,0.9,0.7,1.2,0.7    s0.9-0.1,1.2-0.7l6.4-10.8c0.9-1.5,2.4-2.4,4.1-2.4h8.9c9.5,0,17.2-7.7,17.2-17.2v-10c0-9.5-7.7-17.2-17.2-17.2H29.3z" />
                 </svg>
-                <p class="flex-grow-0">{{ props.post.counts.comments }}</p>
+                <p class="flex-grow-0 text-md">{{ props.post.counts.comments }}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4">
                   <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
                 </svg>
-                <p class="flex-grow-0 mr-4">{{ props.post.content.published }}</p>
+                <p class="flex-grow-0 mr-4 text-md">{{ props.post.content.published }}</p>
 
-                <p class="flex-grow-0">{{ props.post.counts.score }}pts</p>
+                <p class="flex-grow-0 text-md">{{ props.post.counts.score }}pts</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 10 10" class="h-4 w-4">
                   <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
                 </svg>
@@ -127,13 +127,13 @@
                   <path
                     d="M50.02,85.502c-3.441,0-6.825-1.397-9.251-3.801s-3.808-5.757-3.808-9.139s1.382-6.736,3.808-9.14   s5.81-3.773,9.251-3.773c3.413,0,6.768,1.37,9.194,3.773s3.836,5.758,3.836,9.14s-1.41,6.735-3.836,9.139   S53.433,85.502,50.02,85.502L50.02,85.502z M50.02,83.938c2.989,0,5.951-1.258,8.066-3.354c2.115-2.067,3.356-5.059,3.356-8.021   c0-2.963-1.241-5.926-3.356-8.021c-2.115-2.097-5.077-3.326-8.066-3.326c-2.99,0-6.007,1.229-8.123,3.326   c-2.115,2.096-3.356,5.059-3.356,8.021c0,2.962,1.241,5.953,3.356,8.021C44.013,82.68,47.03,83.938,50.02,83.938L50.02,83.938z    M28.331,62.165c-1.269,0-2.538-0.475-3.525-1.453l-7.925-7.993c-1.946-1.958-1.721-4.919-0.084-6.988   c0.028-0.028,0.056-0.056,0.084-0.056l21.604-21.716l7.954-7.993c1.918-1.957,5.104-1.957,7.05,0l7.926,7.993l21.632,21.716   c1.946,1.957,1.946,5.086,0,7.044l-7.953,7.993c-0.931,0.95-2.2,1.397-3.44,1.426c-0.028,0-0.057,0.027-0.085,0.027   c-1.27,0-2.566-0.475-3.525-1.453L49.963,42.517L31.885,60.712C30.897,61.69,29.628,62.165,28.331,62.165L28.331,62.165z    M28.331,60.6c0.875,0,1.721-0.335,2.397-1.006l18.671-18.726c0.282-0.307,0.846-0.307,1.128,0l18.67,18.726   c0.648,0.671,1.522,0.979,2.369,0.979c0.874,0,1.721-0.308,2.397-0.979l7.925-7.993c1.354-1.342,1.354-3.466,0-4.835L60.286,25.049   h0.027l-7.981-7.965c-1.325-1.341-3.412-1.341-4.766,0l-7.954,7.965l-21.548,21.66c-1.241,1.593-1.41,3.55-0.057,4.892l7.954,7.993   C26.611,60.265,27.485,60.6,28.331,60.6L28.331,60.6z" />
                 </svg>
-                <p class="flex-grow-0 ml-0.5 mr-1">{{ props.post.counts.upvotes }}</p>
+                <p class="flex-grow-0 ml-0.5 mr-1 text-md">{{ props.post.counts.upvotes }}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90"
                   class="stroke-blue-300 fill-blue-300 w-4 h-4">
                   <path
                     d="M50.02,14.509c-3.441,0-6.825,1.397-9.251,3.801c-2.426,2.375-3.808,5.729-3.808,9.139   c0,3.382,1.382,6.735,3.808,9.139c2.426,2.403,5.81,3.773,9.251,3.773c3.413,0,6.768-1.37,9.194-3.773   c2.426-2.404,3.836-5.757,3.836-9.139c0-3.41-1.41-6.764-3.836-9.139C56.788,15.906,53.433,14.509,50.02,14.509L50.02,14.509z    M50.02,16.074c2.989,0,5.951,1.229,8.066,3.326s3.356,5.086,3.356,8.049c0,2.962-1.241,5.897-3.356,7.993   s-5.077,3.326-8.066,3.326c-2.99,0-6.007-1.229-8.123-3.326c-2.115-2.096-3.356-5.031-3.356-7.993c0-2.963,1.241-5.953,3.356-8.049   C44.013,17.304,47.03,16.074,50.02,16.074L50.02,16.074z M28.331,37.846c-1.269,0-2.538,0.475-3.525,1.453l-7.925,7.993   c-1.946,1.957-1.721,4.919-0.084,6.988c0.028,0.027,0.056,0.027,0.084,0.056l21.604,21.716l7.954,7.993   c1.918,1.929,5.104,1.929,7.05,0l7.926-7.993l21.632-21.716c1.946-1.957,1.946-5.115,0-7.043l-7.953-7.993   c-0.931-0.95-2.2-1.397-3.44-1.425c-0.028,0-0.057-0.028-0.085-0.028c-1.27,0-2.566,0.475-3.525,1.453L49.963,57.494L31.885,39.299   C30.897,38.321,29.628,37.846,28.331,37.846L28.331,37.846z M28.331,39.383c0.875,0.028,1.721,0.363,2.397,1.034l18.671,18.725   c0.282,0.308,0.846,0.308,1.128,0l18.67-18.725c0.648-0.671,1.522-1.006,2.369-1.006c0.874,0,1.721,0.335,2.397,1.006l7.925,7.965   c1.354,1.369,1.354,3.493,0,4.835L60.286,74.934l0.027,0.028l-7.981,7.965c-1.325,1.342-3.412,1.342-4.766,0l-7.954-7.993   L18.065,53.302c-1.241-1.593-1.41-3.578-0.057-4.919l7.954-7.965C26.611,39.747,27.485,39.383,28.331,39.383L28.331,39.383z" />
                 </svg>
-                <p class="flex-grow-0 ml-0.5">{{ props.post.counts.downvotes }}</p>
+                <p class="flex-grow-0 ml-0.5 text-md">{{ props.post.counts.downvotes }}</p>
               </div>
             </div>
           </div>
@@ -186,6 +186,38 @@
   </div>
 </template>
 
+<style scoped>
+/* CSS */
+.scroll-container::-webkit-scrollbar {
+  width: 0.5rem;
+  /* Set the width of the scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Set the background color of the scrollbar track */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  /* Set the color of the scrollbar thumb */
+  border-radius: 0.25rem;
+  /* Set the border radius of the scrollbar thumb */
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+  /* Set the color of the scrollbar thumb on hover */
+}
+
+.scroll-container {
+  -ms-overflow-style: none;
+  /* Hide the scrollbar on IE and Edge */
+  scrollbar-width: thin;
+  /* Hide the scrollbar on Firefox */
+}
+</style>
+
 <script setup>
 import { ref, computed } from 'vue'
 import { useSwipe } from '@vueuse/core'
@@ -199,7 +231,7 @@ const contentElOffset = ref('0')
 const containerWidth = computed(() => containerEl.value?.offsetWidth)
 const optionsVisible = ref(false)
 
-const minSwipeDistance = 50
+const minSwipeDistance = 25
 
 function mapSwipeValue(value) {
   value = Math.max(0, Math.min(value, containerWidth.value));
@@ -209,34 +241,34 @@ function mapSwipeValue(value) {
 
 // TODO: Swipe detection is eating the touch scrolling
 // Need to figure out how to handle this
-const { direction, isSwiping, lengthX } = useSwipe(
-  containerEl, {
-  passive: false,
-  onSwipe() {
-    if (!optionsVisible.value && direction.value == 'left') {
-      const mappedValue = mapSwipeValue(lengthX.value)
-      optionsElOffset.value = 100 - mappedValue
-      contentElOffset.value = mappedValue
-      if (mappedValue >= minSwipeDistance) optionsVisible.value = true
-    } else if (optionsVisible.value && direction.value == 'right') {
-      console.log('Swipe right', lengthX.value)
-      const mappedValue = mapSwipeValue(Math.abs(lengthX.value))
-      optionsElOffset.value = mappedValue
-      contentElOffset.value = 100 - mappedValue
-      if (mappedValue >= minSwipeDistance) optionsVisible.value = false
-    }
-  },
-  onSwipeEnd(e, direction) {
-    if (direction == 'left' || direction == 'right') {
-      if (optionsVisible.value) {
-        optionsElOffset.value = 0
-        contentElOffset.value = 100
-      } else {
-        optionsElOffset.value = 100
-        contentElOffset.value = 0
-      }
-    }
-  },
-})
+// const { direction, isSwiping, lengthX } = useSwipe(
+//   containerEl, {
+//   passive: false,
+//   onSwipe() {
+//     if (!optionsVisible.value && direction.value == 'left') {
+//       const mappedValue = mapSwipeValue(lengthX.value)
+//       optionsElOffset.value = 100 - mappedValue
+//       contentElOffset.value = mappedValue
+//       if (mappedValue >= minSwipeDistance) optionsVisible.value = true
+//     } else if (optionsVisible.value && direction.value == 'right') {
+//       console.log('Swipe right', lengthX.value)
+//       const mappedValue = mapSwipeValue(Math.abs(lengthX.value))
+//       optionsElOffset.value = mappedValue
+//       contentElOffset.value = 100 - mappedValue
+//       if (mappedValue >= minSwipeDistance) optionsVisible.value = false
+//     }
+//   },
+//   onSwipeEnd(e, direction) {
+//     if (direction == 'left' || direction == 'right') {
+//       if (optionsVisible.value) {
+//         optionsElOffset.value = 0
+//         contentElOffset.value = 100
+//       } else {
+//         optionsElOffset.value = 100
+//         contentElOffset.value = 0
+//       }
+//     }
+//   },
+// })
 
 </script>
