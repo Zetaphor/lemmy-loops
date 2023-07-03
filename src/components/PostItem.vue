@@ -1,8 +1,7 @@
 <template>
-  <div ref="containerEl" class="relative overflow-y-hidden scroll-container">
+  <div class="relative overflow-y-hidden overflow-x-auto snap-x scrollbar-hide">
     <!-- Post options-->
-    <div ref="optionsEl" :class="[{ 'transition-all duration-200 ease-linear': !isSwiping }, 'w-full h-full absolute']"
-      :style="`left: ${optionsElOffset}%`">
+    <div class="w-full h-full absolute snap-start left-full">
       <div class="flex h-full justify-center items-center">
         <div class="flex">
           <div class="flex-1">
@@ -50,8 +49,7 @@
       </div>
     </div>
     <!-- Post content -->
-    <div ref="contentEl" :class="[{ 'transition-all duration-200 ease-linear': !isSwiping }, 'w-full relative']"
-      :style="`right: ${contentElOffset}%`">
+    <div class="w-full relative snap-start">
       <div class="card-bordered card-compact my-2 bg-gray-800 shadow-sm cursor-pointer flex w-full">
         <div
           :class="[props.post.content.hasImage || props.post.content.hasUrl || props.post.content.hasVideo ? 'w-3/4' : 'w-full']">
@@ -187,88 +185,23 @@
 </template>
 
 <style scoped>
-/* CSS */
-.scroll-container::-webkit-scrollbar {
-  width: 0.5rem;
-  /* Set the width of the scrollbar */
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-.scroll-container::-webkit-scrollbar-track {
-  background-color: transparent;
-  /* Set the background color of the scrollbar track */
-}
-
-.scroll-container::-webkit-scrollbar-thumb {
-  background-color: #ddd;
-  /* Set the color of the scrollbar thumb */
-  border-radius: 0.25rem;
-  /* Set the border radius of the scrollbar thumb */
-}
-
-.scroll-container::-webkit-scrollbar-thumb:hover {
-  background-color: #999;
-  /* Set the color of the scrollbar thumb on hover */
-}
-
-.scroll-container {
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  /* IE and Edge */
   -ms-overflow-style: none;
-  /* Hide the scrollbar on IE and Edge */
-  scrollbar-width: thin;
-  /* Hide the scrollbar on Firefox */
+  /* Firefox */
+  scrollbar-width: none;
 }
 </style>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useSwipe } from '@vueuse/core'
+import { ref } from 'vue'
 
 const props = defineProps(['post'])
-
-const containerEl = ref(null)
-const contentEl = ref(null)
-const optionsElOffset = ref('100')
-const contentElOffset = ref('0')
-const containerWidth = computed(() => containerEl.value?.offsetWidth)
-const optionsVisible = ref(false)
-
-const minSwipeDistance = 25
-
-function mapSwipeValue(value) {
-  value = Math.max(0, Math.min(value, containerWidth.value));
-  const mappedValue = (value / containerWidth.value) * 100;
-  return Math.floor(mappedValue);
-}
-
-// TODO: Swipe detection is eating the touch scrolling
-// Need to figure out how to handle this
-// const { direction, isSwiping, lengthX } = useSwipe(
-//   containerEl, {
-//   passive: false,
-//   onSwipe() {
-//     if (!optionsVisible.value && direction.value == 'left') {
-//       const mappedValue = mapSwipeValue(lengthX.value)
-//       optionsElOffset.value = 100 - mappedValue
-//       contentElOffset.value = mappedValue
-//       if (mappedValue >= minSwipeDistance) optionsVisible.value = true
-//     } else if (optionsVisible.value && direction.value == 'right') {
-//       console.log('Swipe right', lengthX.value)
-//       const mappedValue = mapSwipeValue(Math.abs(lengthX.value))
-//       optionsElOffset.value = mappedValue
-//       contentElOffset.value = 100 - mappedValue
-//       if (mappedValue >= minSwipeDistance) optionsVisible.value = false
-//     }
-//   },
-//   onSwipeEnd(e, direction) {
-//     if (direction == 'left' || direction == 'right') {
-//       if (optionsVisible.value) {
-//         optionsElOffset.value = 0
-//         contentElOffset.value = 100
-//       } else {
-//         optionsElOffset.value = 100
-//         contentElOffset.value = 0
-//       }
-//     }
-//   },
-// })
 
 </script>
