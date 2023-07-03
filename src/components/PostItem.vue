@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-y-hidden overflow-x-auto snap-x scrollbar-hide">
+  <div class="relative overflow-y-hidden overflow-x-auto snap-x scrollbar-hide snap-mandatory">
     <!-- Post options-->
     <div class="w-full h-full absolute snap-start left-full">
       <div class="flex h-full justify-center items-center">
