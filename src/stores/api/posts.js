@@ -36,14 +36,15 @@ export const usePostsStore = defineStore('posts', () => {
   function getFrontpage(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
-        const postData = await api.getPosts({
+        const form = {
           type_: view,
           sort: sort
-        })
+        }
 
+        if (api.authenticated) form.auth = api.jwt
+
+        const postData = await api.getPosts(form)
         const postArray = postData.posts
-
-        // console.log(postArray)
 
         posts.value = []
 
@@ -70,6 +71,13 @@ export const usePostsStore = defineStore('posts', () => {
             const hasImage = hasUrl && /\.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$/i.test(postUrl)
             const hasVideo = hasUrl && /\.(webm|mp4)$/i.test(postUrl)
 
+            let my_vote = null
+            if (api.authenticated) {
+              if (typeof postArray[i].my_vote !== 'undefined') {
+                my_vote = postArray[i].my_vote
+              }
+            }
+
             posts.value.push({
               community: {
                 local: postArray[i].community.local,
@@ -88,7 +96,8 @@ export const usePostsStore = defineStore('posts', () => {
                 newest_comment_time: postArray[i].counts.newest_comment_time,
                 published: postArray[i].counts.published,
                 score: postArray[i].counts.score,
-                unread_comments: postArray[i].post.unread_comments
+                unread_comments: postArray[i].unread_comments,
+                my_vote: my_vote
               },
               creator: {
                 actor_id: postArray[i].creator.actor_id,
@@ -113,7 +122,8 @@ export const usePostsStore = defineStore('posts', () => {
                 url_domain: postDomain,
                 hasImage: hasImage,
                 hasUrl: hasUrl,
-                hasVideo: hasVideo
+                hasVideo: hasVideo,
+                read: postArray[i].read
               }
             })
           }
