@@ -75,8 +75,10 @@ export const usePostsStore = defineStore('posts', () => {
               postDomain = postUrl.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im)[1]
 
             const hasUrl = postUrl.length
-            const hasImage = hasUrl && /\.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$/i.test(postUrl)
-            const hasVideo = hasUrl && /\.(webm|mp4)$/i.test(postUrl)
+            const hasImage = hasUrl && /\.(jpg|jpeg|png|apng|gif|bmp|webp|svg|ico)$/i.test(postUrl)
+            const hasVideo = hasUrl && /\.(webm|mp4|ogg|avi|mov|wmv|flv)$/i.test(postUrl)
+            const hasAudio = hasUrl && /\.(mp3|wav|aac|flac)$/i.test(postUrl)
+            const extension = postUrl.split('.').pop()
 
             let my_vote = null
             if (api.authenticated) {
@@ -129,7 +131,10 @@ export const usePostsStore = defineStore('posts', () => {
                 url_domain: postDomain,
                 hasImage: hasImage,
                 hasUrl: hasUrl,
+                hasMedia: hasImage || hasVideo || hasAudio,
                 hasVideo: hasVideo,
+                hasAudio: hasAudio,
+                extension: hasImage || hasVideo || hasAudio ? extension : null,
                 read: postArray[i].read,
                 saved: postArray[i].saved
               }
