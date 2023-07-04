@@ -49,7 +49,8 @@ onMounted(() => {
 async function updatePosts() {
   showSadFace.value = false
   showLoader.value = true
-  await posts.getFrontpage(site.postSort, site.postView)
+
+  await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded posts')
   site.setPostsStale(false)
   showLoader.value = false

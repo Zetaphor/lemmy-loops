@@ -33,7 +33,7 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
-  function getFrontpage(sort, view) {
+  function requestPosts(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
         const form = {
@@ -41,7 +41,14 @@ export const usePostsStore = defineStore('posts', () => {
           sort: sort
         }
 
-        if (api.authenticated) form.auth = api.jwt
+        if (api.authenticated) {
+          form.auth = api.jwt
+
+          if (view == 'Saved') {
+            form.type_ = 'All'
+            form.saved_only = true
+          }
+        }
 
         const postData = await api.getPosts(form)
         const postArray = postData.posts
@@ -140,6 +147,6 @@ export const usePostsStore = defineStore('posts', () => {
     posts,
     sort,
     view,
-    getFrontpage
+    requestPosts
   }
 })
