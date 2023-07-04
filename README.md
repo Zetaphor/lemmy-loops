@@ -1,6 +1,6 @@
-# zemmy-web
+# Loops, a Lemmy client
 
-A PWA/Desktop client for Lemmy. Very much a work in progress, name likely to change.
+A PWA/Desktop client for Lemmy. Very much a work in progress.
 
 Built with Vue 3, Tailwind CSS, and DaisyUI.
 
