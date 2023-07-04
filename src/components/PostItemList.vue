@@ -1,4 +1,5 @@
 <template>
+  <!-- Post loader -->
   <div v-if="showLoader" class="flex justify-center items-center">
     <svg class="stroke-gray-100 " xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'
       style='shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
@@ -10,6 +11,8 @@
       </path>
     </svg>
   </div>
+
+  <!-- No posts -->
   <div v-else-if="showSadFace">
     <div class="flex justify-center items-center mt-3">
       <svg class="stroke-gray-100 fill-gray-100 w-24 h-24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
@@ -23,9 +26,8 @@
     <p class="text-center p-2">It looks like there's nothing here :(</p>
     <p class="text-center p-2">Try a different view or sorting option</p>
   </div>
-  <div v-else>
-    <PostItem v-for="(post, index) in posts.posts" :key="index" :post="post" />
-  </div>
+
+  <PostItem v-else v-for="(post, index) in posts.posts" :key="index" :post="post" />
 </template>
 
 <script setup>

@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <PostItemList />
-  </main>
+  <PostItemList />
 </template>
 
 <script setup>
