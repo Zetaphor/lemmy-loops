@@ -123,7 +123,8 @@ export const usePostsStore = defineStore('posts', () => {
                 hasImage: hasImage,
                 hasUrl: hasUrl,
                 hasVideo: hasVideo,
-                read: postArray[i].read
+                read: postArray[i].read,
+                saved: postArray[i].saved
               }
             })
           }
