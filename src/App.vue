@@ -3,6 +3,7 @@
   <ToastDisplay />
   <LeftSidebar />
   <RightSidebar />
+  <ContentOverlay />
   <header class="fixed top-0 w-full z-10">
     <TopNav />
   </header>
@@ -31,4 +32,5 @@ import LeftSidebar from './components/LeftSidebar.vue';
 import DarkOverlay from './components/DarkOverlay.vue';
 import RightSidebar from './components/RightSidebar.vue';
 import ToastDisplay from './components/ToastDisplay.vue';
+import ContentOverlay from './components/ContentOverlay.vue';
 </script>
