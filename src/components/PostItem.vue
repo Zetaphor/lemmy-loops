@@ -63,6 +63,7 @@
         </div>
       </div>
     </div>
+
     <!-- Post content -->
     <div class="w-full relative snap-start">
       <div class="card-bordered card-compact my-2 shadow-sm cursor-pointer flex w-full"
