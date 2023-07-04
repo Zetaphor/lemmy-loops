@@ -1,4 +1,4 @@
-# Loops, a Lemmy client
+# ∞Loops, a Lemmy client
 
 A PWA/Desktop client for Lemmy. Very much a work in progress.
 
