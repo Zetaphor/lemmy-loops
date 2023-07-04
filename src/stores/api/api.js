@@ -19,7 +19,7 @@ export const useApiStore = defineStore('api', () => {
         username_or_email: username,
         password: password
       }
-      jwt.value = client
+      client
         .login(loginForm)
         .then((res) => {
           if (res.jwt) {
@@ -76,6 +76,7 @@ export const useApiStore = defineStore('api', () => {
   return {
     client,
     authenticated,
+    jwt,
     getSite,
     login,
     getPersonDetails,
