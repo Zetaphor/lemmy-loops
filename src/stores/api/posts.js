@@ -57,7 +57,7 @@ export const usePostsStore = defineStore('posts', () => {
         const postData = await api.getPosts(form)
         const postArray = postData.posts
 
-        posts.value = []
+        if (page.value == 1) posts.value = []
 
         for (let i = 0; i < postArray.length; i++) {
           if (
@@ -156,6 +156,7 @@ export const usePostsStore = defineStore('posts', () => {
     posts,
     sort,
     view,
+    page,
     requestPosts
   }
 })
