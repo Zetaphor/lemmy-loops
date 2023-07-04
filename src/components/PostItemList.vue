@@ -44,12 +44,17 @@ const showSadFace = ref(false)
 
 onMounted(() => {
   if (site.postsStale) updatePosts()
-});
+})
+
+site.$subscribe(() => {
+  if (site.postsStale) updatePosts()
+})
 
 async function updatePosts() {
   showSadFace.value = false
   showLoader.value = true
 
+  posts.page = 1
   await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded posts')
   site.setPostsStale(false)

@@ -7,6 +7,8 @@ export const usePostsStore = defineStore('posts', () => {
   const api = useApiStore()
 
   const posts = ref([])
+  const page = ref(1)
+
   // "Active" | "Hot" | "New" | "Old" | "TopDay" | "TopWeek" | "TopMonth" | "TopYear" | "TopAll" | "MostComments" | "NewComments" | "TopHour" | "TopSixHour" | "TopTwelveHour"
   const sort = ref('Hot')
   const view = ref('All')
@@ -38,7 +40,9 @@ export const usePostsStore = defineStore('posts', () => {
       try {
         const form = {
           type_: view,
-          sort: sort
+          sort: sort,
+          limit: 25,
+          page: page.value
         }
 
         if (api.authenticated) {
