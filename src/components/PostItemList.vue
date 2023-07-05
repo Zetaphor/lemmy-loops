@@ -57,7 +57,6 @@ onMounted(() => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("Loading next page");
           loadNextPage();
         }
       });
@@ -99,7 +98,8 @@ async function updatePosts() {
 }
 
 async function loadNextPage() {
-  if (!posts.posts.length || showSadFace.value) return
+  if (!posts.posts.length || site.postsStale || showSadFace.value) return
+  console.log("Loading next page");
 
   posts.page = posts.page + 1
   showLoader.value = true
