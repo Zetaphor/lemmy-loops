@@ -34,9 +34,8 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import PostItem from './PostItem.vue';
-import { onMounted } from 'vue'
 import { usePostsStore } from '@/stores/api/posts';
 import { useSiteStore } from '@/stores/site'
 
