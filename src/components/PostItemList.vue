@@ -50,8 +50,6 @@ const scrollTargetEl = ref(null)
 const postItemListEl = ref(null)
 
 onMounted(() => {
-  if (site.postsStale) updatePosts()
-
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -93,27 +91,21 @@ async function updatePosts() {
   posts.page = 1
   await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded posts')
-  site.postsStale = false
+  // site.postsStale = false
   showLoader.value = false
   if (!posts.posts.length) showSadFace.value = true
 }
 
 async function loadNextPage() {
-  if (!posts.posts.length || site.postsStale || showSadFace.value) return
+  if (!posts.posts.length || site.postsStale || showSadFace.value || showLoader.value) return
   console.log("Loading next page");
 
   posts.page = posts.page + 1
   showLoader.value = true
 
-  await posts.requestPosts(site.postSort, site.postView)
+  // await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded page', posts.page)
   showLoader.value = false
 }
-
-site.$subscribe(() => {
-  if (site.postsStale) {
-    updatePosts()
-  }
-})
 
 </script>
