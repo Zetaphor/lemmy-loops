@@ -198,13 +198,13 @@ function toggleSortSelector() {
 function viewUpdated() {
   overlay.visible = false
   showViewSelector.value = false
-  site.setPostsStale(true)
+  site.postsStale = true
 }
 
 function sortUpdated() {
   overlay.visible = false
   showSortSelector.value = false
-  site.setPostsStale(true)
+  site.postsStale = true
 }
 
 overlay.$subscribe(() => {

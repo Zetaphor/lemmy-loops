@@ -140,7 +140,7 @@ const site = useSiteStore()
 const emit = defineEmits(['setSort'])
 
 function setSort(sort) {
-  site.setPostSort(sort)
+  site.postSort = sort
   emit('setSort')
 }
 </script>

@@ -55,7 +55,7 @@ const user = useUserStore()
 const emit = defineEmits(['setView'])
 
 function setView(view) {
-  site.setPostView(view)
+  site.postView = view
   emit('setView')
 }
 </script>

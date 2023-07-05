@@ -91,7 +91,7 @@ async function updatePosts() {
   posts.page = 1
   await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded posts')
-  site.setPostsStale(false)
+  site.postsStale = false
   showLoader.value = false
   if (!posts.posts.length) showSadFace.value = true
 }
