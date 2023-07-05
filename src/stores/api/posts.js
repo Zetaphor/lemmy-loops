@@ -58,23 +58,7 @@ export const usePostsStore = defineStore('posts', () => {
   function requestPosts(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
-        const form = {
-          type_: view,
-          sort: sort,
-          limit: 25,
-          page: page.value
-        }
-
-        if (api.authenticated) {
-          form.auth = api.jwt
-
-          if (view == 'Saved') {
-            form.type_ = 'All'
-            form.saved_only = true
-          }
-        }
-
-        const postData = await api.getPosts(form)
+        const postData = await api.getPosts(sort, view, page)
         const postArray = postData.posts
 
         if (page.value == 1) posts.value = []

@@ -89,7 +89,22 @@ export const useApiStore = defineStore('api', () => {
     return client.savePost(form)
   }
 
-  function getPosts(form) {
+  function getPosts(sort, view, page) {
+    const form = {
+      type_: view,
+      sort: sort,
+      limit: 25,
+      page: page.value
+    }
+
+    if (authenticated.value) {
+      form.auth = jwt.value
+
+      if (view == 'Saved') {
+        form.type_ = 'All'
+        form.saved_only = true
+      }
+    }
     return client.getPosts(form)
   }
 
