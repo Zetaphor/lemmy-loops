@@ -264,7 +264,7 @@ const user = useUserStore()
 
 async function vote(score) {
   try {
-    const resp = await posts.sendVote(props.post.content.id, props.postIndex, score)
+    await posts.sendVote(props.post.content.id, props.postIndex, score)
   } catch (error) {
     console.error(error)
   }
@@ -272,7 +272,7 @@ async function vote(score) {
 
 async function setSaved(saved) {
   try {
-    const resp = await posts.savePost(props.post.content.id, props.postIndex, saved)
+    await posts.savePost(props.post.content.id, props.postIndex, saved)
   } catch (error) {
     console.error(error)
   }
