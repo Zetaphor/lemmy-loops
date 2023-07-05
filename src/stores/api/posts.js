@@ -35,6 +35,22 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
+  function sendVote(post_id, vote) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const form = {
+          auth: api.jwt,
+          post_id: post_id,
+          score: vote
+        }
+        const resp = await api.postVote(form)
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
   function requestPosts(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
