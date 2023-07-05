@@ -257,13 +257,17 @@ import { useContentViewerStore } from '@/stores/content-viewer'
 import { usePostsStore } from '@/stores/api/posts'
 import { useUserStore } from '@/stores/api/user'
 
-const props = defineProps(['post'])
+const props = defineProps(['post', 'postIndex'])
 const content = useContentViewerStore()
 const posts = usePostsStore()
 const user = useUserStore()
 
 async function vote(score) {
-  const resp = await posts.sendVote(props.post.content.id, score)
+  try {
+    const resp = await posts.sendVote(props.post.content.id, props.postIndex, score)
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 function setContent(url, extension, video = false, audio = false) {

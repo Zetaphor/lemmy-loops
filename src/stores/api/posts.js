@@ -31,7 +31,7 @@ export const usePostsStore = defineStore('posts', () => {
     }
   }
 
-  function sendVote(post_id, vote) {
+  function sendVote(post_id, postIndex, vote) {
     return new Promise(async (resolve, reject) => {
       try {
         const form = {
@@ -39,7 +39,14 @@ export const usePostsStore = defineStore('posts', () => {
           post_id: post_id,
           score: vote
         }
-        const resp = await api.postVote(form)
+        await api.postVote(form)
+        posts.value[postIndex].counts.my_vote = vote
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
         resolve(true)
       } catch (error) {
         reject(error)
