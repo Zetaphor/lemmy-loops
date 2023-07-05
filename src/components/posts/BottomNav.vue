@@ -2,7 +2,7 @@
   <ViewSelector v-if="showViewSelector" @setView="viewUpdated" />
   <SortSelector v-if="showSortSelector" @setSort="sortUpdated" />
 
-  <div class="btm-nav" v-show="!overlay.hideNav">
+  <div class="btm-nav z-20" v-show="!overlay.hideNav">
     <!-- View selector -->
     <button v-if="site.postView == 'All'" @click="toggleViewSelector">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-full stroke-current fill-current" viewBox="-5 -20 74 90">

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full position fixed bottom-16">
+  <div class="w-full position fixed bottom-16 z-20">
     <ul class="menu w-full bg-gray-700 rounded-t-lg">
       <li @click="setSort('MostComments')" :class="site.postSort == 'MostComments' ? 'bg-gray-500' : ''">
         <a>

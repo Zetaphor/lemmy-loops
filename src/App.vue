@@ -7,12 +7,9 @@
   <header class="fixed top-0 w-full z-10">
     <TopNav />
   </header>
-  <main class="pt-20 pb-20">
+  <main class="pt-16 pb-20">
     <RouterView />
   </main>
-  <footer class="fixed bottom-0 w-full z-10">
-    <BottomNav />
-  </footer>
 </template>
 
 <style>
@@ -28,13 +25,12 @@ body,
 <script setup>
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import TopNav from './components/TopNav.vue';
-import BottomNav from './components/BottomNav.vue';
-import LeftSidebar from './components/LeftSidebar.vue';
-import DarkOverlay from './components/DarkOverlay.vue';
-import RightSidebar from './components/RightSidebar.vue';
-import ToastDisplay from './components/ToastDisplay.vue';
-import ContentOverlay from './components/ContentOverlay.vue';
+import TopNav from './components/nav/TopNav.vue';
+import LeftSidebar from './components/nav/LeftSidebar.vue';
+import DarkOverlay from './components/overlays/DarkOverlay.vue';
+import RightSidebar from './components/nav/RightSidebar.vue';
+import ToastDisplay from './components/overlays/ToastDisplay.vue';
+import ContentOverlay from './components/overlays/ContentOverlay.vue';
 import { useUserStore } from '@/stores/api/user'
 import { useSiteStore } from '@/stores/site'
 

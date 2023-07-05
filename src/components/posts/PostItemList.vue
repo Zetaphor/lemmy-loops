@@ -1,5 +1,5 @@
 <template>
-  <div ref="postItemListEl" class="w-screen h-screen relative overflow-scroll pb-96">
+  <div ref="postItemListEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
     <PostItem v-for="(post, index) in posts.posts" :key="index" :post="post" :postIndex="index" />
     <div ref="scrollTargetEl"></div>
 
