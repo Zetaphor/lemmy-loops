@@ -26,6 +26,7 @@ body,
 </style>
 
 <script setup>
+import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import TopNav from './components/TopNav.vue';
 import BottomNav from './components/BottomNav.vue';
@@ -34,4 +35,19 @@ import DarkOverlay from './components/DarkOverlay.vue';
 import RightSidebar from './components/RightSidebar.vue';
 import ToastDisplay from './components/ToastDisplay.vue';
 import ContentOverlay from './components/ContentOverlay.vue';
+import { useUserStore } from '@/stores/api/user'
+import { useSiteStore } from '@/stores/site'
+
+const user = useUserStore()
+const site = useSiteStore()
+
+onMounted(() => {
+  user.restoreLogin().then(() => {
+    console.log('Login restored')
+    site.postsStale = true
+  }).catch(() => {
+    console.info('No existing login found')
+    site.postsStale = true
+  })
+})
 </script>

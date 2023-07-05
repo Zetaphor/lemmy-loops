@@ -88,6 +88,8 @@ async function updatePosts() {
   showSadFace.value = false
   showLoader.value = true
 
+  posts.posts = []
+
   posts.page = 1
   await posts.requestPosts(site.postSort, site.postView)
   console.info('Loaded posts')

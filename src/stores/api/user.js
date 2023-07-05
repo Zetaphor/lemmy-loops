@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
 
   const authenticated = ref(false)
   const person_id = ref(-1)
+  const username = ref('')
   const admin = ref(false)
   const moderator = ref(false)
   const avatarImage = ref('/favicon.png')
@@ -28,14 +29,40 @@ export const useUserStore = defineStore('user', () => {
   })
   const privateMessages = ref([])
 
+  async function restoreLogin() {
+    return new Promise(async (resolve, reject) => {
+      const lemmy_jwt = localStorage.getItem('lemmy_jwt')
+      const lemmy_person_id = Number(localStorage.getItem('lemmy_person_id'))
+      if (
+        !lemmy_jwt ||
+        !lemmy_person_id ||
+        !lemmy_jwt.length ||
+        typeof lemmy_jwt !== 'string' ||
+        typeof lemmy_person_id !== 'number'
+      ) {
+        console.log(lemmy_jwt, lemmy_person_id)
+        reject()
+        return
+      }
+      api.jwt = localStorage.getItem('lemmy_jwt')
+      const personDetails = await api.getPersonDetails(localStorage.getItem('lemmy_person_id'))
+      setUserData(personDetails)
+      authenticated.value = true
+      api.authenticated = true
+      resolve()
+    })
+  }
+
   function loginUser(instanceUrl, username, password) {
     return new Promise(async (resolve, reject) => {
       try {
         await api.login(instanceUrl, username, password)
-        const personDetails = await api.getPersonDetails(username)
+        const personDetails = await api.getPersonDetails(username, true)
         authenticated.value = true
         setUserData(personDetails)
         updateUnreadCounts()
+        localStorage.setItem('lemmy_jwt', api.jwt)
+        localStorage.setItem('lemmy_person_id', person_id.value)
         resolve()
       } catch (error) {
         reject(error)
@@ -60,7 +87,8 @@ export const useUserStore = defineStore('user', () => {
     comments.value = personData.comments
     moderator.value = personData.moderates.length > 0
     moderates.value = personData.moderates
-    person_id.value = personData.person_view.person.person_id
+    username.value = personData.person_view.person.username
+    person_id.value = personData.person_view.person.id
     admin.value = personData.person_view.person.admin
     avatarImage.value = personData.person_view.person.avatar
     banned.value = personData.person_view.person.banned
@@ -75,6 +103,7 @@ export const useUserStore = defineStore('user', () => {
   return {
     loginUser,
     updateUnreadCounts,
+    restoreLogin,
     authenticated,
     unreadCounts,
     privateMessages,

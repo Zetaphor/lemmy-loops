@@ -140,6 +140,7 @@ export const usePostsStore = defineStore('posts', () => {
                 name: postArray[i].creator.name
               },
               content: {
+                id: postArray[i].post.id,
                 ap_id: postArray[i].post.ap_id,
                 body: postArray[i].post.body || '',
                 locked: postArray[i].post.locked,
@@ -173,6 +174,7 @@ export const usePostsStore = defineStore('posts', () => {
     sort,
     view,
     page,
-    requestPosts
+    requestPosts,
+    sendVote
   }
 })

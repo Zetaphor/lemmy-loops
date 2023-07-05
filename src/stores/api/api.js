@@ -32,14 +32,16 @@ export const useApiStore = defineStore('api', () => {
     })
   }
 
-  function getPersonDetails(username) {
+  function getPersonDetails(identifier, useUsername = false) {
     return new Promise((resolve, reject) => {
       const form = {
-        username: username,
         auth: jwt.value,
-        // limit: 10,
         sort: 'New'
       }
+
+      if (useUsername) form.username = identifier
+      else form.person_id = identifier
+
       client
         .getPersonDetails(form)
         .then((res) => resolve(res))
