@@ -34,12 +34,7 @@ export const usePostsStore = defineStore('posts', () => {
   function sendVote(post_id, postIndex, vote) {
     return new Promise(async (resolve, reject) => {
       try {
-        const form = {
-          auth: api.jwt,
-          post_id: post_id,
-          score: vote
-        }
-        await api.postVote(form)
+        await api.postVote(post_id, vote)
         posts.value[postIndex].counts.my_vote = vote
         resolve(true)
       } catch (error) {
@@ -47,6 +42,12 @@ export const usePostsStore = defineStore('posts', () => {
       }
     })
   }
+
+  function savePost(post_id, postIndex, saved) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.postSave(post_id, saved)
+        posts.value[postIndex].content.saved = saved
         resolve(true)
       } catch (error) {
         reject(error)
@@ -176,6 +177,7 @@ export const usePostsStore = defineStore('posts', () => {
     posts,
     page,
     requestPosts,
-    sendVote
+    sendVote,
+    savePost
   }
 })

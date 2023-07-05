@@ -39,7 +39,7 @@
             </svg>
             <p class="text-center w-full">Share</p>
           </div>
-          <div class="flex-1">
+          <div class="flex-1" @click="setSaved(!props.post.content.saved)">
             <svg v-if="post.content.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -265,6 +265,14 @@ const user = useUserStore()
 async function vote(score) {
   try {
     const resp = await posts.sendVote(props.post.content.id, props.postIndex, score)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function setSaved(saved) {
+  try {
+    const resp = await posts.savePost(props.post.content.id, props.postIndex, saved)
   } catch (error) {
     console.error(error)
   }
