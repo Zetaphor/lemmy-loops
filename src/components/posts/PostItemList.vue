@@ -97,9 +97,7 @@ async function updatePosts() {
 }
 
 async function loadNextPage() {
-  console.log(posts.posts.length, site.postsStale, showSadFace.value, showLoader.value)
   if (!posts.posts.length || site.postsStale || showSadFace.value || showLoader.value) return
-  console.log("Loading next page");
 
   posts.page = posts.page + 1
   showLoader.value = true
