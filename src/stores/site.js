@@ -6,6 +6,7 @@ export const useSiteStore = defineStore('site', () => {
 
   const sites = ref([])
 
+  // "Active" | "Hot" | "New" | "Old" | "TopDay" | "TopWeek" | "TopMonth" | "TopYear" | "TopAll" | "MostComments" | "NewComments" | "TopHour" | "TopSixHour" | "TopTwelveHour"
   const postSort = ref('Hot')
   const postView = ref('All')
 

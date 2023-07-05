@@ -9,10 +9,6 @@ export const usePostsStore = defineStore('posts', () => {
   const posts = ref([])
   const page = ref(1)
 
-  // "Active" | "Hot" | "New" | "Old" | "TopDay" | "TopWeek" | "TopMonth" | "TopYear" | "TopAll" | "MostComments" | "NewComments" | "TopHour" | "TopSixHour" | "TopTwelveHour"
-  const sort = ref('Hot')
-  const view = ref('All')
-
   function formatRelativeTime(dateString) {
     const currentDateTime = DateTime.local()
     const dateTime = DateTime.fromISO(dateString)
@@ -171,8 +167,6 @@ export const usePostsStore = defineStore('posts', () => {
 
   return {
     posts,
-    sort,
-    view,
     page,
     requestPosts,
     sendVote
