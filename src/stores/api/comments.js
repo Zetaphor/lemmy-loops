@@ -7,17 +7,21 @@ export const useCommentsStore = defineStore('comments', () => {
 
   const sort = ref('Hot')
   const view = ref('All')
+  const page = ref(1)
 
-  const comments = ref({})
+  const renderedNodes = ref(1)
+  const limit = ref(15)
 
   async function getComments(post_id) {
-    try {
-      const resp = await api.getComments(post_id, sort.value, view.value)
-      comments.value = []
-      return generateCommentTree(resp.comments)
-    } catch (error) {
-      console.log(error)
-    }
+    return new Promise(async (resolve, reject) => {
+      try {
+        const resp = await api.getComments(post_id, sort.value, view.value, page.value, limit.value)
+        resolve(generateCommentTree(resp.comments))
+      } catch (error) {
+        console.log(error)
+        reject(error)
+      }
+    })
   }
 
   function generateCommentTree(comments) {
@@ -73,6 +77,11 @@ export const useCommentsStore = defineStore('comments', () => {
   }
 
   return {
+    limit,
+    renderedNodes,
+    page,
+    sort,
+    view,
     getComments
   }
 })

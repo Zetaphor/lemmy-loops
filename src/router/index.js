@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import PostsView from '../views/PostsView.vue'
+import CommentsView from '../views/CommentsView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 
@@ -11,6 +12,11 @@ const router = createRouter({
       name: 'home',
       component: PostsView
     },
+    {
+      path: '/comments/:post_id',
+      props: true,
+      name: 'comments',
+      component: CommentsView
     },
     {
       path: '/login',

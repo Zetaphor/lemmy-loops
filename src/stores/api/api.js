@@ -108,6 +108,19 @@ export const useApiStore = defineStore('api', () => {
     return client.getPosts(form)
   }
 
+  function getComments(post_id, sort, view, page, limit) {
+    const form = {
+      post_id: post_id,
+      // max_depth: 1,
+      sort: sort,
+      type_: view,
+      limit: limit,
+      page: page
+    }
+    if (authenticated.value) form.auth = jwt.value
+    return client.getComments(form)
+  }
+
   return {
     client,
     authenticated,
@@ -119,6 +132,7 @@ export const useApiStore = defineStore('api', () => {
     getUnreadCount,
     getPosts,
     postVote,
-    postSave
+    postSave,
+    getComments
   }
 })

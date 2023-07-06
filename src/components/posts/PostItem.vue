@@ -68,7 +68,8 @@
     <div class="w-full relative snap-start">
       <div class="card-bordered card-compact my-2 shadow-sm cursor-pointer flex w-full"
         :class="[post.content.read ? 'bg-neutral-800' : 'bg-gray-800']">
-        <div :class="[post.content.hasImage || post.content.hasUrl || post.content.hasVideo ? 'w-3/4' : 'w-full']">
+        <div :class="[post.content.hasImage || post.content.hasUrl || post.content.hasVideo ? 'w-3/4' : 'w-full']"
+          @click="showComments">
           <div class="p-2">
             <p class="text-xl text-white">{{ post.content.name }}</p>
 
@@ -253,6 +254,7 @@
 </style>
 
 <script setup>
+import { useRouter } from 'vue-router'
 import { useContentViewerStore } from '@/stores/content-viewer'
 import { usePostsStore } from '@/stores/api/posts'
 import { useUserStore } from '@/stores/api/user'
@@ -261,6 +263,7 @@ const props = defineProps(['post', 'postIndex'])
 const content = useContentViewerStore()
 const posts = usePostsStore()
 const user = useUserStore()
+const router = useRouter()
 
 async function vote(score) {
   try {
@@ -284,5 +287,9 @@ function setContent(url, extension, video = false, audio = false) {
   content.audio = audio
   content.extension = extension
   content.visible = true
+}
+
+function showComments() {
+  router.push('/comments/' + props.post.content.id)
 }
 </script>
