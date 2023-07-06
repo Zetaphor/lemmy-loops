@@ -115,7 +115,6 @@ export const useApiStore = defineStore('api', () => {
       sort: sort,
       type_: view
     }
-    console.log(form)
     if (authenticated.value) form.auth = jwt.value
     return client.getComments(form)
   }

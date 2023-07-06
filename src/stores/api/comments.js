@@ -137,8 +137,6 @@ export const useCommentsStore = defineStore('comments', () => {
   }
 
   return {
-    limit,
-    page,
     sort,
     view,
     getComments
