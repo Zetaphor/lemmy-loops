@@ -43,7 +43,7 @@ export const useCommentsStore = defineStore('comments', () => {
           actor_id: commentObj.creator.actor_id,
           actor_domain: (commentObj.creator.actor_id.match(/https:\/\/([^/]+)\/u\//) || [])[1],
           admin: commentObj.creator.admin,
-          avatar: commentObj.creator.avatar,
+          avatar: commentObj.creator.avatar || '',
           bot_account: commentObj.creator.bot_account,
           id: commentObj.creator.id,
           local: commentObj.creator.local,
