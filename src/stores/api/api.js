@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { LemmyHttp } from 'lemmy-js-client'
 
 export const useApiStore = defineStore('api', () => {
-  const baseUrl = ref('/')
+  const baseUrl = ref('https://zemmy.cc')
   const client = new LemmyHttp(baseUrl.value)
 
   const jwt = ref('')
@@ -117,6 +117,7 @@ export const useApiStore = defineStore('api', () => {
       // limit: limit,
       // page: page
     }
+    console.log(form)
     if (authenticated.value) form.auth = jwt.value
     return client.getComments(form)
   }
