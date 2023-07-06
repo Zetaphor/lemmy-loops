@@ -1,0 +1,116 @@
+<template>
+  <div ref="commentListEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
+    <CommentItem :item="item" v-for="(item, index) in visibleComments" :key="index" />
+    <div ref="scrollTargetEl"></div>
+
+    <!-- Comment loader -->
+    <div v-if="showLoader" class="flex justify-center items-center">
+      <svg class="stroke-gray-100 " xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'
+        style='shape-rendering: auto;' width='200px' height='200px' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid'>
+        <path fill='none' stroke-width='10' stroke-dasharray='205.271142578125 51.317785644531256'
+          d='M24.3 30C11.4 30 5 43.3 5 50s6.4 20 19.3 20c19.3 0 32.1-40 51.4-40 C88.6 30 95 43.3 95 50s-6.4 20-19.3 20C56.4 70 43.6 30 24.3 30z'
+          stroke-linecap='round' style='transform:scale(0.8);transform-origin:50px 50px'>
+          <animate attributeName='stroke-dashoffset' repeatCount='indefinite' dur='2s' keyTimes='0;1'
+            values='0;256.58892822265625'></animate>
+        </path>
+      </svg>
+    </div>
+
+    <!-- No comments -->
+    <div v-else-if="showSadFace">
+      <div class="flex justify-center items-center mt-3">
+        <svg class="stroke-gray-100 fill-gray-100 w-24 h-24" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+          version="1.1" viewBox="0 0 333 416.25">
+          <path d="M167 26c184 0 184 281 0 281-185 0-185-281 0-281zm0 19C6 45 6 289 167 289c160 0 160-244 0-244z" />
+          <circle cx="121" cy="122" r="19" />
+          <circle cx="213" cy="122" r="19" />
+          <path d="M92 237c-1 2 0 4 3 4h9c2 0 2-2 3-3 22-58 97-58 120 0 0 1 1 3 3 3h9c2 0 3-2 2-4-25-78-123-78-149 0z" />
+        </svg>
+      </div>
+      <p class="text-center p-2">It looks like there's no more comments here.</p>
+      <p class="text-center p-2">Why not contribute a reply?</p>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import CommentItem from '@/components/comments/CommentItem.vue';
+import { useCommentsStore } from '@/stores/api/comments'
+
+const props = defineProps(['post_id'])
+const comments = useCommentsStore()
+
+const showLoader = ref(true)
+const showSadFace = ref(false)
+let visibleComments = ref([])
+let commentQueue = []
+
+let observer = null;
+const scrollTargetEl = ref(null)
+const commentListEl = ref(null)
+let currentPage = 0
+let commentsPerPage = 10
+
+onMounted(() => {
+  showLoader.value = true
+  showSadFace.value = false
+  updateComments()
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log('Hit here')
+          renderMoreComments();
+        }
+      })
+    },
+    {
+      root: commentListEl.value,
+      rootMargin: '1000px',
+      threshold: 0.1,
+    }
+  )
+
+  if (scrollTargetEl.value) {
+    observer.observe(scrollTargetEl.value)
+  }
+})
+
+onUnmounted(() => {
+  if (observer && scrollTargetEl.value) {
+    observer.unobserve(scrollTargetEl.value)
+    observer.disconnect()
+    observer = null
+  }
+})
+
+function renderMoreComments() {
+  showLoader.value = true
+  const startIndex = currentPage * commentsPerPage
+  if (startIndex >= commentQueue.length || commentsPerPage === 0) {
+    showLoader.value = false
+    showSadFace.value = true
+    return []
+  }
+  const endIndex = Math.min(startIndex + commentsPerPage, commentQueue.length)
+  const slice = commentQueue.slice(startIndex, endIndex)
+  visibleComments.value = [...visibleComments.value, ...slice]
+  console.info('Loaded comment page', currentPage)
+  currentPage++
+  showLoader.value = false
+}
+
+
+
+async function updateComments() {
+  commentQueue = []
+  visibleComments.value = []
+  commentQueue = await comments.getComments(props.post_id)
+  renderMoreComments()
+  showLoader.value = false
+  showSadFace.value = false
+}
+
+</script>

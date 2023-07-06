@@ -1,31 +1,35 @@
 <template>
-  <div :style="{ marginLeft: depth * 5 + 'px' }">
+  <div :style="{ marginLeft: item.comment.depth * 5 + 'px' }">
     <div class="comment">
       <button @click="toggleCollapse">
         {{ isCollapsed.value ? 'Expand' : 'Collapse' }}
       </button>
-      <img :src="comment.creator.avatar" class="w-10 rounded-full" />
-      <p>{{ comment.creator.name }}</p>
-      <p>{{ comment.comment.content }}</p>
-    </div>
-    <div v-show="!isCollapsed.value">
-      <CommentItem v-for="(child, index) in comment.children" :key="index" :comment="child" :depth="depth + 1" />
+      <img :src="item.creator.avatar" class="w-10 rounded-full" />
+      <p>{{ item.creator.name }}</p>
+      <p>{{ item.comment.content }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useCommentsStore } from '@/stores/api/comments'
+import { ref } from 'vue';
 
-defineProps(['comment', 'depth'])
+defineProps(['item'])
 
 const isCollapsed = ref(false)
-const comments = useCommentsStore()
 
-onMounted(() => {
-  comments.renderedNodes = comments.renderedNodes + 1
-})
+// const rainbowColors = [
+//   "#FF0000", // Red
+//   "#FF7F00", // Orange
+//   "#e1ca00", // Yellow
+//   "#00dd00", // Green
+//   "#0000FF", // Blue
+//   "#4B0082", // Indigo
+//   "#8B00FF", // Violet
+//   "#FF00FF", // Magenta
+//   "#FF1493", // Deep Pink
+//   "#00FFFF", // Cyan
+// ]
 
 function toggleCollapse() {
   isCollapsed.value = !isCollapsed.value;
