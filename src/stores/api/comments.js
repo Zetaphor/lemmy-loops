@@ -7,14 +7,11 @@ export const useCommentsStore = defineStore('comments', () => {
 
   const sort = ref('Hot')
   const view = ref('All')
-  const page = ref(1)
-
-  const limit = ref(15)
 
   async function getComments(post_id) {
     return new Promise(async (resolve, reject) => {
       try {
-        const resp = await api.getComments(post_id, sort.value, view.value, page.value, limit.value)
+        const resp = await api.getComments(post_id, sort.value, view.value)
         resolve(generateFlatSortedCommentArray(resp.comments))
       } catch (error) {
         console.log(error)
