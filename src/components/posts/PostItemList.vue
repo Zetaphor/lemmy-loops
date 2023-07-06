@@ -50,6 +50,8 @@ const scrollTargetEl = ref(null)
 const postItemListEl = ref(null)
 
 onMounted(() => {
+  if (site.postsStale) updatePosts()
+
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
