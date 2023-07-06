@@ -56,19 +56,20 @@ onMounted(() => {
   showLoader.value = true
   showSadFace.value = false
   updateComments()
+})
 
+function setupObserver() {
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log('Hit here')
           renderMoreComments();
         }
       })
     },
     {
       root: commentListEl.value,
-      rootMargin: '1000px',
+      rootMargin: '500px',
       threshold: 0.1,
     }
   )
@@ -76,7 +77,7 @@ onMounted(() => {
   if (scrollTargetEl.value) {
     observer.observe(scrollTargetEl.value)
   }
-})
+}
 
 onUnmounted(() => {
   if (observer && scrollTargetEl.value) {
@@ -89,7 +90,8 @@ onUnmounted(() => {
 function renderMoreComments() {
   showLoader.value = true
   const startIndex = currentPage * commentsPerPage
-  if (startIndex >= commentQueue.length || commentsPerPage === 0) {
+  if (commentQueue.length && (startIndex >= commentQueue.length || commentsPerPage === 0)) {
+    console.log('Reached end of list')
     showLoader.value = false
     showSadFace.value = true
     return []
@@ -110,7 +112,8 @@ async function updateComments() {
   commentQueue = await comments.getComments(props.post_id)
   renderMoreComments()
   showLoader.value = false
-  showSadFace.value = false
+  showSadFace.value = true
+  setupObserver()
 }
 
 </script>
