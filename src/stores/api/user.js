@@ -40,7 +40,6 @@ export const useUserStore = defineStore('user', () => {
         typeof lemmy_jwt !== 'string' ||
         typeof lemmy_person_id !== 'number'
       ) {
-        console.log(lemmy_jwt, lemmy_person_id)
         reject()
         return
       }
