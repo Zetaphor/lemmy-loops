@@ -56,27 +56,27 @@ onMounted(() => {
         if (entry.isIntersecting) {
           loadNextPage();
         }
-      });
+      })
     },
     {
       root: postItemListEl.value,
       rootMargin: '1000px',
       threshold: 0.1,
     }
-  );
+  )
 
   if (scrollTargetEl.value) {
-    observer.observe(scrollTargetEl.value);
+    observer.observe(scrollTargetEl.value)
   }
 })
 
 onUnmounted(() => {
   if (observer && scrollTargetEl.value) {
-    observer.unobserve(scrollTargetEl.value);
-    observer.disconnect();
-    observer = null;
+    observer.unobserve(scrollTargetEl.value)
+    observer.disconnect()
+    observer = null
   }
-});
+})
 
 site.$subscribe(() => {
   if (site.postsStale) updatePosts()
