@@ -4,15 +4,20 @@
       <button @click="toggleCollapse">
         {{ isCollapsed.value ? 'Expand' : 'Collapse' }}
       </button>
-      <img :src="item.creator.avatar" class="w-10 rounded-full" />
+      <div class="avatar" v-if="item.creator.avatar.length">
+        <div class="w-10 rounded-full">
+          <img :src="item.creator.avatar" />
+        </div>
+      </div>
       <p>{{ item.creator.name }}</p>
-      <p>{{ item.comment.content }}</p>
+      <Markdown :source="item.comment.content" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import Markdown from '@/components/Markdown.vue';
 
 defineProps(['item'])
 
