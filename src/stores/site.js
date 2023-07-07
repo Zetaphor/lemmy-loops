@@ -9,8 +9,9 @@ export const useSiteStore = defineStore('site', () => {
   // "Active" | "Hot" | "New" | "Old" | "TopDay" | "TopWeek" | "TopMonth" | "TopYear" | "TopAll" | "MostComments" | "NewComments" | "TopHour" | "TopSixHour" | "TopTwelveHour"
   const postSort = ref('Hot')
   const postView = ref('All')
-
   const postsStale = ref(false)
+
+  const commentSort = ref('Hot')
 
   function setBaseUrl(newUrl) {
     baseUrl.value = newUrl
@@ -22,6 +23,7 @@ export const useSiteStore = defineStore('site', () => {
     postSort,
     postView,
     postsStale,
+    commentSort,
     setBaseUrl
   }
 })
