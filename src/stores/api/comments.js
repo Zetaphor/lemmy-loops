@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useApiStore } from '@/stores/api/api'
+import { DateTime } from 'luxon'
 
 export const useCommentsStore = defineStore('comments', () => {
   const api = useApiStore()
@@ -20,6 +21,28 @@ export const useCommentsStore = defineStore('comments', () => {
     })
   }
 
+  function formatRelativeTime(dateString) {
+    const currentDateTime = DateTime.local()
+    const dateTime = DateTime.fromISO(dateString)
+    const diff = currentDateTime
+      .diff(dateTime)
+      .shiftTo('years', 'months', 'days', 'hours', 'minutes', 'seconds')
+
+    if (Math.abs(diff.years) >= 1) {
+      return `${Math.abs(Math.floor(diff.years))}Y`
+    } else if (Math.abs(diff.months) >= 1) {
+      return `${Math.abs(Math.floor(diff.months))}mo`
+    } else if (Math.abs(diff.days) >= 1) {
+      return `${Math.abs(Math.floor(diff.days))}d`
+    } else if (Math.abs(diff.hours) >= 1) {
+      return `${Math.abs(Math.floor(diff.hours))}h`
+    } else if (Math.abs(diff.minutes) >= 1) {
+      return `${Math.abs(Math.floor(diff.minutes))}m`
+    } else {
+      return `${Math.abs(Math.floor(diff.seconds))}s`
+    }
+  }
+
   function generateFlatSortedCommentArray(data) {
     let newCommentArray = data.map((commentObj) => {
       let newCommentObj = {
@@ -30,7 +53,7 @@ export const useCommentsStore = defineStore('comments', () => {
           distinguished: commentObj.comment.distinguished,
           local: commentObj.comment.local,
           ap_id: commentObj.comment.ap_id,
-          published: commentObj.comment.published,
+          published: formatRelativeTime(commentObj.comment.published),
           path: commentObj.comment.path
         },
         counts: {
