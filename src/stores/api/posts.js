@@ -121,7 +121,7 @@ export const usePostsStore = defineStore('posts', () => {
                 actor_domain: (postArray[i].creator.actor_id.match(/https:\/\/([^/]+)\/u\//) ||
                   [])[1],
                 admin: postArray[i].creator.admin,
-                avatar: postArray[i].creator.avatar,
+                avatar: postArray[i].creator.avatar || '',
                 bot_account: postArray[i].creator.bot_account,
                 id: postArray[i].creator.id,
                 local: postArray[i].creator.local,
