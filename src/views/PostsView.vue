@@ -1,9 +1,9 @@
 <template>
   <PostItemList />
-  <BottomNav />
+  <PostBottomNav />
 </template>
 
 <script setup>
 import PostItemList from '@/components/posts/PostItemList.vue'
-import BottomNav from '@/components/posts/BottomNav.vue';
+import PostBottomNav from '@/components/posts/PostBottomNav.vue';
 </script>
