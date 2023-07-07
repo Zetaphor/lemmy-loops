@@ -16,17 +16,12 @@ export const useSiteStore = defineStore('site', () => {
     baseUrl.value = newUrl
   }
 
-  function setPostsStale(value) {
-    postsStale.value = value
-  }
-
   return {
     baseUrl,
     sites,
     postSort,
     postView,
     postsStale,
-    setPostsStale,
     setBaseUrl
   }
 })
