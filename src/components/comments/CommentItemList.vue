@@ -45,6 +45,7 @@ const showLoader = ref(true)
 const showSadFace = ref(false)
 let visibleComments = ref([])
 let commentQueue = []
+const postData = ref({})
 
 let observer = null;
 const scrollTargetEl = ref(null)

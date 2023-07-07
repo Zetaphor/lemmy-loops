@@ -57,7 +57,7 @@ export const useCommentsStore = defineStore('comments', () => {
           path: commentObj.comment.path
         },
         counts: {
-          child_count: commentObj.counts.child_count,
+          child_count: commentObj.counts.child_count || 0,
           downvotes: commentObj.counts.downvotes,
           upvotes: commentObj.counts.upvotes,
           score: commentObj.counts.score
