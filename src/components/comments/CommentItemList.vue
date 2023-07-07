@@ -36,16 +36,12 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import CommentItem from '@/components/comments/CommentItem.vue';
-import { useCommentsStore } from '@/stores/api/comments'
 
-const props = defineProps(['post_id'])
-const comments = useCommentsStore()
+const props = defineProps(['postId', 'postComments'])
 
-const showLoader = ref(true)
+const showLoader = ref(false)
 const showSadFace = ref(false)
 let visibleComments = ref([])
-let commentQueue = []
-const postData = ref({})
 
 let observer = null;
 const scrollTargetEl = ref(null)
@@ -54,9 +50,10 @@ let currentPage = 0
 let commentsPerPage = 10
 
 onMounted(() => {
-  showLoader.value = true
+  showLoader.value = false
   showSadFace.value = false
-  updateComments()
+  renderMoreComments()
+  setupObserver()
 })
 
 function setupObserver() {
@@ -91,30 +88,17 @@ onUnmounted(() => {
 function renderMoreComments() {
   showLoader.value = true
   const startIndex = currentPage * commentsPerPage
-  if (commentQueue.length && (startIndex >= commentQueue.length || commentsPerPage === 0)) {
+  if (props.postComments.length && (startIndex >= props.postComments.length || commentsPerPage === 0)) {
     console.log('Reached end of list')
     showLoader.value = false
     showSadFace.value = true
     return []
   }
-  const endIndex = Math.min(startIndex + commentsPerPage, commentQueue.length)
-  const slice = commentQueue.slice(startIndex, endIndex)
+  const endIndex = Math.min(startIndex + commentsPerPage, props.postComments.length)
+  const slice = props.postComments.slice(startIndex, endIndex)
   visibleComments.value = [...visibleComments.value, ...slice]
   console.info('Loaded comment page', currentPage)
   currentPage++
   showLoader.value = false
 }
-
-
-
-async function updateComments() {
-  commentQueue = []
-  visibleComments.value = []
-  commentQueue = await comments.getComments(props.post_id)
-  renderMoreComments()
-  showLoader.value = false
-  showSadFace.value = true
-  setupObserver()
-}
-
 </script>

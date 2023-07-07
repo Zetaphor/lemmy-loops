@@ -13,7 +13,7 @@ const router = createRouter({
       component: PostsView
     },
     {
-      path: '/comments/:post_id',
+      path: '/comments/:postId',
       props: true,
       name: 'comments',
       component: CommentsView

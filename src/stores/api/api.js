@@ -89,6 +89,14 @@ export const useApiStore = defineStore('api', () => {
     return client.savePost(form)
   }
 
+  function getSinglePost(post_id) {
+    const form = {
+      id: post_id
+    }
+    if (authenticated.value) form.auth = jwt.value
+    return client.getPost(form)
+  }
+
   function getPosts(sort, view, page) {
     const form = {
       type_: view,
@@ -128,6 +136,7 @@ export const useApiStore = defineStore('api', () => {
     getPersonDetails,
     getPrivateMessages,
     getUnreadCount,
+    getSinglePost,
     getPosts,
     postVote,
     postSave,

@@ -55,6 +55,89 @@ export const usePostsStore = defineStore('posts', () => {
     })
   }
 
+  function requestSinglePost(post_id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const resp = await api.getSinglePost(post_id)
+
+        const postUrl = resp.post_view.url || ''
+        let postDomain = ''
+        if (postUrl.length)
+          postDomain = postUrl.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im)[1]
+
+        const hasUrl = postUrl.length
+        const hasImage = hasUrl && /\.(jpg|jpeg|png|apng|gif|bmp|webp|svg|ico)$/i.test(postUrl)
+        const hasVideo = hasUrl && /\.(webm|mp4|ogg|avi|mov|wmv|flv)$/i.test(postUrl)
+        const hasAudio = hasUrl && /\.(mp3|wav|aac|flac)$/i.test(postUrl)
+        const extension = postUrl.split('.').pop()
+
+        let my_vote = null
+        if (api.authenticated) {
+          if (typeof resp.post_view.my_vote !== 'undefined') {
+            my_vote = resp.post_view.my_vote
+          }
+        }
+
+        const postData = {
+          community: {
+            local: resp.post_view.community.local,
+            id: resp.post_view.community.id,
+            name: resp.post_view.community.name,
+            title: resp.post_view.community.title,
+            actor_id: resp.post_view.community.actor_id,
+            actor_domain: (resp.post_view.community.actor_id.match(/https:\/\/([^/]+)\/c\//) ||
+              [])[1],
+            icon: resp.post_view.community.icon || ''
+          },
+          counts: {
+            comments: resp.post_view.counts.comments,
+            upvotes: resp.post_view.counts.upvotes,
+            downvotes: resp.post_view.counts.downvotes,
+            newest_comment_time: resp.post_view.counts.newest_comment_time,
+            published: resp.post_view.counts.published,
+            score: resp.post_view.counts.score,
+            unread_comments: resp.post_view.unread_comments,
+            my_vote: my_vote
+          },
+          creator: {
+            actor_id: resp.post_view.creator.actor_id,
+            actor_domain: (resp.post_view.creator.actor_id.match(/https:\/\/([^/]+)\/u\//) ||
+              [])[1],
+            admin: resp.post_view.creator.admin,
+            avatar: resp.post_view.creator.avatar || '',
+            bot_account: resp.post_view.creator.bot_account,
+            id: resp.post_view.creator.id,
+            local: resp.post_view.creator.local,
+            name: resp.post_view.creator.name
+          },
+          content: {
+            id: resp.post_view.id,
+            ap_id: resp.post_view.ap_id,
+            body: resp.post_view.body || '',
+            locked: resp.post_view.locked,
+            name: resp.post_view.name,
+            nsfw: resp.post_view.nsfw,
+            published: formatRelativeTime(resp.post_view.published),
+            updated: formatRelativeTime(resp.post_view.updated),
+            url: postUrl,
+            url_domain: postDomain,
+            hasImage: hasImage,
+            hasUrl: hasUrl,
+            hasMedia: hasImage || hasVideo || hasAudio,
+            hasVideo: hasVideo,
+            hasAudio: hasAudio,
+            extension: hasImage || hasVideo || hasAudio ? extension : null,
+            read: resp.post_view.read,
+            saved: resp.post_view.saved
+          }
+        }
+        resolve(postData)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
   function requestPosts(sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -160,6 +243,7 @@ export const usePostsStore = defineStore('posts', () => {
   return {
     posts,
     page,
+    requestSinglePost,
     requestPosts,
     sendVote,
     savePost
