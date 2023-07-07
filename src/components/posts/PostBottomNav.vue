@@ -1,6 +1,6 @@
 <template>
-  <ViewSelector v-if="showViewSelector" @setView="viewUpdated" />
-  <SortSelector v-if="showSortSelector" @setSort="sortUpdated" />
+  <PostViewSelector v-if="showViewSelector" @setView="viewUpdated" />
+  <PostSortSelector v-if="showSortSelector" @setSort="sortUpdated" />
 
   <div class="btm-nav z-20" v-show="!overlay.hideNav">
     <!-- View selector -->
@@ -162,8 +162,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import ViewSelector from './ViewSelector.vue'
-import SortSelector from './SortSelector.vue'
+import PostViewSelector from './PostViewSelector.vue'
+import PostSortSelector from './PostSortSelector.vue'
 import { useSiteStore } from '@/stores/site'
 import { useOverlayStore } from '@/stores/overlay'
 
