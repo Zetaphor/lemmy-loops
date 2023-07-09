@@ -1,5 +1,7 @@
 <template>
-  <div ref="commentListEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
+  <div ref="containerEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
+    <CommentPostData :post="postData" />
+
     <CommentItem :item="item" v-for="(item, index) in visibleComments" :key="index" />
     <div ref="scrollTargetEl"></div>
 
@@ -35,9 +37,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import CommentPostData from '@/components/comments/CommentPostData.vue'
 import CommentItem from '@/components/comments/CommentItem.vue';
 
-const props = defineProps(['postId', 'postComments'])
+const props = defineProps(['postId', 'postData', 'postComments'])
 
 const showLoader = ref(false)
 const showSadFace = ref(false)
@@ -45,7 +48,7 @@ let visibleComments = ref([])
 
 let observer = null;
 const scrollTargetEl = ref(null)
-const commentListEl = ref(null)
+const containerEl = ref(null)
 let currentPage = 0
 let commentsPerPage = 10
 
@@ -66,7 +69,7 @@ function setupObserver() {
       })
     },
     {
-      root: commentListEl.value,
+      root: containerEl.value,
       rootMargin: '500px',
       threshold: 0.1,
     }

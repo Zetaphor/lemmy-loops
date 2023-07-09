@@ -12,14 +12,12 @@
     </svg>
   </div>
 
-  <CommentPostData v-if="!showLoader" :post="postData" />
-  <CommentItemList v-if="!showLoader" :postId="props.postId" :postComments="commentData" />
+  <CommentItemList v-if="!showLoader" :postId="props.postId" :postData="postData" :postComments="commentData" />
   <CommentBottomNav />
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import CommentPostData from '@/components/comments/CommentPostData.vue'
 import CommentItemList from '@/components/comments/CommentItemList.vue'
 import { useCommentsStore } from '@/stores/api/comments'
 import CommentBottomNav from '@/components/comments/CommentBottomNav.vue';
