@@ -156,7 +156,7 @@ function renderMoreComments() {
   showLoader.value = true
   const startIndex = currentPage * commentsPerPage
   if (props.postComments.length && (startIndex >= props.postComments.length || commentsPerPage === 0)) {
-    console.log('Reached end of list')
+    // console.log('Reached end of list')
     showLoader.value = false
     showSadFace.value = true
     return []
@@ -164,7 +164,7 @@ function renderMoreComments() {
   const endIndex = Math.min(startIndex + commentsPerPage, props.postComments.length)
   const slice = props.postComments.slice(startIndex, endIndex)
   visibleComments.value = [...visibleComments.value, ...slice]
-  console.info('Loaded comment page', currentPage)
+  // console.info('Loaded comment page', currentPage)
   currentPage++
   showLoader.value = false
 }

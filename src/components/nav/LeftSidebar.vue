@@ -1,8 +1,8 @@
 <template>
   <div id="leftSidebar" v-show="sidebars.leftVisible" class="fixed bg-base-200 w-56 h-full z-50">
     <ul v-if="!user.authenticated" class="menu">
-      <li><router-link to="login" @click="closeChangeView">Login</router-link></li>
-      <li><router-link to="register" @click="closeChangeView">Register</router-link></li>
+      <li><router-link to="/login" @click="closeChangeView">Login</router-link></li>
+      <li><router-link to="/register" @click="closeChangeView">Register</router-link></li>
     </ul>
 
     <ul v-else class="menu">
@@ -10,7 +10,6 @@
         <details>
           <summary>Username</summary>
           <ul>
-            <li><router-link to="addAccount">Add Account</router-link></li>
             <li><a>Logout</a></li>
           </ul>
         </details>

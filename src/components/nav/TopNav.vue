@@ -13,8 +13,8 @@
     </div>
     <div v-if="!user.authenticated" v-show="screen.isLargeScreen" class="flex-none">
       <ul class="menu menu-horizontal">
-        <li><router-link to="login">Login</router-link></li>
-        <li><router-link to="register">Register</router-link></li>
+        <li><router-link to="/login">Login</router-link></li>
+        <li><router-link to="/register">Register</router-link></li>
       </ul>
     </div>
     <div v-else class="navbar-end">
