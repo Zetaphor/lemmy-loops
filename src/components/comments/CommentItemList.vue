@@ -118,13 +118,8 @@ function setupObservers() {
   postDataObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          console.log('Postdata Visible')
-          stickyTitleVisible.value = false
-        } else {
-          console.log('Postdata Not Visible')
-          stickyTitleVisible.value = true
-        }
+        if (entry.isIntersecting) stickyTitleVisible.value = false
+        else stickyTitleVisible.value = true
       })
     },
     {
