@@ -1,5 +1,6 @@
 <template>
-  <div class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5" :style="{ marginLeft: item.comment.depth * 5 + 'px' }">
+  <div class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
+    :style="{ marginLeft: (item.comment.depth - 1) * 5 + 'px' }">
     <div class="depth-indicator absolute top-0 left-0 bottom-0"
       :style="{ backgroundColor: depthColors[item.comment.depth - 1] }"></div>
     <div>
