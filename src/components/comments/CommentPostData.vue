@@ -4,7 +4,7 @@
     <div :class="[post.content.hasImage || post.content.hasUrl || post.content.hasVideo ? 'w-3/4' : 'w-full']"
       @click="showComments">
       <div class="p-2">
-        <p class="text-xl text-white">{{ post.content.name }}</p>
+        <p class="text-lg text-white">{{ post.content.name }}</p>
 
         <div v-if="post.content.hasUrl && !post.content.hasImage" class="text-xs inline-flex items-center text-gray-500">
           <svg version="1.1" viewBox="300 200 750 750" xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@
         </div>
 
         <p v-if="post.content.body.length"
-          class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 max-h-10 overflow-hidden overflow-ellipsis truncate">
+          class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2 ">
           {{ post.content.body }}
         </p>
         <div>
@@ -186,6 +186,7 @@
 
 <script setup>
 import { usePreferencesStore } from '@/stores/preferences'
+import Avatar from "vue-boring-avatars";
 
 defineProps(['post'])
 const preferences = usePreferencesStore()

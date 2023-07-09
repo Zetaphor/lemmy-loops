@@ -60,7 +60,7 @@ export const usePostsStore = defineStore('posts', () => {
       try {
         const resp = await api.getSinglePost(post_id)
 
-        const postUrl = resp.post_view.url || ''
+        const postUrl = resp.post_view.post.url || ''
         let postDomain = ''
         if (postUrl.length)
           postDomain = postUrl.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im)[1]
@@ -111,14 +111,14 @@ export const usePostsStore = defineStore('posts', () => {
             name: resp.post_view.creator.name
           },
           content: {
-            id: resp.post_view.id,
-            ap_id: resp.post_view.ap_id,
-            body: resp.post_view.body || '',
-            locked: resp.post_view.locked,
-            name: resp.post_view.name,
-            nsfw: resp.post_view.nsfw,
-            published: formatRelativeTime(resp.post_view.published),
-            updated: formatRelativeTime(resp.post_view.updated),
+            id: resp.post_view.post.id,
+            ap_id: resp.post_view.post.ap_id,
+            body: resp.post_view.post.body || '',
+            locked: resp.post_view.post.locked,
+            name: resp.post_view.post.name,
+            nsfw: resp.post_view.post.nsfw,
+            published: formatRelativeTime(resp.post_view.post.published),
+            // updated: formatRelativeTime(resp.post_view.updated),
             url: postUrl,
             url_domain: postDomain,
             hasImage: hasImage,
