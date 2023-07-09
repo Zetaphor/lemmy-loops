@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div v-html="html"></div>
+  <div v-html="html" class="select-text"></div>
 </template>
 
 <script setup>

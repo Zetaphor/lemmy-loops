@@ -20,7 +20,7 @@
         </div>
 
         <p v-if="post.content.body.length"
-          class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2 ">
+          class="text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2 select-text">
           {{ post.content.body }}
         </p>
         <div>
