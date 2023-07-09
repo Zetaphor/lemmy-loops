@@ -54,7 +54,8 @@ export const useCommentsStore = defineStore('comments', () => {
           local: commentObj.comment.local,
           ap_id: commentObj.comment.ap_id,
           published: formatRelativeTime(commentObj.comment.published),
-          path: commentObj.comment.path
+          path: commentObj.comment.path,
+          saved: commentObj.saved
         },
         counts: {
           child_count: commentObj.counts.child_count || 0,
