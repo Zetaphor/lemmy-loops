@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
+  <div class="relative bg-gray-800 rounded-md pl-3 pr-3 pt-2 mb-0.5 mt-0.5"
     :style="{ marginLeft: (item.comment.depth - 1) * 5 + 'px' }">
     <div class="depth-indicator absolute top-0 left-0 bottom-0"
       :style="{ backgroundColor: depthColors[item.comment.depth - 1] }"></div>
@@ -29,16 +29,16 @@
             <span class="text-gray-300">{{ item.creator.name }}</span>
             <span class="text-gray-500">@{{ item.creator.actor_domain }}</span>
           </p>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4">
-            <circle cx="5" cy="5" r="2" class="fill-current text-gray-400" />
-          </svg>
-          <p class="flex-grow-0 text-sm">{{ item.comment.published }}</p>
         </div>
       </div>
       <Markdown :source="item.comment.content" />
-      <div class="mt-1">
-        <div class="text-sm inline-flex items-center">
-          <p class="flex-grow-0 text-sm">{{ item.counts.score }}pts</p>
+      <div class="pb-1">
+        <div class="inline-flex items-center pt-1 pb-1 pr-2 text-gray-500">
+          <p class="flex-grow-0 text-xs">{{ item.comment.published }}</p>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.1 0 10 10" class="h-4 w-4">
+            <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
+          </svg>
+          <p class="flex-grow-0 text-xs">{{ item.counts.score }}pts</p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 10 10" class="h-4 w-4">
             <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
           </svg>
