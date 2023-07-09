@@ -1,5 +1,5 @@
 <template>
-  <div class="card-bordered card-compact my-2 shadow-sm cursor-pointer flex w-full"
+  <div class="card-bordered card-compact my-2 shadow-sm cursor-pointer flex w-full mb-0"
     :class="[post.content.read ? 'bg-neutral-800' : 'bg-gray-800']">
     <div :class="[post.content.hasImage || post.content.hasUrl || post.content.hasVideo ? 'w-3/4' : 'w-full']"
       @click="showComments">
