@@ -14,6 +14,8 @@ import MarkdownItSup from 'markdown-it-sup';
 
 const props = defineProps(['source'])
 
+const md = new MarkdownIt()
+
 const markdownItConfig = {
   html: false,
   linkify: true,
