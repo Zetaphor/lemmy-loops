@@ -39,7 +39,7 @@
             </svg>
             <p class="text-center w-full">Share</p>
           </div>
-          <div class="flex-1" @click="setSaved(!props.post.content.saved)">
+          <div class="flex-1" @click="setSaved(!props.post.content.saved)" v-if="user.authenticated">
             <svg v-if="post.content.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -253,21 +253,6 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-/* For Webkit-based browsers (Chrome, Safari and Opera) */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* For IE, Edge and Firefox */
-.scrollbar-hide {
-  /* IE and Edge */
-  -ms-overflow-style: none;
-  /* Firefox */
-  scrollbar-width: none;
-}
-</style>
 
 <script setup>
 import { useRouter } from 'vue-router'
