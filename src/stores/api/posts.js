@@ -35,6 +35,7 @@ export const usePostsStore = defineStore('posts', () => {
     return new Promise(async (resolve, reject) => {
       try {
         await api.postVote(post_id, vote)
+        posts.value[postIndex].counts.my_vote = vote
         resolve(true)
       } catch (error) {
         reject(error)
@@ -46,6 +47,7 @@ export const usePostsStore = defineStore('posts', () => {
     return new Promise(async (resolve, reject) => {
       try {
         await api.postSave(post_id, saved)
+        posts.value[postIndex].content.saved = saved
         resolve(true)
       } catch (error) {
         reject(error)
@@ -242,6 +244,7 @@ export const usePostsStore = defineStore('posts', () => {
     for (let i = 0; i < posts.value.length; i++) {
       if (posts.value[i].content.id == post_id) return i
     }
+    return -1
   }
 
   return {
