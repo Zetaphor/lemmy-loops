@@ -68,8 +68,8 @@
     <div class="w-full relative snap-start">
       <div class="relative bg-gray-800 rounded-md pl-3 pr-3 pt-2 mb-0.5 mt-0.5"
         :style="{ marginLeft: (item.comment.depth - 1) * 5 + 'px' }">
-        <div class="depth-indicator absolute top-0 left-0 bottom-0"
-          :style="{ backgroundColor: depthColors[item.comment.depth - 1] }"></div>
+        <div class="absolute top-0 left-0 bottom-0"
+          :style="{ width: '3px', backgroundColor: depthColors[item.comment.depth - 1] }"></div>
         <div>
           <div>
             <div class="text-sm inline-flex items-center">
@@ -143,22 +143,9 @@
           </div>
         </div>
       </div>
-      <div v-if="item.comment.depth >= 8 && item.counts.child_count" @click="loadCommentThread(item.comment.id)"
-        class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
-        :style="{ marginLeft: (item.comment.depth + 1) * 5 + 'px' }">
-        <div class="depth-indicator absolute top-0 left-0 bottom-0"
-          :style="{ backgroundColor: depthColors[item.comment.depth + 1] }"></div>
-        <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
-      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.depth-indicator {
-  width: 3px;
-}
-</style>
 
 <script setup>
 import Markdown from '@/components/Markdown.vue'
@@ -183,8 +170,4 @@ const depthColors = [
   '#005500', // Dark Green
   '#AA8093', // Pink
 ]
-
-function loadCommentThread(comment_id) {
-  console.log('loadCommentThread', comment_id)
-}
 </script>
