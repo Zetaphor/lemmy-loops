@@ -43,6 +43,28 @@ export const useCommentsStore = defineStore('comments', () => {
     }
   }
 
+  function sendVote(post_id, vote) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.commentVote(post_id, vote)
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  function saveComment(comment_id, saved) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.commentSave(comment_id, saved)
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
   function generateFlatSortedCommentArray(data) {
     let newCommentArray = data.map((commentObj) => {
       let newCommentObj = {
@@ -111,6 +133,8 @@ export const useCommentsStore = defineStore('comments', () => {
   return {
     sort,
     view,
-    getComments
+    getComments,
+    sendVote,
+    saveComment
   }
 })

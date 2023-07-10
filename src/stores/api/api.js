@@ -71,6 +71,24 @@ export const useApiStore = defineStore('api', () => {
     })
   }
 
+  function commentVote(comment_id, vote) {
+    const form = {
+      auth: jwt.value,
+      comment_id: comment_id,
+      score: vote
+    }
+    return client.likeComment(form)
+  }
+
+  function commentSave(comment_id, saved) {
+    const form = {
+      auth: jwt.value,
+      comment_id: comment_id,
+      save: saved
+    }
+    return client.saveComment(form)
+  }
+
   function postVote(post_id, vote) {
     const form = {
       auth: jwt.value,
@@ -140,6 +158,8 @@ export const useApiStore = defineStore('api', () => {
     getPosts,
     postVote,
     postSave,
+    commentVote,
+    commentSave,
     getComments
   }
 })
