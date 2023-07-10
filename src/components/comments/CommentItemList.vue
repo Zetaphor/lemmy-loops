@@ -46,15 +46,15 @@
 
     <!-- Comment items -->
     <div v-if="contentReady">
-    <template v-for="(item, index) in visibleComments" :key="index">
-      <CommentItem :item="item" />
-      <div v-if="item.comment.depth + 1 >= 8 && item.counts.child_count" @click="loadCommentThread(item.comment.id)"
-        class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
-        :style="{ marginLeft: (item.comment.depth + 1) * 5 + 'px' }">
-        <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
-        <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
-      </div>
-    </template>
+      <template v-for="(item, index) in visibleComments" :key="index">
+        <CommentItem :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" />
+        <div v-if="item.comment.depth + 1 >= 8 && item.counts.child_count" @click="loadCommentThread(item.comment.id)"
+          class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
+          :style="{ marginLeft: (item.comment.depth + 1) * 5 + 'px' }">
+          <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
+          <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
+        </div>
+      </template>
     </div>
     <div ref="scrollTargetEl"></div>
 
@@ -204,5 +204,23 @@ function renderMoreComments() {
 
 function loadCommentThread(comment_id) {
   console.log('loadCommentThread', comment_id)
+}
+
+function setVote(commentIndex, score) {
+  if (commentData.value[commentIndex].counts.my_vote === score) {
+    score = 0
+  }
+  comments.sendVote(commentData.value[commentIndex].comment.id, score)
+  commentData.value[commentIndex].counts.my_vote = score
+  if (typeof visibleComments.value[commentIndex] !== 'undefined') {
+    visibleComments.value[commentIndex].counts.my_vote = score
+  }
+}
+
+function setSaved(commentIndex, saved) {
+  comments.saveComment(commentData.value[commentIndex].comment.id, saved)
+  if (typeof visibleComments.value[commentIndex] !== 'undefined') {
+    visibleComments.value[commentIndex].comment.saved = saved
+  }
 }
 </script>

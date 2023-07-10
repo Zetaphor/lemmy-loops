@@ -43,10 +43,10 @@ export const useCommentsStore = defineStore('comments', () => {
     }
   }
 
-  function sendVote(post_id, vote) {
+  function sendVote(comment_id, vote) {
     return new Promise(async (resolve, reject) => {
       try {
-        await api.commentVote(post_id, vote)
+        await api.commentVote(comment_id, vote)
         resolve(true)
       } catch (error) {
         reject(error)
@@ -67,6 +67,13 @@ export const useCommentsStore = defineStore('comments', () => {
 
   function generateFlatSortedCommentArray(data) {
     let newCommentArray = data.map((commentObj) => {
+      let my_vote = null
+      if (api.authenticated) {
+        if (typeof commentObj.my_vote !== 'undefined') {
+          my_vote = commentObj.my_vote
+        }
+      }
+
       let newCommentObj = {
         comment: {
           id: commentObj.comment.id,
@@ -83,7 +90,8 @@ export const useCommentsStore = defineStore('comments', () => {
           child_count: commentObj.counts.child_count || 0,
           downvotes: commentObj.counts.downvotes,
           upvotes: commentObj.counts.upvotes,
-          score: commentObj.counts.score
+          score: commentObj.counts.score,
+          my_vote: my_vote
         },
         creator: {
           actor_id: commentObj.creator.actor_id,

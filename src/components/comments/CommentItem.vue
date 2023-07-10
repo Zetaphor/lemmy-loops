@@ -4,7 +4,7 @@
     <div class="w-full h-full absolute snap-start left-full">
       <div class="flex h-full justify-center items-center">
         <div class="flex">
-          <div class="flex-1" @click="vote(1)" v-if="user.authenticated">
+          <div class="flex-1" @click="$emit('setVote', props.index, 1)" v-if="user.authenticated">
             <svg v-if="item.counts.my_vote === 1" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90"
               class="stroke-orange-300 fill-orange-300 w-16 h-16 p-3">
               <path
@@ -17,7 +17,7 @@
             </svg>
             <p class="text-center w-full">Up</p>
           </div>
-          <div class="flex-1" @click="vote(-1)" v-if="user.authenticated">
+          <div class="flex-1" @click="$emit('setVote', props.index, -1)" v-if="user.authenticated">
             <svg v-if="item.counts.my_vote === -1" xmlns="http://www.w3.org/2000/svg"
               class="stroke-blue-300 fill-blue-300 w-16 h-16 p-3" viewBox="10 0 70 90">
               <path
@@ -30,7 +30,7 @@
             </svg>
             <p class="text-center w-full">Down</p>
           </div>
-          <div class="flex-1" @click="setSaved(!item.comment.saved)" v-if="user.authenticated">
+          <div class="flex-1" @click="$emit('setSaved', props.index, !item.comment.saved)" v-if="user.authenticated">
             <svg v-if="item.comment.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
               xmlns="http://www.w3.org/2000/svg">
               <path
@@ -153,7 +153,8 @@ import Avatar from "vue-boring-avatars";
 import { useUserStore } from '@/stores/api/user'
 import { usePreferencesStore } from '@/stores/preferences'
 
-defineProps(['item'])
+const props = defineProps(['item', 'index'])
+defineEmits(['setVote', 'setSaved'])
 
 const user = useUserStore()
 const preferences = usePreferencesStore()
