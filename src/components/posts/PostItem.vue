@@ -271,6 +271,9 @@ const preferences = usePreferencesStore()
 
 async function vote(score) {
   try {
+    if (posts.posts[props.postIndex].counts.my_vote === score) {
+      score = 0
+    }
     await posts.sendVote(props.post.content.id, props.postIndex, score)
   } catch (error) {
     console.error(error)
