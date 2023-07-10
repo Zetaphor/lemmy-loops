@@ -30,15 +30,6 @@
             </svg>
             <p class="text-center w-full">Down</p>
           </div>
-          <div class="flex-1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 -15 92 115"
-              class="stroke-gray-500 fill-gray-500 w-16 h-16 p-3">
-              <path
-                d="M77.8 11.6A10.4 10.4 0 1 1 67.4 22a10.4 10.4 0 0 1 10.4-10.4ZM17.2 57.9a10.4 10.4 0 1 1 10.4-10.4 10.4 10.4 0 0 1-10.4 10.4Zm60.6 4.6A10.4 10.4 0 1 1 67.4 73a10.4 10.4 0 0 1 10.4-10.5Zm0-25.8A14.7 14.7 0 1 0 63.2 22a14.4 14.4 0 0 0 .1 2L29.5 39.7a14.7 14.7 0 1 0 0 15.8L63.3 71a14.4 14.4 0 0 0-.1 2 14.7 14.7 0 1 0 1.3-6L31.2 51.5a14.6 14.6 0 0 0 0-8.2l33.3-15.2a14.7 14.7 0 0 0 13.3 8.5Z"
-                class="cls-1" />
-            </svg>
-            <p class="text-center w-full">Share</p>
-          </div>
           <div class="flex-1" @click="setSaved(!item.comment.saved)" v-if="user.authenticated">
             <svg v-if="item.comment.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
               xmlns="http://www.w3.org/2000/svg">
@@ -51,6 +42,15 @@
                 d="m25.5 61.5-2.2 21.1a5.2 5.2 0 0 0 5.2 5.8c.7 0 1.4-.2 2.1-.5L50 79.2l19.4 8.6c1.7.8 3.7.6 5.2-.5a5.2 5.2 0 0 0 2.1-4.8l-2.2-21.1 14.2-15.8a5 5 0 0 0 1.1-5.1c-.6-1.8-2-3.1-3.9-3.5l-20.7-4.4-10.7-18.3a5.1 5.1 0 0 0-4.5-2.6c-1.9 0-3.6 1-4.5 2.6L34.9 32.7l-20.7 4.4a5.3 5.3 0 0 0-3.9 3.5 5 5 0 0 0 1.1 5.1l14.1 15.8zM13.6 41.7c.1-.3.4-1 1.3-1.2l21.5-4.6c.5-.1.9-.4 1.1-.8l11-19c.5-.8 1.2-.9 1.5-.9.3 0 1.1.1 1.5.9L62.4 35l.3.5.3.3.6.3L85 40.7a1.7 1.7 0 0 1 .9 2.9L71.4 59.7c-.3.4-.5.9-.4 1.3l2.3 21.8c.1.9-.5 1.4-.7 1.6-.2.2-.9.5-1.7.2l-20.1-8.9c-.5-.2-1-.2-1.4 0l-20.1 8.9c-.8.4-1.5 0-1.7-.2-.2-.2-.8-.7-.7-1.6L29.1 61c.1-.5-.1-1-.4-1.3L13.9 43.4c-.6-.7-.4-1.4-.3-1.7z" />
             </svg>
             <p class="text-center w-full">Save<span v-if="item.comment.saved">d</span></p>
+          </div>
+          <div class="flex-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 65 90" xml:space="preserve"
+              class="stroke-gray-100 fill-none w-16 h-16 p-3 stroke-width-2">
+              <path class="st0"
+                d="M15.7,49.3l29.8,22.4c0.5,0.3,1.1,0,1.1-0.6v-14c33.9,2.3,37.9,17.2,37.9,17.2c0-31-24.8-35.3-37.9-35.4V26.3  c0-0.6-0.6-0.9-1.1-0.5L15.7,48.2C15.4,48.5,15.4,49,15.7,49.3z" />
+            </svg>
+
+            <p class="text-center w-full">Reply</p>
           </div>
           <div class="flex-1">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -6 80 100"
