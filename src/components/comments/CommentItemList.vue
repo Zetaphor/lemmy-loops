@@ -1,10 +1,10 @@
 <template>
   <div ref="containerEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
     <div ref="postDataContainerEl">
-      <CommentPostData :postData="postData" />
+      <CommentPostData :postData="postData" v-if="contentReady" />
     </div>
     <!-- Post sticky title -->
-    <div v-show="stickyTitleVisible"
+    <div v-if="contentReady" v-show="stickyTitleVisible"
       class="fixed top-14 z-10 card-bordered card-compact shadow-sm w-full pb-1 bg-gray-700 border-gray-600 border-b-2 border-l-0 border-r-0 border-t-0">
       <p class="pl-1 pr-1 pt-2 text-sm text-gray-300 max-h-10 overflow-hidden overflow-ellipsis truncate">{{
         postData.content.name
@@ -45,6 +45,7 @@
     </div>
 
     <!-- Comment items -->
+    <div v-if="contentReady">
     <template v-for="(item, index) in visibleComments" :key="index">
       <CommentItem :item="item" />
       <div v-if="item.comment.depth + 1 >= 8 && item.counts.child_count" @click="loadCommentThread(item.comment.id)"
@@ -54,6 +55,7 @@
         <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
       </div>
     </template>
+    </div>
     <div ref="scrollTargetEl"></div>
 
     <!-- Comment loader -->
@@ -91,14 +93,19 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import CommentPostData from '@/components/comments/CommentPostData.vue'
 import CommentItem from '@/components/comments/CommentItem.vue';
 import { usePreferencesStore } from '@/stores/preferences'
+import { usePostsStore } from '@/stores/api/posts'
+import { useCommentsStore } from '@/stores/api/comments'
 
-const props = defineProps(['postId', 'postData', 'postComments'])
+const props = defineProps(['postId'])
 
-const showLoader = ref(false)
+const showLoader = ref(true)
 const showSadFace = ref(false)
 let visibleComments = ref([])
+const contentReady = ref(false)
 
 const preferences = usePreferencesStore()
+const posts = usePostsStore()
+const comments = useCommentsStore()
 
 let commentPageObserver = null;
 let postDataObserver = null;
@@ -108,12 +115,21 @@ const scrollTargetEl = ref(null)
 const postDataContainerEl = ref(null)
 const stickyTitleVisible = ref(false)
 
+const postData = ref({})
+const commentData = ref([])
+
 let currentPage = 0
 let commentsPerPage = 10
 
-onMounted(() => {
-  showLoader.value = false
+onMounted(async () => {
+  contentReady.value = false
+  showLoader.value = true
   showSadFace.value = false
+
+  postData.value = await posts.requestSinglePost(props.postId)
+  commentData.value = await comments.getComments(props.postId)
+  contentReady.value = true
+
   renderMoreComments()
   setupObservers()
 })
@@ -174,16 +190,14 @@ onUnmounted(() => {
 function renderMoreComments() {
   showLoader.value = true
   const startIndex = currentPage * commentsPerPage
-  if (props.postComments.length && (startIndex >= props.postComments.length || commentsPerPage === 0)) {
-    // console.log('Reached end of list')
+  if (commentData.value.length && (startIndex >= commentData.value.length || commentsPerPage === 0)) {
     showLoader.value = false
     showSadFace.value = true
     return []
   }
-  const endIndex = Math.min(startIndex + commentsPerPage, props.postComments.length)
-  const slice = props.postComments.slice(startIndex, endIndex)
+  const endIndex = Math.min(startIndex + commentsPerPage, commentData.value.length)
+  const slice = commentData.value.slice(startIndex, endIndex)
   visibleComments.value = [...visibleComments.value, ...slice]
-  // console.info('Loaded comment page', currentPage)
   currentPage++
   showLoader.value = false
 }
