@@ -4,7 +4,7 @@
     <div class="w-full h-full absolute snap-start left-full">
       <div class="flex h-full justify-center items-center">
         <div class="flex">
-          <div class="flex-1" @click="vote(1)" v-if="user.authenticated">
+          <div class="flex-1" @click="setVote(1)" v-if="user.authenticated">
             <svg v-if="post.counts.my_vote === 1" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90"
               class="stroke-orange-300 fill-orange-300 w-16 h-16 p-3">
               <path
@@ -17,7 +17,7 @@
             </svg>
             <p class="text-center w-full">Up</p>
           </div>
-          <div class="flex-1" @click="vote(-1)" v-if="user.authenticated">
+          <div class="flex-1" @click="setVote(-1)" v-if="user.authenticated">
             <svg v-if="post.counts.my_vote === -1" xmlns="http://www.w3.org/2000/svg"
               class="stroke-blue-300 fill-blue-300 w-16 h-16 p-3" viewBox="10 0 70 90">
               <path
@@ -269,7 +269,7 @@ const user = useUserStore()
 const router = useRouter()
 const preferences = usePreferencesStore()
 
-async function vote(score) {
+async function setVote(score) {
   try {
     if (posts.posts[props.postIndex].counts.my_vote === score) {
       score = 0
