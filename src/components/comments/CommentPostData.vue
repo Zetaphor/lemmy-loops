@@ -267,14 +267,14 @@
         </div>
       </div>
       <p class="mt-1 text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2 select-text">
-        {{ post.content.body }}
+        <Markdown :source="post.content.body" />
       </p>
     </div>
 
     <!-- Comment vote buttons and options -->
     <div class="w-full border-b-2 border-gray-600 pb-2 px-4">
       <div class="flex h-full justify-between items-center">
-        <div @click="vote(1)" v-if="user.authenticated">
+        <div @click="setVote(1)" v-if="user.authenticated">
           <svg v-if="post.counts.my_vote === 1" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 70 90"
             class="stroke-orange-300 fill-orange-300 w-10 h-10 pt-1 pb-1">
             <path
@@ -287,7 +287,7 @@
           </svg>
           <p class="text-center w-full text-sm">Up</p>
         </div>
-        <div @click="vote(-1)" v-if="user.authenticated">
+        <div @click="setVote(-1)" v-if="user.authenticated">
           <svg v-if="post.counts.my_vote === -1" xmlns="http://www.w3.org/2000/svg"
             class="stroke-blue-300 fill-blue-300 w-10 h-10 pt-1 pb-1" viewBox="10 0 70 90">
             <path
@@ -300,7 +300,7 @@
           </svg>
           <p class="text-center w-full text-sm">Down</p>
         </div>
-        <div @click="setSaved(!props.post.content.saved)" v-if="user.authenticated">
+        <div @click="setSaved(!post.content.saved)" v-if="user.authenticated">
           <svg v-if="post.content.saved" viewBox="10 -5 75 100"
             class="stroke-yellow-300 fill-yellow-300 w-10 h-10 pt-1 pb-1" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -336,11 +336,39 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { usePreferencesStore } from '@/stores/preferences'
 import { useUserStore } from '@/stores/api/user'
+import { useContentViewerStore } from '@/stores/content-viewer'
+import { usePostsStore } from '@/stores/api/posts'
+import Markdown from '@/components/Markdown.vue'
 import Avatar from "vue-boring-avatars";
 
-defineProps(['post'])
+const props = defineProps(['postData'])
+const post = ref(props.postData)
 const preferences = usePreferencesStore()
 const user = useUserStore()
+const content = useContentViewerStore()
+const posts = usePostsStore()
+
+const postIndex = posts.getPostIndexById(post.value.content.id)
+
+function setVote(score) {
+  posts.sendVote(post.value.content.id, postIndex, score)
+  post.value.counts.my_vote = score
+}
+
+function setSaved(saved) {
+  posts.savePost(post.value.content.id, postIndex, saved)
+  post.value.content.saved = saved
+}
+
+
+function setContent(url, extension, video = false, audio = false) {
+  content.url = url
+  content.video = video
+  content.audio = audio
+  content.extension = extension
+  content.visible = true
+}
 </script>

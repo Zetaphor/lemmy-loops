@@ -1,7 +1,7 @@
 <template>
   <div ref="containerEl" class="w-screen h-screen relative overflow-scroll pt-2 pb-96">
     <div ref="postDataContainerEl">
-      <CommentPostData :post="postData" />
+      <CommentPostData :postData="postData" />
     </div>
     <!-- Post sticky title -->
     <div v-show="stickyTitleVisible"
@@ -31,7 +31,6 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" class="h-4 w-4 mr-0.5">
             <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
           </svg>
-
 
           <img v-if="postData.community.icon.length && preferences.showPostCommunityIcon" :src="postData.community.icon"
             class="h-4 w-4 rounded-sm mt-0.5 mr-1">
