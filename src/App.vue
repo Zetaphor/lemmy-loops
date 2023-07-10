@@ -8,7 +8,7 @@
     <TopNav />
   </header>
   <main class="pt-16 pb-20">
-    <RouterView />
+    <RouterView v-if="checkedLogin" />
   </main>
 </template>
 
@@ -36,7 +36,7 @@ body,
 </style>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import TopNav from './components/nav/TopNav.vue';
 import LeftSidebar from './components/nav/LeftSidebar.vue';
@@ -49,14 +49,17 @@ import { useSiteStore } from '@/stores/site'
 
 const user = useUserStore()
 const site = useSiteStore()
+const checkedLogin = ref(false)
 
 onMounted(() => {
   user.restoreLogin().then(() => {
     console.log('Login restored')
     site.postsStale = true
+    checkedLogin.value = true
   }).catch(() => {
     console.info('No existing login found')
     site.postsStale = true
+    checkedLogin.value = true
   })
 })
 </script>
