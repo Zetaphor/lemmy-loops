@@ -49,7 +49,8 @@
       <TransitionGroup name="list">
         <template v-for="(item, index) in visibleComments" :key="index">
           <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.comment.id)"
-            :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
+            :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed"
+            :class="{ 'disable-animation': !preferences.enableAnimations }" />
           <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
             class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
             :style="{ marginLeft: (item.depth + 1) * 5 + 'px' }">

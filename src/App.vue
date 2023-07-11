@@ -33,6 +33,10 @@ body,
   /* Firefox */
   scrollbar-width: none;
 }
+
+.disable-animation {
+  transition: none !important;
+}
 </style>
 
 <script setup>
