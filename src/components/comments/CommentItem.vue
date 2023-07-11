@@ -71,6 +71,10 @@
         <div class="absolute top-0 left-0 bottom-0"
           :style="{ width: '3px', backgroundColor: depthColors[item.depth - 1] }"></div>
         <div>
+          <div class="absolute top-2 right-2 text-sm bg-gray-900 py-1 px-2 rounded-full" v-show="collapsed">
+            +{{ item.counts.child_count }}
+          </div>
+
           <div>
             <div class="text-sm inline-flex items-center">
               <!-- Custom avatars enabled and avatar image present -->
@@ -153,7 +157,7 @@ import Avatar from "vue-boring-avatars";
 import { useUserStore } from '@/stores/api/user'
 import { usePreferencesStore } from '@/stores/preferences'
 
-const props = defineProps(['item', 'index', 'collapsedComments', 'collapsed'])
+const props = defineProps(['item', 'index', 'collapsed'])
 const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed'])
 
 function toggleCollapse() {

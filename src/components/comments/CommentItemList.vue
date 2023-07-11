@@ -47,8 +47,8 @@
     <!-- Comment items -->
     <div v-if="contentReady">
       <template v-for="(item, index) in visibleComments" :key="index">
-        <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :item="item" :index="index" @setVote="setVote"
-          @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
+        <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.comment.id)"
+          :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
         <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
           class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5" :style="{ marginLeft: (item.depth + 1) * 5 + 'px' }">
           <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
@@ -224,6 +224,10 @@ function setSaved(commentIndex, saved) {
   if (typeof visibleComments.value[commentIndex] !== 'undefined') {
     visibleComments.value[commentIndex].comment.saved = saved
   }
+}
+
+function isCollapsed(comment_id) {
+  return collapsedComments.value.includes(comment_id)
 }
 
 const isCollapsedChild = (index) => {
