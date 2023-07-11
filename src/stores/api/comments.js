@@ -35,7 +35,7 @@ export const useCommentsStore = defineStore('comments', () => {
       const parsedItem = {
         children: [],
         comment: {
-          id: String(item.comment.id),
+          id: item.comment.id,
           content: item.comment.content,
           creator_id: item.comment.creator_id,
           distinguished: item.comment.distinguished,
@@ -64,7 +64,7 @@ export const useCommentsStore = defineStore('comments', () => {
         }
       }
 
-      map.set(parsedItem.comment.id, { ...parsedItem, children: [] })
+      map.set(parsedItem.comment.id.toString(), { ...parsedItem, children: [] })
     })
 
     let root = { id: '0', children: [] }
@@ -75,8 +75,8 @@ export const useCommentsStore = defineStore('comments', () => {
 
       if (parentPathId === '0') {
         root.children.push(item)
-      } else if (map.has(parseInt(parentPathId))) {
-        map.get(parseInt(parentPathId)).children.push(item)
+      } else if (map.has(parentPathId)) {
+        map.get(parentPathId).children.push(item)
       }
     })
 
@@ -88,15 +88,15 @@ export const useCommentsStore = defineStore('comments', () => {
         flatArray.push({
           ...commentWithoutChildren,
           depth,
-          parent_id: String(parentID),
-          root_parent_id: rootParentID === '0' ? String(comment.comment.id) : rootParentID
+          parent_id: parentID,
+          root_parent_id: rootParentID === '0' ? comment.comment.id : rootParentID
         })
         if (children.length > 0) {
           flattenChildren(
             children,
             depth + 1,
             comment.comment.id,
-            rootParentID === '0' ? String(comment.comment.id) : rootParentID
+            rootParentID === '0' ? comment.comment.id : rootParentID
           )
         }
       })
