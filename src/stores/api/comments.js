@@ -35,9 +35,9 @@ export const useCommentsStore = defineStore('comments', () => {
       const parsedItem = {
         children: [],
         comment: {
-          id: item.comment.id,
+          id: item.comment.id.toString(),
           content: item.comment.content,
-          creator_id: item.comment.creator_id,
+          creator_id: item.comment.creator_id.toString(),
           distinguished: item.comment.distinguished,
           local: item.comment.local,
           ap_id: item.comment.ap_id,
@@ -58,7 +58,7 @@ export const useCommentsStore = defineStore('comments', () => {
           admin: item.creator.admin,
           avatar: item.creator.avatar || '',
           bot_account: item.creator.bot_account,
-          id: item.creator.id,
+          id: item.creator.id.toString(),
           local: item.creator.local,
           name: item.creator.name
         }
