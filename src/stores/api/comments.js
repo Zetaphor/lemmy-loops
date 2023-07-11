@@ -34,8 +34,8 @@ export const useCommentsStore = defineStore('comments', () => {
 
       const parsedItem = {
         children: [],
+        id: item.comment.id,
         comment: {
-          id: item.comment.id,
           content: item.comment.content,
           creator_id: item.comment.creator_id,
           distinguished: item.comment.distinguished,
@@ -64,7 +64,7 @@ export const useCommentsStore = defineStore('comments', () => {
         }
       }
 
-      map.set(parsedItem.comment.id, { ...parsedItem, children: [] })
+      map.set(parsedItem.id, { ...parsedItem, children: [] })
     })
 
     let root = { id: '0', children: [] }
@@ -88,10 +88,10 @@ export const useCommentsStore = defineStore('comments', () => {
         flatArray.push({
           ...commentWithoutChildren,
           depth,
-          parent_id: parentId || comment.comment.id
+          parent_id: parentId || comment.id
         })
         if (children.length > 0) {
-          flattenChildren(children, depth + 1, parentId || comment.comment.id)
+          flattenChildren(children, depth + 1, parentId || comment.id)
         }
       })
     }
