@@ -67,9 +67,9 @@
     <!-- Comment content -->
     <div class="w-full relative snap-start">
       <div class="relative bg-gray-800 rounded-md pl-3 pr-3 pt-2 mb-0.5 mt-0.5"
-        :style="{ marginLeft: (item.comment.depth - 1) * 5 + 'px' }">
+        :style="{ marginLeft: (item.depth - 1) * 5 + 'px' }">
         <div class="absolute top-0 left-0 bottom-0"
-          :style="{ width: '3px', backgroundColor: depthColors[item.comment.depth - 1] }"></div>
+          :style="{ width: '3px', backgroundColor: depthColors[item.depth - 1] }"></div>
         <div>
           <div>
             <div class="text-sm inline-flex items-center">
