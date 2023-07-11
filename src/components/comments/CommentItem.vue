@@ -65,7 +65,7 @@
     </div>
 
     <!-- Comment content -->
-    <div class="w-full relative snap-start">
+    <div class="w-full relative snap-start" @click="toggleCollapse">
       <div class="relative bg-gray-800 rounded-md pl-3 pr-3 pt-2 mb-0.5 mt-0.5"
         :style="{ marginLeft: (item.depth - 1) * 5 + 'px' }">
         <div class="absolute top-0 left-0 bottom-0"
@@ -153,8 +153,12 @@ import Avatar from "vue-boring-avatars";
 import { useUserStore } from '@/stores/api/user'
 import { usePreferencesStore } from '@/stores/preferences'
 
-const props = defineProps(['item', 'index'])
-defineEmits(['setVote', 'setSaved'])
+const props = defineProps(['item', 'index', 'collapsedComments', 'collapsed'])
+const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed'])
+
+function toggleCollapse() {
+  if (props.item.counts.child_count && props.item.depth + 1 < 8) emit('toggleCollapsed', props.item.comment.id)
+}
 
 const user = useUserStore()
 const preferences = usePreferencesStore()

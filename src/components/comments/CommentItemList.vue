@@ -47,8 +47,9 @@
     <!-- Comment items -->
     <div v-if="contentReady">
       <template v-for="(item, index) in visibleComments" :key="index">
-        <CommentItem :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" />
-        <div v-if="item.depth + 1 >= 8 && item.counts.child_count" @click="loadCommentThread(item.comment.id)"
+        <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :item="item" :index="index" @setVote="setVote"
+          @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
+        <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
           class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5" :style="{ marginLeft: (item.depth + 1) * 5 + 'px' }">
           <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
           <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
@@ -116,6 +117,8 @@ const stickyTitleVisible = ref(false)
 
 const postData = ref({})
 const commentData = ref([])
+
+const collapsedComments = ref([])
 
 let currentPage = 0
 let commentsPerPage = 10
@@ -201,8 +204,8 @@ function renderMoreComments() {
   showLoader.value = false
 }
 
-function loadCommentThread(comment_id) {
-  console.log('loadCommentThread', comment_id)
+function loadCommentThread(commentId) {
+  console.log('loadCommentThread', commentId)
 }
 
 function setVote(commentIndex, score) {
@@ -222,4 +225,21 @@ function setSaved(commentIndex, saved) {
     visibleComments.value[commentIndex].comment.saved = saved
   }
 }
+
+const isCollapsedChild = (index) => {
+  const comment = commentData.value[index]
+  if (collapsedComments.value.includes(comment.parent_id)) return true
+  for (let i = index; i >= 0; i--) {
+    if (collapsedComments.value.includes(commentData.value[i].parent_id)) return true
+    if (commentData.value[i].depth === 0) return false
+  }
+  return false
+}
+
+function toggleCollapsed(comment_id) {
+  if (collapsedComments.value.includes(comment_id)) {
+    collapsedComments.value.splice(collapsedComments.value.indexOf(comment_id), 1)
+  } else collapsedComments.value.push(comment_id)
+}
+
 </script>
