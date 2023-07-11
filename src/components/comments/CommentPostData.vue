@@ -295,13 +295,12 @@
           <p class="text-center w-full text-sm">Save<span v-if="post.content.saved">d</span></p>
         </div>
         <div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="5 -15 92 115"
-            class="stroke-gray-500 fill-gray-500 w-10 h-10 pt-1 pb-1">
-            <path
-              d="M77.8 11.6A10.4 10.4 0 1 1 67.4 22a10.4 10.4 0 0 1 10.4-10.4ZM17.2 57.9a10.4 10.4 0 1 1 10.4-10.4 10.4 10.4 0 0 1-10.4 10.4Zm60.6 4.6A10.4 10.4 0 1 1 67.4 73a10.4 10.4 0 0 1 10.4-10.5Zm0-25.8A14.7 14.7 0 1 0 63.2 22a14.4 14.4 0 0 0 .1 2L29.5 39.7a14.7 14.7 0 1 0 0 15.8L63.3 71a14.4 14.4 0 0 0-.1 2 14.7 14.7 0 1 0 1.3-6L31.2 51.5a14.6 14.6 0 0 0 0-8.2l33.3-15.2a14.7 14.7 0 0 0 13.3 8.5Z"
-              class="cls-1" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 65 90" xml:space="preserve"
+            class="stroke-gray-400 fill-gray-800 w-11 h-11 pt-1 pb-1 stroke-width-2">
+            <path class="st0"
+              d="M15.7,49.3l29.8,22.4c0.5,0.3,1.1,0,1.1-0.6v-14c33.9,2.3,37.9,17.2,37.9,17.2c0-31-24.8-35.3-37.9-35.4V26.3  c0-0.6-0.6-0.9-1.1-0.5L15.7,48.2C15.4,48.5,15.4,49,15.7,49.3z" />
           </svg>
-          <p class="text-center w-full text-sm">Share</p>
+          <p class="text-center w-full text-sm">Reply</p>
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -6 80 100"
