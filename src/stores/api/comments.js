@@ -82,12 +82,16 @@ export const useCommentsStore = defineStore('comments', () => {
 
     let flatArray = []
 
-    function flattenChildren(commentArray, depth = 0) {
+    function flattenChildren(commentArray, depth = 0, parentId = null) {
       commentArray.forEach((comment) => {
         let { children, ...commentWithoutChildren } = comment
-        flatArray.push({ ...commentWithoutChildren, depth })
+        flatArray.push({
+          ...commentWithoutChildren,
+          depth,
+          parent_id: parentId || comment.comment.id
+        })
         if (children.length > 0) {
-          flattenChildren(children, depth + 1)
+          flattenChildren(children, depth + 1, parentId || comment.comment.id)
         }
       })
     }
