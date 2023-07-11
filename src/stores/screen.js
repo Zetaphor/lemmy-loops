@@ -1,4 +1,3 @@
-// import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useMediaQuery } from '@vueuse/core'
 
