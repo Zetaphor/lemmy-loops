@@ -46,15 +46,18 @@
 
     <!-- Comment items -->
     <div v-if="contentReady">
-      <template v-for="(item, index) in visibleComments" :key="index">
-        <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.comment.id)"
-          :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
-        <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
-          class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5" :style="{ marginLeft: (item.depth + 1) * 5 + 'px' }">
-          <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
-          <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
-        </div>
-      </template>
+      <TransitionGroup name="list">
+        <template v-for="(item, index) in visibleComments" :key="index">
+          <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.comment.id)"
+            :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed" />
+          <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
+            class="relative bg-gray-800 rounded-md p-4 mb-0.5 mt-0.5"
+            :style="{ marginLeft: (item.depth + 1) * 5 + 'px' }">
+            <div class="absolute top-0 left-0 bottom-0" style="background-color: #AA8093; width: 3px"></div>
+            <p>View {{ item.counts.child_count }} more comment<span v-if="item.counts.child_count > 1">s</span>...</p>
+          </div>
+        </template>
+      </TransitionGroup>
     </div>
     <div ref="scrollTargetEl"></div>
 
@@ -87,6 +90,20 @@
     </div>
   </div>
 </template>
+
+<style>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.1s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-15px);
+}
+</style>
+
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
