@@ -1,6 +1,6 @@
 <template>
   <ReplyOverlay v-if="replyOverlay.visible" />
-  <CommentItemList v-if="!showLoader" :postId="props.postId" :postData="postData" :postComments="commentData" />
+  <CommentItemList v-if="!showLoader" :postId="props.postId" />
   <CommentBottomNav />
 </template>
 

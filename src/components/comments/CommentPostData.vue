@@ -351,7 +351,7 @@ function setSaved(saved) {
 
 function reply() {
   replyOverlay.data = {
-    id: post.value.content.id,
+    post_id: post.value.content.id,
     name: post.value.content.name,
     community_icon: post.value.community.icon,
     community_name: post.value.community.name,

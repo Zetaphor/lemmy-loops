@@ -109,7 +109,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import CommentPostData from '@/components/comments/CommentPostData.vue'
-import CommentItem from '@/components/comments/CommentItem.vue';
+import CommentItem from '@/components/comments/CommentItem.vue'
 import { usePreferencesStore } from '@/stores/preferences'
 import { usePostsStore } from '@/stores/api/posts'
 import { useCommentsStore } from '@/stores/api/comments'
@@ -268,7 +268,7 @@ function toggleCollapsed(comment_id) {
 
 function sendReply(comment_index) {
   replyOverlay.data = {
-    id: commentData.value[comment_index].content.id,
+    post_id: postData.value.content.id,
     name: postData.value.content.name,
     community_icon: postData.value.community.icon,
     community_name: postData.value.community.name,
@@ -277,6 +277,7 @@ function sendReply(comment_index) {
     creator_name: postData.value.creator.name,
     creator_actor_domain: postData.value.creator.actor_domain,
     content: commentData.value[comment_index].content.body,
+    parent_id: commentData.value[comment_index].content.id,
     comment_creator_avatar: commentData.value[comment_index].creator.avatar,
     comment_creator_name: commentData.value[comment_index].creator.name,
     comment_creator_actor_domain: commentData.value[comment_index].creator.actor_domain,
