@@ -7,13 +7,13 @@ export const useReplyOverlayStore = defineStore('reply-overlay', () => {
   const data = ref({})
 
   function showPostReply() {
-    visible.value = true
     isPost.value = true
+    visible.value = true
   }
 
   function showCommentReply() {
-    visible.value = true
     isPost.value = false
+    visible.value = true
   }
 
   return { visible, isPost, data, showPostReply, showCommentReply }

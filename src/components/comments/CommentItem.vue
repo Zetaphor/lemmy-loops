@@ -103,7 +103,7 @@
               </p>
             </div>
           </div>
-          <Markdown :source="item.content.content" />
+          <Markdown :source="item.content.body" />
           <div class="pb-1">
             <div class="inline-flex items-center pt-1 pb-1 pr-2 text-gray-500">
               <p class="flex-grow-0 text-xs">{{ item.content.published }}</p>
@@ -159,7 +159,7 @@ import { usePreferencesStore } from '@/stores/preferences'
 import { useReplyOverlayStore } from '@/stores/reply-overlay'
 
 const props = defineProps(['item', 'index', 'collapsed'])
-const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed'])
+const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed', 'sendReply'])
 
 function toggleCollapse() {
   if (props.item.counts.child_count && props.item.depth + 1 < 8) emit('toggleCollapsed', props.item.content.id)
@@ -183,7 +183,6 @@ const depthColors = [
 ]
 
 function reply() {
-  replyOverlay.data = props.item
-  replyOverlay.showCommentReply()
+  emit('sendReply', props.index)
 }
 </script>
