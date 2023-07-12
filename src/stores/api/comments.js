@@ -151,11 +151,36 @@ export const useCommentsStore = defineStore('comments', () => {
     })
   }
 
+  function replyComment(post_id, parent_id, reply) {
+    console.log('Comment reply', post_id, parent_id, reply)
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.createCommentReply(post_id, parent_id, reply)
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  function replyPost(post_id, reply) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await api.createPostReply(post_id, reply)
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
   return {
     sort,
     view,
     getComments,
     sendVote,
-    saveComment
+    saveComment,
+    replyComment,
+    replyPost
   }
 })

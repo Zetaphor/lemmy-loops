@@ -145,6 +145,26 @@ export const useApiStore = defineStore('api', () => {
     return client.getComments(form)
   }
 
+  function createPostReply(post_id, reply) {
+    const form = {
+      auth: jwt.value,
+      post_id: post_id,
+      content: reply
+    }
+    return client.createComment(form)
+  }
+
+  function createCommentReply(post_id, parent_id, reply) {
+    const form = {
+      auth: jwt.value,
+      post_id: post_id,
+      content: reply,
+      parent_id: Number(parent_id)
+    }
+
+    return client.createComment(form)
+  }
+
   return {
     client,
     authenticated,
@@ -160,6 +180,8 @@ export const useApiStore = defineStore('api', () => {
     postSave,
     commentVote,
     commentSave,
-    getComments
+    getComments,
+    createPostReply,
+    createCommentReply
   }
 })
