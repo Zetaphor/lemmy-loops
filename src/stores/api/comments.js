@@ -36,7 +36,7 @@ export const useCommentsStore = defineStore('comments', () => {
         children: [],
         content: {
           id: item.comment.id.toString(),
-          content: item.comment.content,
+          body: item.comment.content,
           creator_id: item.comment.creator_id.toString(),
           distinguished: item.comment.distinguished,
           local: item.comment.local,
