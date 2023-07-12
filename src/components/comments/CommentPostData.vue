@@ -247,7 +247,7 @@
           <p class="flex-grow-0 ml-0.5 text-md">{{ post.counts.downvotes }}</p>
         </div>
       </div>
-      <p class="mt-1 text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2 select-text">
+      <p class="mt-1 text-md text-gray-200 bg-gray-600 rounded-md my-1 px-2 w-15 pl-2 pr-2 pt-2 pb-2">
         <Markdown :source="post.content.body" />
       </p>
     </div>
