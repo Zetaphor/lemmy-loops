@@ -30,8 +30,8 @@
             </svg>
             <p class="text-center w-full">Down</p>
           </div>
-          <div class="flex-1" @click="$emit('setSaved', props.index, !item.comment.saved)" v-if="user.authenticated">
-            <svg v-if="item.comment.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
+          <div class="flex-1" @click="$emit('setSaved', props.index, !item.content.saved)" v-if="user.authenticated">
+            <svg v-if="item.content.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 w-16 h-16 p-3"
               xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M 25.5 61.5 L 23.3 82.6 C 22.94 85.703 25.376 88.421 28.5 88.4 C 29.2 88.4 29.9 88.2 30.6 87.9 L 50 79.2 L 69.4 87.8 C 71.1 88.6 73.1 88.4 74.6 87.3 C 76.114 86.195 76.916 84.362 76.7 82.5 L 74.5 61.4 L 88.7 45.6 C 89.995 44.241 90.42 42.272 89.8 40.5 C 89.2 38.7 87.8 37.4 85.9 37 L 65.2 32.6 L 54.5 14.3 C 53.587 12.677 51.862 11.68 50 11.7 C 48.1 11.7 46.4 12.7 45.5 14.3 L 34.9 32.7 L 14.2 37.1 C 12.374 37.497 10.892 38.827 10.3 40.6 C 9.68 42.372 10.105 44.341 11.4 45.7 L 25.5 61.5 Z M 13.918 45.203 C 14.018 44.903 27.535 59.968 28.435 59.768 L 36.4 35.9 C 36.9 35.8 54.179 36.615 54.379 36.215 L 48.5 16.1 C 49 15.3 49.7 15.2 50 15.2 C 50.3 15.2 46.801 15.618 47.201 16.418 C 47.201 16.418 11.438 59.235 45.391 53.899 L 45.019 62.899 L 46.111 56.399 L 47.813 77.64 L 71.465 60.604 C 72.756 60.82 86.864 42.448 86.031 43.458 C 85.99 43.508 85.946 43.555 85.9 43.6 L 71.4 59.7 C 71.1 60.1 49.609 75.786 49.709 76.186 L 71.662 85.778 C 71.762 86.678 72.8 84.2 72.6 84.4 C 72.4 84.6 71.7 84.9 70.9 84.6 L 50.8 75.7 C 50.3 75.5 49.8 75.5 49.4 75.7 L 29.3 84.6 C 28.5 85 29.884 86.238 29.684 86.038 C 29.484 85.838 47.793 77.447 47.893 76.547 L 51.433 56.087 C 51.533 55.587 44.335 53.747 44.035 53.447 L 13.9 43.4 C 13.3 42.7 13.818 45.503 13.918 45.203 Z" />
@@ -41,9 +41,9 @@
               <path
                 d="m25.5 61.5-2.2 21.1a5.2 5.2 0 0 0 5.2 5.8c.7 0 1.4-.2 2.1-.5L50 79.2l19.4 8.6c1.7.8 3.7.6 5.2-.5a5.2 5.2 0 0 0 2.1-4.8l-2.2-21.1 14.2-15.8a5 5 0 0 0 1.1-5.1c-.6-1.8-2-3.1-3.9-3.5l-20.7-4.4-10.7-18.3a5.1 5.1 0 0 0-4.5-2.6c-1.9 0-3.6 1-4.5 2.6L34.9 32.7l-20.7 4.4a5.3 5.3 0 0 0-3.9 3.5 5 5 0 0 0 1.1 5.1l14.1 15.8zM13.6 41.7c.1-.3.4-1 1.3-1.2l21.5-4.6c.5-.1.9-.4 1.1-.8l11-19c.5-.8 1.2-.9 1.5-.9.3 0 1.1.1 1.5.9L62.4 35l.3.5.3.3.6.3L85 40.7a1.7 1.7 0 0 1 .9 2.9L71.4 59.7c-.3.4-.5.9-.4 1.3l2.3 21.8c.1.9-.5 1.4-.7 1.6-.2.2-.9.5-1.7.2l-20.1-8.9c-.5-.2-1-.2-1.4 0l-20.1 8.9c-.8.4-1.5 0-1.7-.2-.2-.2-.8-.7-.7-1.6L29.1 61c.1-.5-.1-1-.4-1.3L13.9 43.4c-.6-.7-.4-1.4-.3-1.7z" />
             </svg>
-            <p class="text-center w-full">Save<span v-if="item.comment.saved">d</span></p>
+            <p class="text-center w-full">Save<span v-if="item.content.saved">d</span></p>
           </div>
-          <div class="flex-1">
+          <div class="flex-1" @click="reply">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 65 90" xml:space="preserve"
               class="stroke-gray-100 fill-none w-16 h-16 p-3 stroke-width-2">
               <path class="st0"
@@ -103,10 +103,10 @@
               </p>
             </div>
           </div>
-          <Markdown :source="item.comment.content" />
+          <Markdown :source="item.content.content" />
           <div class="pb-1">
             <div class="inline-flex items-center pt-1 pb-1 pr-2 text-gray-500">
-              <p class="flex-grow-0 text-xs">{{ item.comment.published }}</p>
+              <p class="flex-grow-0 text-xs">{{ item.content.published }}</p>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.1 0 10 10" class="h-4 w-4">
                 <circle cx="5" cy="5" r="2" class="fill-current text-gray-600" />
               </svg>
@@ -138,7 +138,7 @@
               </svg>
               <p class="flex-grow-0 ml-0.5 text-xs">{{ item.counts.downvotes }}</p>
 
-              <svg v-if="item.comment.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 h-4 w-4 ml-2"
+              <svg v-if="item.content.saved" viewBox="10 -5 75 100" class="stroke-yellow-300 fill-yellow-300 h-4 w-4 ml-2"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M 25.5 61.5 L 23.3 82.6 C 22.94 85.703 25.376 88.421 28.5 88.4 C 29.2 88.4 29.9 88.2 30.6 87.9 L 50 79.2 L 69.4 87.8 C 71.1 88.6 73.1 88.4 74.6 87.3 C 76.114 86.195 76.916 84.362 76.7 82.5 L 74.5 61.4 L 88.7 45.6 C 89.995 44.241 90.42 42.272 89.8 40.5 C 89.2 38.7 87.8 37.4 85.9 37 L 65.2 32.6 L 54.5 14.3 C 53.587 12.677 51.862 11.68 50 11.7 C 48.1 11.7 46.4 12.7 45.5 14.3 L 34.9 32.7 L 14.2 37.1 C 12.374 37.497 10.892 38.827 10.3 40.6 C 9.68 42.372 10.105 44.341 11.4 45.7 L 25.5 61.5 Z M 13.918 45.203 C 14.018 44.903 27.535 59.968 28.435 59.768 L 36.4 35.9 C 36.9 35.8 54.179 36.615 54.379 36.215 L 48.5 16.1 C 49 15.3 49.7 15.2 50 15.2 C 50.3 15.2 46.801 15.618 47.201 16.418 C 47.201 16.418 11.438 59.235 45.391 53.899 L 45.019 62.899 L 46.111 56.399 L 47.813 77.64 L 71.465 60.604 C 72.756 60.82 86.864 42.448 86.031 43.458 C 85.99 43.508 85.946 43.555 85.9 43.6 L 71.4 59.7 C 71.1 60.1 49.609 75.786 49.709 76.186 L 71.662 85.778 C 71.762 86.678 72.8 84.2 72.6 84.4 C 72.4 84.6 71.7 84.9 70.9 84.6 L 50.8 75.7 C 50.3 75.5 49.8 75.5 49.4 75.7 L 29.3 84.6 C 28.5 85 29.884 86.238 29.684 86.038 C 29.484 85.838 47.793 77.447 47.893 76.547 L 51.433 56.087 C 51.533 55.587 44.335 53.747 44.035 53.447 L 13.9 43.4 C 13.3 42.7 13.818 45.503 13.918 45.203 Z" />
@@ -156,15 +156,17 @@ import Markdown from '@/components/Markdown.vue'
 import Avatar from "vue-boring-avatars";
 import { useUserStore } from '@/stores/api/user'
 import { usePreferencesStore } from '@/stores/preferences'
+import { useReplyOverlayStore } from '@/stores/reply-overlay'
 
 const props = defineProps(['item', 'index', 'collapsed'])
 const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed'])
 
 function toggleCollapse() {
-  if (props.item.counts.child_count && props.item.depth + 1 < 8) emit('toggleCollapsed', props.item.comment.id)
+  if (props.item.counts.child_count && props.item.depth + 1 < 8) emit('toggleCollapsed', props.item.content.id)
 }
 
 const user = useUserStore()
+const replyOverlay = useReplyOverlayStore()
 const preferences = usePreferencesStore()
 
 const depthColors = [
@@ -179,4 +181,9 @@ const depthColors = [
   '#005500', // Dark Green
   '#AA8093', // Pink
 ]
+
+function reply() {
+  replyOverlay.data = props.item
+  replyOverlay.showCommentReply()
+}
 </script>

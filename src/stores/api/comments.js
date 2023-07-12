@@ -34,7 +34,7 @@ export const useCommentsStore = defineStore('comments', () => {
 
       const parsedItem = {
         children: [],
-        comment: {
+        content: {
           id: item.comment.id.toString(),
           content: item.comment.content,
           creator_id: item.comment.creator_id.toString(),
@@ -64,13 +64,13 @@ export const useCommentsStore = defineStore('comments', () => {
         }
       }
 
-      map.set(parsedItem.comment.id.toString(), { ...parsedItem, children: [] })
+      map.set(parsedItem.content.id.toString(), { ...parsedItem, children: [] })
     })
 
     let root = { id: '0', children: [] }
 
     map.forEach((item) => {
-      let pathArr = item.comment.path.split('.')
+      let pathArr = item.content.path.split('.')
       let parentPathId = pathArr[pathArr.length - 2]
 
       if (parentPathId === '0') {
@@ -89,14 +89,14 @@ export const useCommentsStore = defineStore('comments', () => {
           ...commentWithoutChildren,
           depth,
           parent_id: parentID,
-          root_parent_id: rootParentID === '0' ? comment.comment.id : rootParentID
+          root_parent_id: rootParentID === '0' ? comment.content.id : rootParentID
         })
         if (children.length > 0) {
           flattenChildren(
             children,
             depth + 1,
-            comment.comment.id,
-            rootParentID === '0' ? comment.comment.id : rootParentID
+            comment.content.id,
+            rootParentID === '0' ? comment.content.id : rootParentID
           )
         }
       })

@@ -48,7 +48,7 @@
     <div v-if="contentReady">
       <TransitionGroup name="list">
         <template v-for="(item, index) in visibleComments" :key="index">
-          <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.comment.id)"
+          <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.content.id)"
             :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed"
             :class="{ 'disable-animation': !preferences.enableAnimations }" />
           <div v-if="item.depth + 1 >= 8" v-show="!isCollapsedChild(index)"
@@ -230,7 +230,7 @@ function setVote(commentIndex, score) {
   if (commentData.value[commentIndex].counts.my_vote === score) {
     score = 0
   }
-  comments.sendVote(commentData.value[commentIndex].comment.id, score)
+  comments.sendVote(commentData.value[commentIndex].content.id, score)
   commentData.value[commentIndex].counts.my_vote = score
   if (typeof visibleComments.value[commentIndex] !== 'undefined') {
     visibleComments.value[commentIndex].counts.my_vote = score
@@ -238,9 +238,9 @@ function setVote(commentIndex, score) {
 }
 
 function setSaved(commentIndex, saved) {
-  comments.saveComment(commentData.value[commentIndex].comment.id, saved)
+  comments.saveComment(commentData.value[commentIndex].content.id, saved)
   if (typeof visibleComments.value[commentIndex] !== 'undefined') {
-    visibleComments.value[commentIndex].comment.saved = saved
+    visibleComments.value[commentIndex].content.saved = saved
   }
 }
 
