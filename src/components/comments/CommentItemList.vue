@@ -124,7 +124,7 @@ const contentReady = ref(false)
 
 const preferences = usePreferencesStore()
 const posts = usePostsStore()
-const comments = useCommentsStore()
+const commentsStore = useCommentsStore()
 const replyOverlay = useReplyOverlayStore()
 
 let commentPageObserver = null;
@@ -136,7 +136,6 @@ const postDataContainerEl = ref(null)
 const stickyTitleVisible = ref(false)
 
 const postData = ref({})
-const commentData = ref([])
 
 const collapsedComments = ref([])
 
@@ -149,7 +148,7 @@ onMounted(async () => {
   showSadFace.value = false
 
   postData.value = await posts.requestSinglePost(props.postId)
-  commentData.value = await comments.getComments(props.postId)
+  await commentsStore.getComments(props.postId)
   contentReady.value = true
 
   renderMoreComments()
@@ -212,35 +211,35 @@ onUnmounted(() => {
 function renderMoreComments() {
   showLoader.value = true
   const startIndex = currentPage * commentsPerPage
-  if (commentData.value.length && (startIndex >= commentData.value.length || commentsPerPage === 0)) {
+  if (commentsStore.comments.length && (startIndex >= commentsStore.comments.length || commentsPerPage === 0)) {
     showLoader.value = false
     showSadFace.value = true
     return []
   }
-  const endIndex = Math.min(startIndex + commentsPerPage, commentData.value.length)
-  const slice = commentData.value.slice(startIndex, endIndex)
+  const endIndex = Math.min(startIndex + commentsPerPage, commentsStore.comments.length)
+  const slice = commentsStore.comments.slice(startIndex, endIndex)
   visibleComments.value = [...visibleComments.value, ...slice]
   currentPage++
   showLoader.value = false
 }
 
-function loadCommentThread(commentId) {
-  console.log('loadCommentThread', commentId)
-}
+// function loadCommentThread(commentId) {
+//   console.log('loadCommentThread', commentId)
+// }
 
 function setVote(commentIndex, score) {
-  if (commentData.value[commentIndex].counts.my_vote === score) {
+  if (commentsStore.comments[commentIndex].counts.my_vote === score) {
     score = 0
   }
-  comments.sendVote(commentData.value[commentIndex].content.id, score)
-  commentData.value[commentIndex].counts.my_vote = score
+  commentsStore.sendVote(commentsStore.comments[commentIndex].content.id, score)
+  commentsStore.comments[commentIndex].counts.my_vote = score
   if (typeof visibleComments.value[commentIndex] !== 'undefined') {
     visibleComments.value[commentIndex].counts.my_vote = score
   }
 }
 
 function setSaved(commentIndex, saved) {
-  comments.saveComment(commentData.value[commentIndex].content.id, saved)
+  commentsStore.saveComment(commentsStore.comments[commentIndex].content.id, saved)
   if (typeof visibleComments.value[commentIndex] !== 'undefined') {
     visibleComments.value[commentIndex].content.saved = saved
   }
@@ -251,11 +250,11 @@ function isCollapsed(comment_id) {
 }
 
 const isCollapsedChild = (index) => {
-  const comment = commentData.value[index]
+  const comment = commentsStore.comments[index]
   if (collapsedComments.value.includes(comment.parent_id)) return true
   for (let i = index; i >= 0; i--) {
-    if (collapsedComments.value.includes(commentData.value[i].parent_id)) return true
-    if (commentData.value[i].depth === 0) return false
+    if (collapsedComments.value.includes(commentsStore.comments[i].parent_id)) return true
+    if (commentsStore.comments[i].depth === 0) return false
   }
   return false
 }
@@ -276,11 +275,11 @@ function sendReply(comment_index) {
     creator_avatar: postData.value.creator.avatar,
     creator_name: postData.value.creator.name,
     creator_actor_domain: postData.value.creator.actor_domain,
-    content: commentData.value[comment_index].content.body,
-    parent_id: commentData.value[comment_index].content.id,
-    comment_creator_avatar: commentData.value[comment_index].creator.avatar,
-    comment_creator_name: commentData.value[comment_index].creator.name,
-    comment_creator_actor_domain: commentData.value[comment_index].creator.actor_domain,
+    content: commentsStore.comments[comment_index].content.body,
+    parent_id: commentsStore.comments[comment_index].content.id,
+    comment_creator_avatar: commentsStore.comments[comment_index].creator.avatar,
+    comment_creator_name: commentsStore.comments[comment_index].creator.name,
+    comment_creator_actor_domain: commentsStore.comments[comment_index].creator.actor_domain,
   }
   replyOverlay.showCommentReply()
 }

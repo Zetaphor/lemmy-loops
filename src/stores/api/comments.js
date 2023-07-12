@@ -9,12 +9,16 @@ export const useCommentsStore = defineStore('comments', () => {
   const sort = ref('Hot')
   const view = ref('All')
 
+  const comments = ref([])
+
   async function getComments(post_id) {
     return new Promise(async (resolve, reject) => {
       try {
+        comments.value = []
         const resp = await api.getComments(post_id, sort.value, view.value)
-        const comments = generateFlatCommentArray(resp.comments)
-        resolve(comments)
+        const commentData = generateFlatCommentArray(resp.comments)
+        comments.value = commentData
+        resolve()
       } catch (error) {
         console.log(error)
         reject(error)
@@ -175,6 +179,7 @@ export const useCommentsStore = defineStore('comments', () => {
   }
 
   return {
+    comments,
     sort,
     view,
     getComments,
