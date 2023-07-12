@@ -10,7 +10,7 @@ export const usePreferencesStore = defineStore('preferences', () => {
   const showCommentAvatars = ref(true)
   const showCommentCustomAvatars = ref(true)
 
-  const enableAnimations = ref(false)
+  const enableAnimations = ref(true)
 
   return {
     enableAnimations,

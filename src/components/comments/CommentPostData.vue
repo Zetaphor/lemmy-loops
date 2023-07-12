@@ -294,7 +294,7 @@
           </svg>
           <p class="text-center w-full text-sm">Save<span v-if="post.content.saved">d</span></p>
         </div>
-        <div>
+        <div @click="reply">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 65 90" xml:space="preserve"
             class="stroke-gray-400 fill-gray-800 w-11 h-11 pt-1 pb-1 stroke-width-2">
             <path class="st0"
@@ -321,8 +321,10 @@ import { usePreferencesStore } from '@/stores/preferences'
 import { useUserStore } from '@/stores/api/user'
 import { useContentViewerStore } from '@/stores/content-viewer'
 import { usePostsStore } from '@/stores/api/posts'
+import { useReplyOverlayStore } from '@/stores/reply-overlay'
 import Markdown from '@/components/Markdown.vue'
 import Avatar from "vue-boring-avatars";
+
 
 const props = defineProps(['postData'])
 const post = ref(props.postData)
@@ -330,6 +332,7 @@ const preferences = usePreferencesStore()
 const user = useUserStore()
 const content = useContentViewerStore()
 const posts = usePostsStore()
+const replyOverlay = useReplyOverlayStore()
 
 const postIndex = posts.getPostIndexById(post.value.content.id)
 
@@ -346,6 +349,10 @@ function setSaved(saved) {
   post.value.content.saved = saved
 }
 
+function reply() {
+  replyOverlay.data = props.postData
+  replyOverlay.showPostReply()
+}
 
 function setContent(url, extension, video = false, audio = false) {
   content.url = url
