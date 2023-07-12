@@ -11,6 +11,10 @@ export const useCommentsStore = defineStore('comments', () => {
 
   const comments = ref([])
 
+  const insertPending = ref(false)
+  const insertIndex = ref(0)
+  const insertContent = ref({})
+
   async function getComments(post_id) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -155,11 +159,17 @@ export const useCommentsStore = defineStore('comments', () => {
     })
   }
 
-  function replyComment(post_id, parent_id, reply) {
-    console.log('Comment reply', post_id, parent_id, reply)
+  function replyComment(post_id, parent_id, root_parent_id, depth, reply, parent_index) {
     return new Promise(async (resolve, reject) => {
       try {
-        await api.createCommentReply(post_id, parent_id, reply)
+        const resp = await api.createCommentReply(post_id, parent_id, reply)
+        const formatted = formatReplyResponse(resp.comment_view)
+        formatted.depth = depth + 1
+        formatted.parent_id = parent_id
+        formatted.root_parent_id = root_parent_id
+        insertContent.value = formatted
+        insertIndex.value = parent_index + 1
+        insertPending.value = true
         resolve(true)
       } catch (error) {
         reject(error)
@@ -170,7 +180,14 @@ export const useCommentsStore = defineStore('comments', () => {
   function replyPost(post_id, reply) {
     return new Promise(async (resolve, reject) => {
       try {
-        await api.createPostReply(post_id, reply)
+        const resp = await api.createPostReply(post_id, reply)
+        const formatted = formatReplyResponse(resp.comment_view)
+        formatted.depth = 0
+        formatted.root_parent_id = formatted.content.id
+        formatted.parent_id = formatted.content.id
+        insertContent.value = formatted
+        insertIndex.value = 0
+        insertPending.value = true
         resolve(true)
       } catch (error) {
         reject(error)
@@ -178,7 +195,43 @@ export const useCommentsStore = defineStore('comments', () => {
     })
   }
 
+  function formatReplyResponse(response) {
+    return {
+      content: {
+        id: response.comment.id.toString(),
+        body: response.comment.content,
+        creator_id: response.comment.creator_id.toString(),
+        distinguished: response.comment.distinguished,
+        local: response.comment.local,
+        ap_id: response.comment.ap_id,
+        published: formatRelativeTime(response.comment.published),
+        path: response.comment.path,
+        saved: response.saved
+      },
+      counts: {
+        child_count: response.counts.child_count || 0,
+        downvotes: response.counts.downvotes,
+        upvotes: response.counts.upvotes,
+        score: response.counts.score,
+        my_vote: response.my_vote
+      },
+      creator: {
+        actor_id: response.creator.actor_id,
+        actor_domain: (response.creator.actor_id.match(/https:\/\/([^/]+)\/u\//) || [])[1],
+        admin: response.creator.admin,
+        avatar: response.creator.avatar || '',
+        bot_account: response.creator.bot_account,
+        id: response.creator.id.toString(),
+        local: response.creator.local,
+        name: response.creator.name
+      }
+    }
+  }
+
   return {
+    insertPending,
+    insertIndex,
+    insertContent,
     comments,
     sort,
     view,

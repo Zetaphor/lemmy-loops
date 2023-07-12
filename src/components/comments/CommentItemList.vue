@@ -47,7 +47,7 @@
     <!-- Comment items -->
     <div v-if="contentReady">
       <TransitionGroup name="list">
-        <template v-for="(item, index) in visibleComments" :key="index">
+        <template v-for="(item, index) in visibleComments" :key="item.content.id">
           <CommentItem v-show="item.depth === 0 || !isCollapsedChild(index)" :collapsed="isCollapsed(item.content.id)"
             :item="item" :index="index" @setVote="setVote" @setSaved="setSaved" @toggleCollapsed="toggleCollapsed"
             @sendReply="sendReply" :class="{ 'disable-animation': !preferences.enableAnimations }" />
@@ -107,7 +107,7 @@
 
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import CommentPostData from '@/components/comments/CommentPostData.vue'
 import CommentItem from '@/components/comments/CommentItem.vue'
 import { usePreferencesStore } from '@/stores/preferences'
@@ -277,11 +277,21 @@ function sendReply(comment_index) {
     creator_actor_domain: postData.value.creator.actor_domain,
     content: commentsStore.comments[comment_index].content.body,
     parent_id: commentsStore.comments[comment_index].content.id,
+    parent_index: comment_index,
+    root_parent_id: commentsStore.comments[comment_index].root_parent_id,
+    depth: commentsStore.comments[comment_index].depth,
     comment_creator_avatar: commentsStore.comments[comment_index].creator.avatar,
     comment_creator_name: commentsStore.comments[comment_index].creator.name,
     comment_creator_actor_domain: commentsStore.comments[comment_index].creator.actor_domain,
   }
   replyOverlay.showCommentReply()
 }
+
+commentsStore.$subscribe(() => {
+  if (commentsStore.insertPending) {
+    visibleComments.value.splice(commentsStore.insertIndex, 0, commentsStore.insertContent)
+    commentsStore.insertPending = false
+  }
+})
 
 </script>

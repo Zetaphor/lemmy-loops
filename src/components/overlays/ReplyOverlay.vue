@@ -107,7 +107,9 @@ function cancelReply() {
 async function submitReply() {
   try {
     if (replyOverlay.isPost) await comments.replyPost(replyOverlay.data.post_id, reply.value)
-    else await comments.replyComment(replyOverlay.data.post_id, replyOverlay.data.parent_id, reply.value)
+    else {
+      await comments.replyComment(replyOverlay.data.post_id, replyOverlay.data.parent_id, replyOverlay.data.root_parent_id, replyOverlay.data.depth, reply.value, replyOverlay.data.parent_index)
+    }
     replyOverlay.visible = false
   } catch (error) {
     console.error(error)
