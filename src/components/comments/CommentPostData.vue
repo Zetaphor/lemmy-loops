@@ -350,7 +350,17 @@ function setSaved(saved) {
 }
 
 function reply() {
-  replyOverlay.data = props.postData
+  replyOverlay.data = {
+    id: post.value.content.id,
+    name: post.value.content.name,
+    community_icon: post.value.community.icon,
+    community_name: post.value.community.name,
+    community_actor_domain: post.value.community.actor_domain,
+    creator_avatar: post.value.creator.avatar,
+    creator_name: post.value.creator.name,
+    creator_actor_domain: post.value.creator.actor_domain,
+    content: post.value.content.body,
+  }
   replyOverlay.showPostReply()
 }
 
