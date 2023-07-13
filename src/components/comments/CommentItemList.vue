@@ -107,7 +107,7 @@
 
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import CommentPostData from '@/components/comments/CommentPostData.vue'
 import CommentItem from '@/components/comments/CommentItem.vue'
 import { usePreferencesStore } from '@/stores/preferences'
