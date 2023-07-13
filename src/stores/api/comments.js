@@ -6,20 +6,18 @@ import { DateTime } from 'luxon'
 export const useCommentsStore = defineStore('comments', () => {
   const api = useApiStore()
 
-  const sort = ref('Hot')
-  const view = ref('All')
-
   const comments = ref([])
+  const commentsStale = ref(false)
 
   const insertPending = ref(false)
   const insertIndex = ref(0)
   const insertContent = ref({})
 
-  async function getComments(post_id) {
+  async function getComments(post_id, sort, view) {
     return new Promise(async (resolve, reject) => {
       try {
         comments.value = []
-        const resp = await api.getComments(post_id, sort.value, view.value)
+        const resp = await api.getComments(post_id, sort, view)
         const commentData = generateFlatCommentArray(resp.comments)
         comments.value = commentData
         resolve()
@@ -241,12 +239,11 @@ export const useCommentsStore = defineStore('comments', () => {
   }
 
   return {
+    commentsStale,
     insertPending,
     insertIndex,
     insertContent,
     comments,
-    sort,
-    view,
     getComments,
     sendVote,
     saveComment,

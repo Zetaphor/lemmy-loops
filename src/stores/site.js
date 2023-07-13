@@ -12,6 +12,7 @@ export const useSiteStore = defineStore('site', () => {
   const postsStale = ref(false)
 
   const commentSort = ref('Hot')
+  const commentsStale = ref(false)
 
   function setBaseUrl(newUrl) {
     baseUrl.value = newUrl
@@ -24,6 +25,7 @@ export const useSiteStore = defineStore('site', () => {
     postView,
     postsStale,
     commentSort,
+    commentsStale,
     setBaseUrl
   }
 })

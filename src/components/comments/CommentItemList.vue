@@ -114,6 +114,7 @@ import { usePreferencesStore } from '@/stores/preferences'
 import { usePostsStore } from '@/stores/api/posts'
 import { useCommentsStore } from '@/stores/api/comments'
 import { useReplyOverlayStore } from '@/stores/reply-overlay'
+import { useSiteStore } from '@/stores/site'
 
 const props = defineProps(['postId'])
 
@@ -126,6 +127,7 @@ const preferences = usePreferencesStore()
 const posts = usePostsStore()
 const commentsStore = useCommentsStore()
 const replyOverlay = useReplyOverlayStore()
+const site = useSiteStore()
 
 let commentPageObserver = null;
 let postDataObserver = null;
@@ -148,7 +150,7 @@ onMounted(async () => {
   showSadFace.value = false
 
   postData.value = await posts.requestSinglePost(props.postId)
-  await commentsStore.getComments(props.postId)
+  await commentsStore.getComments(props.postId, site.commentSort, 'All')
   contentReady.value = true
 
   renderMoreComments()
@@ -287,10 +289,23 @@ function sendReply(comment_index) {
   replyOverlay.showCommentReply()
 }
 
-commentsStore.$subscribe(() => {
+commentsStore.$subscribe(async () => {
   if (commentsStore.insertPending) {
     visibleComments.value.splice(commentsStore.insertIndex, 0, commentsStore.insertContent)
     commentsStore.insertPending = false
+  }
+})
+
+site.$subscribe(async () => {
+  if (site.commentsStale) {
+    contentReady.value = false
+    showLoader.value = true
+    showSadFace.value = false
+
+    postData.value = await posts.requestSinglePost(props.postId)
+    await commentsStore.getComments(props.postId, site.commentSort, 'All')
+    contentReady.value = true
+    commentsStore.commentsStale = false
   }
 })
 
