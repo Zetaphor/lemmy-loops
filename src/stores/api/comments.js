@@ -51,7 +51,9 @@ export const useCommentsStore = defineStore('comments', () => {
           ap_id: item.comment.ap_id,
           published: formatRelativeTime(item.comment.published),
           path: item.comment.path,
-          saved: item.saved
+          saved: item.saved,
+          deleted: item.comment.deleted,
+          removed: item.comment.removed
         },
         counts: {
           child_count: item.counts.child_count || 0,
@@ -68,9 +70,15 @@ export const useCommentsStore = defineStore('comments', () => {
           bot_account: item.creator.bot_account,
           id: item.creator.id.toString(),
           local: item.creator.local,
-          name: item.creator.name
+          name: item.creator.name,
+          creator_blocked: item.creator.creator_blocked,
+          deleted: item.creator.deleted
         }
       }
+
+      if (item.creator.creator_blocked) return
+      if (item.comment.deleted) parsedItem.content.body = '_Deleted by creator_'
+      if (item.content.removed) parsedItem.content.body = '_Removed by moderator_'
 
       map.set(parsedItem.content.id.toString(), { ...parsedItem, children: [] })
     })
@@ -206,7 +214,9 @@ export const useCommentsStore = defineStore('comments', () => {
         ap_id: response.comment.ap_id,
         published: formatRelativeTime(response.comment.published),
         path: response.comment.path,
-        saved: response.saved
+        saved: response.saved,
+        deleted: response.comment.deleted,
+        removed: response.comment.removed
       },
       counts: {
         child_count: response.counts.child_count || 0,
@@ -223,7 +233,9 @@ export const useCommentsStore = defineStore('comments', () => {
         bot_account: response.creator.bot_account,
         id: response.creator.id.toString(),
         local: response.creator.local,
-        name: response.creator.name
+        name: response.creator.name,
+        deleted: response.creator.deleted,
+        creator_blocked: response.creator.creator_blocked
       }
     }
   }
