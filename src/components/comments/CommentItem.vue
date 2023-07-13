@@ -156,7 +156,6 @@ import Markdown from '@/components/Markdown.vue'
 import Avatar from "vue-boring-avatars";
 import { useUserStore } from '@/stores/api/user'
 import { usePreferencesStore } from '@/stores/preferences'
-import { useReplyOverlayStore } from '@/stores/reply-overlay'
 
 const props = defineProps(['item', 'index', 'collapsed'])
 const emit = defineEmits(['setVote', 'setSaved', 'toggleCollapsed', 'sendReply'])
@@ -166,7 +165,6 @@ function toggleCollapse() {
 }
 
 const user = useUserStore()
-const replyOverlay = useReplyOverlayStore()
 const preferences = usePreferencesStore()
 
 const depthColors = [
