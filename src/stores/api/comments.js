@@ -77,8 +77,8 @@ export const useCommentsStore = defineStore('comments', () => {
       }
 
       if (item.creator.creator_blocked) return
-      if (item.comment.deleted) parsedItem.content.body = '_Deleted by creator_'
-      if (item.content.removed) parsedItem.content.body = '_Removed by moderator_'
+      if (item.comment.deleted) parsedItem.comment.body = '_Deleted by creator_'
+      if (item.comment.removed) parsedItem.comment.body = '_Removed by moderator_'
 
       map.set(parsedItem.content.id.toString(), { ...parsedItem, children: [] })
     })
